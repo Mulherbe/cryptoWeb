@@ -6,20 +6,21 @@ on:
       - main
       
 jobs:
-  test-vuejs:
-    name: Test VueJS
-    runs-on: ubuntu-latest
+  mirror:
+    name: Mirror on epitech repo
     steps:
-      - name: Checkout du repo sur le container
-        uses: actions/checkout@v3
+      - name: Push on remote repo
+        uses: appleboy/ssh-action@master
         with:
-          ref: prod
-      - name: Setup Node js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '19.0.0'
-      - name: Ls pwd
-        run: pwd && ls
-      - name: Install dependencies
-        run: cd tmanager && npm install
- 
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -R ~/T-POO-700-NCE_2
+            git clone git@github.com:EpitechMscProPromo2024/T-POO-700-NCE_2.git
+            cd ~/T-POO-700-NCE_2
+            cp -R ../Pray4Elixir/* .
+            git add .
+            git commit -m "Push mirror"
+            git push
