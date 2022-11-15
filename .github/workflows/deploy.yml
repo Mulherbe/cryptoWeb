@@ -6,43 +6,20 @@ on:
       - main
       
 jobs:
-  deploy:
+  test-vuejs:
+    name: Test VueJS
     runs-on: ubuntu-latest
-    needs: ['test-vuejs', 'test-elixir']
-    name: Deploy to server
     steps:
-      - name: Deploy to production and compose up
-        uses: appleboy/ssh-action@master
+      - name: Checkout du repo sur le container
+        uses: actions/checkout@v3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ~/Pray4Elixir
-            git checkout prod
-            git pull
-            docker compose down
-            docker system prune -a -f
-            docker compose up -d --build
-    
-  mirror:
-    runs-on: ubuntu-latest
-    needs: deploy
-    name: Mirror on epitech repo
-    steps:
-      - name: Push on remote repo
-        uses: appleboy/ssh-action@master
+          ref: prod
+      - name: Setup Node js
+        uses: actions/setup-node@v3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            rm -R ~/T-POO-700-NCE_2
-            git clone git@github.com:EpitechMscProPromo2024/T-POO-700-NCE_2.git
-            cd ~/T-POO-700-NCE_2
-            cp -R ../Pray4Elixir/* .
-            git add .
-            git commit -m "Push mirror"
-            git push
+          node-version: '19.0.0'
+      - name: Ls pwd
+        run: pwd && ls
+      - name: Install dependencies
+        run: cd tmanager && npm install
+ 
