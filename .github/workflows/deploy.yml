@@ -3,7 +3,7 @@ run-name: Deploy production
 on:
   push:
     branches:
-      - prod
+      - main
       
 jobs:
   test-vuejs:
