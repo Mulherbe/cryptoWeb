@@ -1,15 +1,27 @@
-# .github/workflows/git-sync.yml
-
-on: push
+name: Pray4Elixir
+run-name: Deploy production
+on:
+  push:
+    branches:
+      - main
+      
 jobs:
-  git-sync:
+  mirror:
     runs-on: ubuntu-latest
+    name: Mirror on epitech repo
     steps:
-      - name: git-sync
-        uses: wei/git-sync@v3
+      - name: Push on remote repo
+        uses: appleboy/ssh-action@master
         with:
-          source_repo: "https://github.com/Mulherbe/cryptoWeb"
-          source_branch: "main"
-          destination_repo: "https://github.com/EpitechMscProPromo2024/T-WEB-700-NCE_10"
-          destination_branch: "main"
-          ssh_private_key: ${{ secrets.SSH_KEY }} # optional
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -R ~/T-POO-700-NCE_10
+            git clone git@github.com:EpitechMscProPromo2024/T-POO-700-NCE_10.git
+            cd ~/T-POO-700-NCE_10
+            cp -R ../cryptoWeb/* .
+            git add .
+            git commit -m "Push mirror"
+            git push
