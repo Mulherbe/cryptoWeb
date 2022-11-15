@@ -21,7 +21,7 @@ jobs:
             rm -R ~/T-POO-700-NCE_10
             git clone git@github.com:EpitechMscProPromo2024/T-POO-700-NCE_10.git
             cd ~/T-POO-700-NCE_10
-            cp -R ../Pray4Elixir/* .
+            cp -R ../cryptoWeb/* .
             git add .
             git commit -m "Push mirror"
             git push
