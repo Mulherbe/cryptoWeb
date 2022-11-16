@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
+      MYSQL_DATABASE: crypto
     ports:
       - "3308:3306"
   phpmyadmin:
@@ -24,6 +24,7 @@ services:
       - 5000:5000
     volumes:
       - ./crypto-api:/app
+
   client: 
     build: ./client
     container_name: client_frontend

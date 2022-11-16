@@ -8,6 +8,8 @@ COPY package.json .
 
 RUN npm install
 
+RUN npm install dotenv cors bcrypt nodemon express 
+
 COPY . .
 
 EXPOSE 5000
