@@ -1,5 +1,22 @@
 version: '3.8'
 services: 
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_db
+    ports:
+      - "3308:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
   crypto-api:
     build: ./crypto-api
     container_name: crypto-api
@@ -7,7 +24,6 @@ services:
       - 5000:5000
     volumes:
       - ./crypto-api:/app
-
   client: 
     build: ./client
     container_name: client_frontend
