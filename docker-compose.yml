@@ -1,0 +1,20 @@
+version: '3.8'
+services: 
+  crypto-api:
+    build: ./crypto-api
+    container_name: crypto-api
+    ports:
+      - 5000:5000
+    volumes:
+      - ./crypto-api:/app
+
+  client: 
+    build: ./client
+    container_name: client_frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+    stdin_open: true
+    tty: true
+      
