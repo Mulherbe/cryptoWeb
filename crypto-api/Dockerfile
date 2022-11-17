@@ -8,7 +8,7 @@ COPY package.json .
 
 RUN npm install
 
-RUN npm install dotenv cors bcrypt nodemon express 
+RUN npm install dotenv cors bcrypt nodemon express mysql
 
 COPY . .
 
