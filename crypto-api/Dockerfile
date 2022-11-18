@@ -8,7 +8,9 @@ COPY package.json .
 
 RUN npm install
 
-RUN npm install dotenv cors bcrypt nodemon express mysql
+RUN npm install express nodemon 
+RUN npm install cors
+RUN npm install dotenv mysql2 sequelize rootpath joi --save
 
 COPY . .
 
