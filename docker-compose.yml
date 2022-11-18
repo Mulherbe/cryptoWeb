@@ -2,44 +2,34 @@ version: '3.8'
 services: 
   db:
     image: mysql:8.0
-    restart: always
-    environment: 
-      MYSQL_HOST: '127.0.0.1'
-      MYSQL_ROOT_PASSWORD: db_password
-      MYSQL_DATABASE: crypto
-    ports:
-      - "3306:3306"
-    expose:
-      - 3306
-    container_name: basic-mysql
-    volumes:
-      - ./tmp/mysql-data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    cap_add:
+      - SYS_NICE
     restart: always
     environment:
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: db_password
+      - MYSQL_DATABASE=crypto
+      - MYSQL_ROOT_PASSWORD=db_password
     ports:
-      - "8080:80"
-    expose:
-      - 8080
-    depends_on:
-      - db
-
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   crypto-api:
     build: ./crypto-api
     container_name: crypto-api
+    image: crypto-api
     ports:
       - 5000:5000
-    depends_on:
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: Crypto2022
+      DB_NAME: crypto
+    links:
       - db
     volumes:
-      - ./crypto-api:/usr/src/app
-    restart: unless-stopped
-
+      - ./:/src
 
   client: 
     build: ./client
@@ -50,4 +40,6 @@ services:
       - ./client:/app
     stdin_open: true
     tty: true
-      
+volumes:
+  db:
+    driver: local
