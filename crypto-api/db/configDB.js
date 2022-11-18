@@ -4,22 +4,22 @@ const dbuser = process.env.DB_USER;
 const dbpwd = process.env.DB_PWD;
 const dbName = process.env.DB_NAME;
 const dbHost = process.env.DB_HOST;
-
-var connection = mysql.createConnection({
+const dbPort = process.env.DB_PORT;
+ 
+let connection  = mysql.createPool({
     host: dbHost,
-    user: db,
+    user: dbuser,
     password: dbpwd,
     database: dbName,
 });
-
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Result: " + result);
-      });
+  
+connection.getConnection((err) => {
+    if (err) {
+      console.log("Database Connection Failed !!!", err);
+    } else {
+      console.log("connected to Database");
+    }
 });
 
-
+module.exports = connection;
 
