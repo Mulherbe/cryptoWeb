@@ -6,8 +6,6 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
-//const database = require('db/configDB');
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -17,10 +15,13 @@ app.use(cors());
 app.use(express.static("public"));
 const errorHandler = require('middleware/error-handler');
 
+//route api
 app.get('/', (req,res) => {
     res.send('Home Route')
 });
 app.use('/api/users', require('model/User/User.controller'));
+
+// middleware gestion erreur
 app.use(errorHandler);
 
 
