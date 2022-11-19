@@ -7,8 +7,10 @@ const dbpwd = process.env.DB_PWD;
 const dbName = process.env.DB_NAME;
 
 module.exports = db = {};
-
+//function iniatilize
 initialize();
+
+
 async function initialize() {
     // création de la db si elle n'existe pas
     //console.log('start')
