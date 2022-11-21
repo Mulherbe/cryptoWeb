@@ -2,7 +2,7 @@ version: '3.8'
 services: 
   db:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_DATABASE=crypto
       - MYSQL_ROOT_PASSWORD=db_password
@@ -11,6 +11,7 @@ services:
     volumes:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
   crypto-api:
     build: ./crypto-api
     container_name: crypto-api
@@ -22,7 +23,7 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_USER: root
-      DB_PASSWORD: Crypto2022
+      DB_PASSWORD: db_password
       DB_NAME: crypto
     links:
       - db

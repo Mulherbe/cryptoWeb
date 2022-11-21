@@ -8,10 +8,6 @@ COPY package.json .
 
 RUN npm install
 
-RUN npm install express nodemon 
-RUN npm install cors
-RUN npm install dotenv mysql2 sequelize rootpath joi --save
-
 COPY . .
 
 EXPOSE 5000

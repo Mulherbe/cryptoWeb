@@ -4,7 +4,6 @@ const dbuser = process.env.DB_USER;
 const dbpwd = process.env.DB_PWD;
 const dbName = process.env.DB_NAME;
 const dbHost = process.env.DB_HOST;
-//const dbPort = process.env.DB_PORT;
 
 const sequelize = new Sequelize(
         dbName,
