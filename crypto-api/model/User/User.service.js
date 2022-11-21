@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-
+const Role = require('helper/role');
 const db = require('helper/db');
 
 module.exports = {
@@ -20,17 +20,18 @@ async function getById(id) {
 
 async function create(params) {
     // validation
-    if (await db.User.findOne({ where: { email: params.email } })) {
+    if (await db.User.getById({ where: { email: params.email } })) {
         throw 'Email "' + params.email + '" is already registered';
     }
+        const user = new db.User(params);
+        // hash password
+        user.passwordHash = await bcrypt.bcrypt(params.password);
+        user.createdAt = new Date();
+        user.updatedAt = new Date();
+        user.role = Role.User;
+        // sauvegarde user dans la db
+        await user.save();
 
-    const user = new db.User(params);
-    
-    // hash password
-    user.passwordHash = await bcrypt.hash(params.password, 10);
-
-    // sauvegarde user dans la db
-    await user.save();
 }
 
 async function update(id, params) {
@@ -44,7 +45,7 @@ async function update(id, params) {
 
     // hash password si il a été changé
     if (params.password) {
-        params.passwordHash = await bcrypt.hash(params.password, 10);
+        params.passwordHash = await bcrypt.bcrypt(params.password);
     }
 
     // copie params dans user et sauvegarde
