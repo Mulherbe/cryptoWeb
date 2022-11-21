@@ -2,7 +2,8 @@ const { DataTypes } = require('sequelize');
 
 module.exports = model;
 
-function model(sequelize) {
+function model(sequelize)
+{
     const attributes = {
         email: { type: DataTypes.STRING, allowNull: false },
         passwordHash: { type: DataTypes.STRING, allowNull: false },

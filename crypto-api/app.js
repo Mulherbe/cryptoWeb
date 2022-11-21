@@ -16,17 +16,19 @@ app.use(express.static("public"));
 const errorHandler = require('middleware/error-handler');
 
 //route api
-app.get('/', (req,res) => {
+app.get('/', (req, res) =>
+{
     res.send('Home Route')
 });
 app.use('/api/users', require('model/User/User.controller'));
-
+app.use('/api/crypto', require('model/Crypto/Crypto.controller'));
 // middleware gestion erreur
 app.use(errorHandler);
 
 
 const port = process.env.PORT || 5001;
-app.listen(port, () => {
+app.listen(port, () =>
+{
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
 
