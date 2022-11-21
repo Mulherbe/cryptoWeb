@@ -1,0 +1,50 @@
+.nav_container{
+    background: linear-gradient(#3AA7F5, #7fbde9);
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+.logo{
+    margin-left: 15%;
+    margin-top: 2.5vh;
+    height: 5vh;
+}
+.nav_link{
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15vw;
+}
+.nav_item{
+    margin-left: 40%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 40px;
+    padding: 10px 20px ;
+    color: black;
+    text-decoration: none;
+
+}
+.nav_item:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+
+}
+@media screen and (min-width: 800px) {
+    .logo{
+        height: 5vh;
+    }
+  }
+  .test{
+    height: 100vh;
+    background-color: black;
+  }
+  .test2{
+    height: 100vh;
+    background-color: red;
+  }
+  .test3{
+    height: 100vh;
+    background-color: blue;
+  }
