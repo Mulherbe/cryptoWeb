@@ -31,6 +31,7 @@ function getById(req, res, next) {
 
 function create(req, res, next) {
     userService.create(req.body)
+    console.log('req.body',req.body)
         .then(() => res.json({ message: 'User created' }))
         .catch(next);
 }
@@ -48,10 +49,9 @@ function _delete(req, res, next) {
 }
 
 // schema grace au module joi
-
 function createSchema(req, res, next) {
     const schema = Joi.object({
-        userName: Joi.string().required(),
+        username: Joi.string().required(),
         role: Joi.string().valid(Role.Admin, Role.User).required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
@@ -62,7 +62,7 @@ function createSchema(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        userName: Joi.string().empty(''),
+        username: Joi.string().empty(''),
         role: Joi.string().valid(Role.Admin, Role.User).empty(''),
         email: Joi.string().email().empty(''),
         password: Joi.string().min(6).empty(''),
