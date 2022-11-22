@@ -2,18 +2,19 @@ const { DataTypes } = require('sequelize');
 
 module.exports = model;
 
-function model(sequelize) {
+function model(sequelize)
+{
     const attributes = {
-        email: { type: DataTypes.STRING, allowNull: false },
-        passwordHash: { type: DataTypes.STRING, allowNull: false },
         username: { type: DataTypes.STRING, allowNull: false },
+        email: { type: DataTypes.STRING, allowNull: false },
+        password: { type: DataTypes.STRING, allowNull: false },
         role: { type: DataTypes.STRING, allowNull: false }
     };
 
     const options = {
         defaultScope: {
             // exclus le hash du mot de passe par défaut
-            attributes: { exclude: ['passwordHash'] }
+            attributes: { exclude: ['password'] }
         },
         scopes: {
             // inclus le hash du mot de passe dans le scope 'withHash'

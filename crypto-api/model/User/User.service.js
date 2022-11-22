@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-
+const Role = require('helper/role');
 const db = require('helper/db');
 
 module.exports = {
@@ -10,41 +10,48 @@ module.exports = {
     delete: _delete
 };
 
-async function getAll() {
+async function getAll()
+{
     return await db.User.findAll();
 }
 
-async function getById(id) {
+async function getById(id)
+{
     return await getUser(id);
 }
 
-async function create(params) {
+async function create(params)
+{
     // validation
-    if (await db.User.findOne({ where: { email: params.email } })) {
+    if (await db.User.findOne({ where: { email: params.email } }))
+    {
         throw 'Email "' + params.email + '" is already registered';
     }
+        const user = new db.User(params);
+        // hash password
+        user.passwordHash = await bcrypt.bcrypt(params.password);
+        user.createdAt = new Date();
+        user.updatedAt = new Date();
+        user.role = Role.User;
+        // sauvegarde user dans la db
+        await user.save();
 
-    const user = new db.User(params);
-    
-    // hash password
-    user.passwordHash = await bcrypt.hash(params.password, 10);
-
-    // sauvegarde user dans la db
-    await user.save();
 }
 
-async function update(id, params) {
+async function update(id, params)
+{
     const user = await getUser(id);
 
     // validation
     const usernameChanged = params.username && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } })) {
+    if (usernameChanged && await db.User.findOne({ where: { username: params.username } }))
+    {
         throw 'Username "' + params.username + '" is already taken';
     }
 
     // hash password si il a été changé
     if (params.password) {
-        params.passwordHash = await bcrypt.hash(params.password, 10);
+        params.passwordHash = await bcrypt.bcrypt(params.password);
     }
 
     // copie params dans user et sauvegarde
@@ -52,13 +59,15 @@ async function update(id, params) {
     await user.save();
 }
 
-async function _delete(id) {
+async function _delete(id)
+{
     const user = await getUser(id);
     await user.destroy();
 }
 
 // helper functions
-async function getUser(id) {
+async function getUser(id)
+{
     const user = await db.User.findByPk(id);
     if (!user) throw 'User not found';
     return user;
