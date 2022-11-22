@@ -21,7 +21,7 @@ exports.loginUser = (req, res, next) => {
                 console.log("Login succesfull");
                 res.status(200).send({
                     id: user._id,
-                    userName: user.firstName,
+                    usermame: user.username,
                     email: user.email,
                     role: req.session.role
                 });
