@@ -1,10 +1,9 @@
 import React , { useEffect } from 'react';
 import './../../assets/css/style.css';
 import Crypto from './crypto'
-import News from './news'
+import News_home from './news_home'
 
 const Home = () => {
-
 
   return (
     <>
@@ -14,7 +13,7 @@ const Home = () => {
               <Crypto />
             </div>
             <div class="container_news">
-              <News />
+              <News_home />
             </div>
           </div>
       </div>

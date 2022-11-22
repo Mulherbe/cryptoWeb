@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import Nav from './component/nav'
 import Home from './component/home/home'
-import News from './component/home/news'
+import News from './component/news'
 import Profil from './component/profil'
 import Admin from './component/admin'
 

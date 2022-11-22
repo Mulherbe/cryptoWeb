@@ -1,16 +1,15 @@
 import React , { useEffect } from 'react';
 import '../../assets/css/style.css';
 
-
-const News = () => {
+const News_home = () => {
 
 
   return (
     <>
-        <div >
+        <div>
       </div>
     </>
   ); }
 
 
-export default News;
+export default News_home;
