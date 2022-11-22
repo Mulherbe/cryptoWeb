@@ -11,7 +11,8 @@ module.exports = db = {};
 initialize();
 
 
-async function initialize() {
+async function initialize()
+{
     // création de la db si elle n'existe pas
     //console.log('start')
     const connection = mysql.createPool({
@@ -36,6 +37,7 @@ async function initialize() {
 
     // initialisation des modèles   
     db.User = require('model/User/User.model')(sequelize);
+    db.Popular = require('model/Crypto/Crypto.model')(sequelize);
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });
