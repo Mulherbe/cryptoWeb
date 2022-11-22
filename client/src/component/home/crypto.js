@@ -7,7 +7,7 @@ const Crypto = () => {
 
   return (
     <>
-        <div className='container_Crypto' >
+        <div className='container_Crypto'>
             <CardCrypto />
             <CardCrypto />
             <CardCrypto />
