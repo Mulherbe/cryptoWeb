@@ -96,40 +96,6 @@ app.get('/api/rss/nft', async (req, res) => {
         })
     })
 })
-//fin rroute flux rss
-
-
-const bitcoinFeedUrl = 'https://coinjournal.net/fr/actualites/category/marches/feed/';
-
-async function fetchRssFeed(feedUrl) {
-    let feed = await parser.parseURL(feedUrl);
-    return feed.items.map(item => {
-        console.log('item',item);
-        return {
-            title: item.title,
-            link: item.link,
-            date: item.pubDate,
-            description: item.description,
-            image: item.image
-        }
-    });
-}
-
-app.get('/api/rss', async (req, res) => {
-    await fetchRssFeed(bitcoinFeedUrl)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        res.status(404).json({
-            status: 'error',
-            message: 'An error occurred when fetching news'
-        })
-    })
-})
-
-
-
 
 // middleware gestion erreur
 app.use(errorHandler);
