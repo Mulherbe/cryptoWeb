@@ -17,39 +17,46 @@ module.exports = router;
 
 // function 
 
-function getAll(req, res, next) {
+function getAll(req, res, next)
+{
     userService.getAll()
         .then(users => res.json(users))
         .catch(next);
 }
 
-function getById(req, res, next) {
+function getById(req, res, next)
+{
     userService.getById(req.params.id)
         .then(user => res.json(user))
         .catch(next);
 }
 
-function create(req, res, next) {
+function create(req, res, next)
+{
     userService.create(req.body)
     console.log('req.body',req.body)
         .then(() => res.json({ message: 'User created' }))
         .catch(next);
 }
 
-function update(req, res, next) {
+function update(req, res, next)
+{
     userService.update(req.params.id, req.body)
         .then(() => res.json({ message: 'User updated' }))
         .catch(next);
 }
 
-function _delete(req, res, next) {
+function _delete(req, res, next)
+{
     userService.delete(req.params.id)
         .then(() => res.json({ message: 'User deleted' }))
         .catch(next);
 }
 
 // schema grace au module joi
-function createSchema(req, res, next) {
+
+function createSchema(req, res, next)
+{
     const schema = Joi.object({
         username: Joi.string().required(),
         role: Joi.string().valid(Role.Admin, Role.User).required(),
@@ -60,7 +67,8 @@ function createSchema(req, res, next) {
     validateRequest(req, next, schema);
 }
 
-function updateSchema(req, res, next) {
+function updateSchema(req, res, next)
+{
     const schema = Joi.object({
         username: Joi.string().empty(''),
         role: Joi.string().valid(Role.Admin, Role.User).empty(''),

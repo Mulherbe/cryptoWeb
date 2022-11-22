@@ -96,13 +96,104 @@ app.get('/api/rss/nft', async (req, res) => {
         })
     })
 })
+//fin rroute flux rss
+
+
+const bitcoinFeedUrl = 'https://coinjournal.net/fr/actualites/category/marches/feed/';
+
+async function fetchRssFeed(feedUrl) {
+    let feed = await parser.parseURL(feedUrl);
+    return feed.items.map(item => {
+        console.log('item',item);
+        return {
+            title: item.title,
+            link: item.link,
+            date: item.pubDate,
+            description: item.description,
+            image: item.image
+        }
+        return isValid;
+    });
+}
+
+app.get('/api/rss', async (req, res) => {
+    await fetchRssFeed(bitcoinFeedUrl)
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({
+            status: 'error',
+            message: 'An error occurred when fetching news'
+        })
+    })
+})
+
+
+
+
+//url des flux rss
+const url = require('model/FluxRSS/urlRss');
+//route flux rss
+app.get('/api/rss/btc', async (req, res) => {
+    await fetchRssBtc(url.btcRss)
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({
+            status: 'error',
+            message: 'An error occurred when fetching news'
+        })
+    })
+})
+
+app.get('/api/rss/eth', async (req, res) => {
+    await fetchRssEth(url.ethRss)
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({
+            status: 'error',
+            message: 'An error occurred when fetching news'
+        })
+    })
+})
+
+app.get('/api/rss/actu', async (req, res) => {
+    await fetchRssActu(url.actuRss)
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({
+            status: 'error',
+            message: 'An error occurred when fetching news'
+        })
+    })
+})
+
+app.get('/api/rss/nft', async (req, res) => {
+    await fetchRssNft(url.nftRss)
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        res.status(404).json({
+            status: 'error',
+            message: 'An error occurred when fetching news'
+        })
+    })
+})
 
 // middleware gestion erreur
 app.use(errorHandler);
 
 
 const port = process.env.PORT || 5001;
-app.listen(port, () => {
+app.listen(port, () =>
+{
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
 

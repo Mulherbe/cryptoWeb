@@ -10,17 +10,21 @@ module.exports = {
     delete: _delete
 };
 
-async function getAll() {
+async function getAll()
+{
     return await db.User.findAll();
 }
 
-async function getById(id) {
+async function getById(id)
+{
     return await getUser(id);
 }
 
-async function create(params) {
+async function create(params)
+{
     // validation
-    if (await db.User.getById({ where: { email: params.email } })) {
+    if (await db.User.findOne({ where: { email: params.email } }))
+    {
         throw 'Email "' + params.email + '" is already registered';
     }
         const user = new db.User(params);
@@ -34,12 +38,14 @@ async function create(params) {
 
 }
 
-async function update(id, params) {
+async function update(id, params)
+{
     const user = await getUser(id);
 
     // validation
     const usernameChanged = params.username && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } })) {
+    if (usernameChanged && await db.User.findOne({ where: { username: params.username } }))
+    {
         throw 'Username "' + params.username + '" is already taken';
     }
 
@@ -53,13 +59,15 @@ async function update(id, params) {
     await user.save();
 }
 
-async function _delete(id) {
+async function _delete(id)
+{
     const user = await getUser(id);
     await user.destroy();
 }
 
 // helper functions
-async function getUser(id) {
+async function getUser(id)
+{
     const user = await db.User.findByPk(id);
     if (!user) throw 'User not found';
     return user;
