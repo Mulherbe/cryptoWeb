@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const dbhost = process.env.DB_HOST;
 const dbport = process.env.DB_PORT;
 const dbuser = process.env.DB_USER;
-const dbpwd = process.env.DB_PWD;
+const dbpwd = process.env.DB_PWD || 'db_password';
 const dbName = process.env.DB_NAME;
 
 module.exports = db = {};
@@ -37,7 +37,7 @@ async function initialize()
 
     // initialisation des modèles   
     db.User = require('model/User/User.model')(sequelize);
-    db.Popular = require('model/Crypto/Crypto.model')(sequelize);
+    // db.Popular = require('model/Crypto/Crypto.model')(sequelize);
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });
