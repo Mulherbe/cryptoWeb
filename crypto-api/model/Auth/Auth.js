@@ -1,5 +1,5 @@
 const UserModel = require('model/User/User.model');
-
+const bcrypt = require('bcryptjs');
 exports.loginUser = (req, res, next) => {
     try {
         UserModel.findOne({
@@ -20,7 +20,7 @@ exports.loginUser = (req, res, next) => {
                 req.session.role = "User"
                 console.log("Login succesfull");
                 res.status(200).send({
-                    id: user._id,
+                    id: user.id,
                     usermame: user.username,
                     email: user.email,
                     role: req.session.role
