@@ -15,11 +15,9 @@ app.use(cors());
 
 // Make public static folder
 app.use(express.static("public"));
-const errorHandler = require('middleware/error-handler');
 
-//flux rss
-const { fetchRssBtc, fetchRssEth, fetchRssActu, fetchRssNft } = require('model/FluxRSS/fluxRss');
-
+//================================================================================================
+//===================================== ROUTES API ===================================================
 //controller
 const userController = require('model/User/User.controller');
 //route api
@@ -28,7 +26,11 @@ app.get('/', (req,res, next) => {
 });
 app.use('/api/users', userController);
 
-//url des flux rss
+//================================================================================================
+//===================================== ROUTE FLUX RSS ===================================================
+//flux rss
+
+const { fetchRssBtc, fetchRssEth, fetchRssActu, fetchRssNft } = require('model/FluxRSS/fluxRss');
 const url = require('model/FluxRSS/urlRss');
 //route flux rss
 app.get('/api/rss/btc', async (req, res) => {
@@ -82,9 +84,12 @@ app.get('/api/rss/nft', async (req, res) => {
         })
     })
 })
-//fin rroute flux rss
+//fin route flux rss
+//================================================================================================
+//===================================== ROUTE FLUX RSS ===================================================
 
 // middleware gestion erreur
+const errorHandler = require('middleware/error-handler');
 app.use(errorHandler);
 
 

@@ -38,9 +38,12 @@ async function create(params)
     const user = new db.Users(params);
     
     // hash password
-    user.password = await bcrypt.hash(params.password, 10);
+    user.password = await bcrypt.hashSync(params.password, 10);
     //mettre le role par defaut
     user.role = Role.User;
+    //mettre created_at et updated_at à la date actuelle
+    user.created_at = Date.now();
+    user.updated_at = Date.now();
 
     // save user
     await user.save();
@@ -67,6 +70,8 @@ async function update(id, params)
     if (params.password) {
         params.password = await bcrypt.hashSync(params.password);
     }
+    //mettre updated_at à la date actuelle
+    user.updated_at = Date.now();
 
     // copie params dans user et sauvegarde
     Object.assign(user, params);
