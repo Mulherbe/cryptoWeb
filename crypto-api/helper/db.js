@@ -36,7 +36,7 @@ async function initialize()
     );
 
     // initialisation des modèles   
-    db.User = require('model/User/User.model')(sequelize);
+    db.Users = require('model/User/User.model')(sequelize);
     // db.Popular = require('model/Crypto/Crypto.model')(sequelize);
 
     // sync tout les models de la db

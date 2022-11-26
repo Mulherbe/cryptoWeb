@@ -8,19 +8,16 @@ function model(sequelize)
         username: { type: DataTypes.STRING, allowNull: false },
         email: { type: DataTypes.STRING, allowNull: false },
         password: { type: DataTypes.STRING, allowNull: false },
-        role: { type: DataTypes.STRING, allowNull: false }
+        role: { type: DataTypes.STRING, allowNull: false },
+        createdAt: { type: DataTypes.DATE, allowNull: true },
+        updatedAt: { type: DataTypes.DATE, allowNull: true },
     };
-
     const options = {
-        defaultScope: {
-            // exclus le hash du mot de passe par défaut
-            attributes: { exclude: ['password'] }
-        },
-        scopes: {
-            // inclus le hash du mot de passe dans le scope 'withHash'
-            withHash: { attributes: {}, }
-        }
+        // disable default timestamp fields (createdAt and updatedAt)   
+        timestamps: false,
     };
+    
+
 
     return sequelize.define('User', attributes, options);
 }
