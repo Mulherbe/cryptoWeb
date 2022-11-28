@@ -1,0 +1,206 @@
+.nav_container{
+    background-color: white;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #74b6e613;
+    z-index: 99;
+    border-bottom: 1px solid #0776c5;
+
+}
+.logo{
+    margin-left: 15%;
+    margin-top: 2.5vh;
+    height: 5vh;
+}
+.nav_link{
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15vw;
+}
+
+.nav_item:hover{
+    background-color: #74b6e6;
+    color: white;
+    cursor: pointer;
+
+}
+.nav_item{
+  display: none;
+}
+
+  .container{
+    height: 100vh;
+    background-image: url("../../assets/img/bg.jpg");
+    background-size: cover;
+    padding-top: 2%;
+  }
+  /* Home */
+  
+  .container_home{
+    flex-direction: column;
+    background-color: #92d0fd50;
+
+  }
+
+  .container_crypto{
+    width: 70%;
+    min-height: 80vh;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  .container_news{
+    width: 80%;
+    margin:10%;
+    height: 80vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    background-color: rgba(255, 255, 255, 0.418);
+    border-radius: 15px;
+  }
+  /* Crypto */
+  .container_Crypto{
+    display: flex;
+    flex-direction: column;
+  }
+  /* Card Crypto */
+  .container_CardCrypto{
+    width: 80%;
+    margin: 15px;
+    background-color: rgba(43, 40, 212, 0.082);
+    height: 20vh;
+    border-radius: 15px;
+    padding: 15px;
+  }
+  .click_test{
+    position: absolute;
+    height: 20vh;
+    width: 18vw;
+    z-index: 999;
+    border: solid 1px black;
+  }
+  /* Page profil */
+  .container_profil{
+    background-color: #92d0fd50;
+    height:70% ;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 40px;
+  }
+  .title_profil{
+    padding-top: 5%;
+    text-align: center;
+  }
+  .information_profil{
+    margin-left: 20%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+  .row_profil{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5%;
+  }
+  .title_row_profil{
+    font-size: 1.3em;
+    width: 8vw;
+  }
+  .text_row_profil{
+    font-size: 1.2em;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 10vw;
+    padding-left: 10px;
+
+
+  }
+  .input_row_profil {
+    border-radius: 10px;
+    font-size: 1.2em;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 10vw;
+    padding-left: 10px;
+  }
+  .icons_profil{
+    cursor: pointer;
+  }
+  .container_Card_News{
+    padding: 10px 15px 15px 10px;
+  }
+  .card_News_Link{
+    text-decoration: none;
+    color: rgb(75, 73, 73);
+    margin-bottom: 500px !important;
+  }
+  .card_News_Link:hover{
+    color: #74b6e6;
+  }
+  .container_loading{
+    margin-left:30%;
+    margin-right:30%;
+    width: 40%;
+    margin-top: 40%;
+  }
+  .size_load{
+    width: 100% !important;
+  }
+  @media screen and (min-width: 800px) {
+    .logo{
+        height: 5vh;
+    }
+    .nav_item{
+      margin-left: 5vw;
+      background-color: #92d1fd;
+      border-radius: 40px;
+      padding: 10px 20px ;
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+    .container_profil{
+      width: 60%;
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    .container_home{
+      min-height: 80vh;
+      max-height: 100vh;
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%;
+      display: flex;
+      flex-direction: row;
+      border-radius: 20px;
+      padding: 20px;
+  
+    }
+    .container_Crypto{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+    }
+    .container_CardCrypto{
+      width: 27%;
+      margin: 15px;
+      height: 20vh;
+    }
+    .container_news{
+      width: 30%;
+      margin:0%;
+    }
+
+  }
+  @media screen and (min-width: 1096px) {
+    .container_profil{
+      width: 40%;
+      margin-left: 30%;
+      margin-right: 30%;
+    }
+  }

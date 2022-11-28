@@ -10,37 +10,54 @@ module.exports = {
     delete: _delete
 };
 
+
 async function getAll()
 {
-    return await db.User.findAll();
+    const users =  await db.Users.findAll();
+    console.log(users.every(user => user instanceof db.Users));
+    //console.log("All users:", JSON.stringify(users, null, 2));
+    return users;
 }
 
 async function getById(id)
 {
-    return await getUser(id);
+    const user = await db.Users.findByPk(id);
+    if (user === null) {
+        console.log('Not found!');
+    } else {
+        console.log(user instanceof db.Users); // true
+        console.log("The user's name is", user.username);
+        
+    }
+    return user;
 }
 
 async function create(params)
 {
-    // validation
-    if (await db.User.findOne({ where: { email: params.email } }))
-    {
-        throw 'Email "' + params.email + '" is already registered';
-    }
-        const user = new db.User(params);
-        // hash password
-        user.passwordHash = await bcrypt.bcrypt(params.password);
-        user.createdAt = new Date();
-        user.updatedAt = new Date();
-        user.role = Role.User;
-        // sauvegarde user dans la db
-        await user.save();
+    try{
+    const user = new db.Users(params);
+    
+    // hash password
+    user.password = await bcrypt.hashSync(params.password, 10);
+    //mettre le role par defaut
+    user.role = Role.User;
+    //mettre created_at et updated_at à la date actuelle
+    user.created_at = Date.now();
+    user.updated_at = Date.now();
 
+    // save user
+    await user.save();
+    
+    
+    }catch(err){
+        console.log(err)
+        
+    }
 }
 
 async function update(id, params)
 {
-    const user = await getUser(id);
+    const user =  await db.Users.findByPk(id);
 
     // validation
     const usernameChanged = params.username && user.username !== params.username;
@@ -51,24 +68,19 @@ async function update(id, params)
 
     // hash password si il a été changé
     if (params.password) {
-        params.passwordHash = await bcrypt.bcrypt(params.password);
+        params.password = await bcrypt.hashSync(params.password);
     }
+    //mettre updated_at à la date actuelle
+    user.updated_at = Date.now();
 
     // copie params dans user et sauvegarde
     Object.assign(user, params);
     await user.save();
+    
 }
 
 async function _delete(id)
 {
-    const user = await getUser(id);
+    const user = await getById(id);
     await user.destroy();
-}
-
-// helper functions
-async function getUser(id)
-{
-    const user = await db.User.findByPk(id);
-    if (!user) throw 'User not found';
-    return user;
 }

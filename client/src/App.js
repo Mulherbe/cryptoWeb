@@ -1,23 +1,44 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
 import './App.css';
+import Nav from './component/nav'
+import Home from './component/home/home'
+import News from './component/news'
+import Profil from './component/profil'
+import Admin from './component/admin'
+import Login from './component/login'
+import Register from './component/register'
 
 function App() {
+
+// const [currentForm, setCurrentForm] = useState('login');
+// const toggleForm = (formName) => {
+//   setCurrentForm(formName);
+// }
+
+// let testo = 0 
+
+//   if(testo == 1){
+//      return (
+//       <div className="App">
+//         {
+//           currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+//         }
+//       </div>
+//     );
+//   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+       <Nav /> 
+      <Routes>
+        <Route path="" element={<Home />} />
+        <Route path="news" element={<News />} />
+        <Route path="profil" element={<Profil />} />
+        <Route path="admin" element={<Admin />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+
+    </Routes>
     </div>
   );
 }

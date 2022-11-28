@@ -33,10 +33,7 @@ function getById(req, res, next)
 
 function create(req, res, next)
 {
-    userService.create(req.body)
-    console.log('req.body',req.body)
-        .then(() => res.json({ message: 'User created' }))
-        .catch(next);
+    userService.create(req.body).then(() => res.json({message: 'User created'})).catch(next);
 }
 
 function update(req, res, next)
@@ -59,10 +56,9 @@ function createSchema(req, res, next)
 {
     const schema = Joi.object({
         username: Joi.string().required(),
-        role: Joi.string().valid(Role.Admin, Role.User).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).required()
+        email: Joi.string().email().lowercase().required(),
+        password: Joi.string().min(7).required().strict(),
+        confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
     });
     validateRequest(req, next, schema);
 }
@@ -71,10 +67,19 @@ function updateSchema(req, res, next)
 {
     const schema = Joi.object({
         username: Joi.string().empty(''),
-        role: Joi.string().valid(Role.Admin, Role.User).empty(''),
-        email: Joi.string().email().empty(''),
-        password: Joi.string().min(6).empty(''),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
-    }).with('password', 'confirmPassword');
+        email: Joi.string().email().lowercase().required(), 
+        password: Joi.string().min(7).required().strict(),
+        confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
+    });
+    validateRequest(req, next, schema);
+}
+
+function authDataSchema(req, res, next)
+{
+    const schema =  Joi.object({
+    email: Joi.string().email().lowercase().required(),
+    password: Joi.string().min(7).required().strict(),
+    confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict(),
+    });
     validateRequest(req, next, schema);
 }
