@@ -1,6 +1,7 @@
 import React , { useEffect, useState } from 'react';
 import {getActu} from '../../service/call_api/rss_service';
 import '../../assets/css/style.css';
+import ReactLoading from 'react-loading';
 
 
 const News_home = () => {
@@ -11,16 +12,14 @@ const News_home = () => {
   function createActu() {
     getActu().then(response => setActuTab(
       Object.keys(response.data).map((key, index) => {
-        console.log(response.data[key].date.toString())
+        const date = new Date(response.data[key].date);
+        const formatted = date.toLocaleDateString("fr-FR")
+        console.log(formatted)
         return (
-          <div key={index}>
-            <a href={response.data[key].link} target="_blank">{response.data[key].title}
-            </a>
-            {new Intl.DateTimeFormat("en-GB", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit"
-          }).format(response.data[key].date)}
+          <div key={index} className="container_Card_News">
+            <a href={response.data[key].link} target="_blank" className="card_News_Link">{response.data[key].title}</a>
+            <br></br>
+            {formatted}
             <hr />
           </div>
         );
@@ -33,7 +32,14 @@ const News_home = () => {
   useEffect(() => {
     createActu()
   }, []);
-
+  
+  if(!actuTab){
+    return(
+      <div className="container_loading">
+        <ReactLoading type="spin"color='#92d1fd' className="size_load" height={500} />
+      </div>
+    )
+  }
   return (
     <>
         <div>
