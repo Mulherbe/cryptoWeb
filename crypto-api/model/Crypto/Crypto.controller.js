@@ -1,0 +1,113 @@
+const express = require('express');
+const { GetUserId } = require('../User/User.service');
+const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets } = require('./Crypto.service');
+const router = express.Router();
+
+// routes
+router.get('/favorites/:id', getFavorites);
+
+router.get('/price', getCryptoPrice);
+router.get('/prices', getCryptoPrices);
+
+router.get('/markets', getAllMarkets);
+module.exports = router;
+// functions
+
+/// \brief Get the favorites of the user if he exists, the default favorites otherwise
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function getFavorites(req, res, next)
+{
+    try
+    {
+        const userId = req.params.id;
+
+        var userIdTkn;
+        var result;
+        if (req.headers.authorization === undefined || req.headers.authorization === null || req.headers.authorization === ""
+            || (userIdTkn = await GetUserId(req.headers.authorization)) === undefined || userIdTkn === null || userIdTkn === ""
+            || userIdTkn !== userId)
+            result = await getDefaultFavorites();
+        else
+            result = await getUserFavorites(userId);
+        res.status(200).json(result);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Set the favorites of the user
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function setFavorites(req, res, next)
+{
+    try
+    {
+        const userId = req.params.id;
+        const favorites = req.body;
+        const result = await setUserFavorites(userId, favorites);
+        res.status(200).json(result);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Get the price of a crypto
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function getCryptoPrice(req, res, next)
+{
+    try
+    {
+        const { pair, exchange } = req.query;
+        const price = await getPrice(pair, exchange);
+        res.status(200).json(price);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Get the prices of a list of cryptos
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function getCryptoPrices(req, res, next)
+{
+    try
+    {
+        const pairs = req.query.pairs;
+        const exchange = req.query.exchange;
+        const prices = await getPrices(pairs, exchange);
+        res.status(200).json(prices);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Get the markets in the database and return them
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function getAllMarkets(req, res, next)
+{
+    try
+    {
+        const result = await getMarkets();
+        res.status(200).json(result);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}

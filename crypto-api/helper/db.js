@@ -6,6 +6,12 @@ const dbuser = process.env.DB_USER;
 const dbpwd = process.env.DB_PWD || 'db_password';
 const dbName = process.env.DB_NAME;
 
+const usersModels = require('../model/User/User.model');
+const usersModel = usersModels.users;
+
+const cryptoModels = require('../model/Crypto/Crypto.model');
+const cryptoModel = cryptoModels.crypto;
+
 module.exports = db = {};
 //function iniatilize
 initialize();
@@ -36,7 +42,12 @@ async function initialize()
     );
 
     // initialisation des modèles   
-    db.Users = require('model/User/User.model')(sequelize);
+    db.Users = usersModel(sequelize);
+    db.Cryptos = cryptoModel(sequelize);
+
+    db.Users.hasMany(db.Cryptos, { as: "favorites" });
+
+    // db.Users = require('model/User/User.model')(sequelize);
     // db.Popular = require('model/Crypto/Crypto.model')(sequelize);
 
     // sync tout les models de la db
