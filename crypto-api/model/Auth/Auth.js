@@ -1,5 +1,6 @@
 const UserModel = require('model/User/User.model');
 const bcrypt = require('bcryptjs');
+
 exports.loginUser = (req, res, next) => {
     try {
         UserModel.findOne({

@@ -3,7 +3,7 @@ module.exports = validateRequest;
 function validateRequest(req, next, schema) {
     const options = {
         abortEarly: false, // inclus tous les erreurs
-        allowUnknown: true, // iignore les propriétés inconnues
+        allowUnknown: true, // ignore les propriétés inconnues
         stripUnknown: true // suprime les propriétés inconnues
     };
     const { error, value } = schema.validate(req.body, options);
