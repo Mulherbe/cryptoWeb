@@ -1,9 +1,12 @@
 const express = require('express');
 const { GetUserId } = require('../User/User.service');
-const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets } = require('./Crypto.service');
+const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites } = require('./Crypto.service');
 const router = express.Router();
 
 // routes
+router.post('/favorites', setDFavorites);
+router.get('/favorites', getDFavorites);
+router.post('/favorites/:id', setUFavorites);
 router.get('/favorites/:id', getFavorites);
 
 router.get('/price', getCryptoPrice);
@@ -43,13 +46,49 @@ async function getFavorites(req, res, next)
 /// \param req The request
 /// \param res The response
 /// \param next The next function
-async function setFavorites(req, res, next)
+async function setUFavorites(req, res, next)
 {
     try
     {
         const userId = req.params.id;
         const favorites = req.body;
         const result = await setUserFavorites(userId, favorites);
+        res.status(200).json(result);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Set the default favorites in the database and return them
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function setDFavorites(req, res, next)
+{
+    try
+    {
+        const userId = GetUserId(req.headers.authorization);
+        const favorites = req.body;
+        const result = await getDefaultFavorites(favorites);
+        res.status(200).json(result);
+    } catch (err)
+    {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+/// \brief Get the default favorites in the database and return them
+/// \param req The request
+/// \param res The response
+/// \param next The next function
+async function getDFavorites(req, res, next)
+{
+    try
+    {
+        const result = await getDefaultFavorites();
         res.status(200).json(result);
     } catch (err)
     {
