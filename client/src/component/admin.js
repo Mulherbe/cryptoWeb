@@ -1,7 +1,7 @@
 import React , { useEffect } from 'react';
 import './../assets/css/style.css';
-import bg from "../assets/img/bg.jpg"; 
-
+//import bg from "../assets/img/bg.jpg"; 
+import AdminP from './home/admin_'
 
 
 const Admin = () => {
@@ -9,9 +9,8 @@ const Admin = () => {
 
   return (
     <>
-        <div class="container">
-      
-
+      <div class="container">
+        <AdminP/>
       </div>
   
     </>

@@ -1,3 +1,7 @@
+h2:hover {
+	color: #61dafb;
+}
+
 .nav_container{
     background-color: white;
     height: 10vh;
@@ -66,8 +70,22 @@
     display: flex;
     flex-direction: column;
   }
+  /* Admin */
+  .container_Admin{
+    display: flex;
+    flex-direction: column;
+  }
   /* Card Crypto */
   .container_CardCrypto{
+    width: 80%;
+    margin: 15px;
+    background-color: rgba(43, 40, 212, 0.082);
+    height: 20vh;
+    border-radius: 15px;
+    padding: 15px;
+  }
+  /* Card Admin */
+  .container_CardAdmin{
     width: 80%;
     margin: 15px;
     background-color: rgba(43, 40, 212, 0.082);
