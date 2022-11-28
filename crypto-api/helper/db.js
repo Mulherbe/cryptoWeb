@@ -20,7 +20,6 @@ initialize();
 async function initialize()
 {
     // création de la db si elle n'existe pas
-    //console.log('start')
     const connection = mysql.createPool({
         host: dbhost,
         port: dbport,
@@ -29,7 +28,6 @@ async function initialize()
         multipleStatements: true
     });
     const [rows, fields] = await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
-    //console.log('end')
     // connexion à la db
     const sequelize = new Sequelize(
         dbName,
@@ -47,9 +45,6 @@ async function initialize()
 
     db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
     db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
-
-    // db.Users = require('model/User/User.model')(sequelize);
-    // db.Popular = require('model/Crypto/Crypto.model')(sequelize);
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });

@@ -4,18 +4,19 @@ const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, get
 const router = express.Router();
 
 // routes
+// favorites
 router.post('/favorites', setDFavorites);
 router.get('/favorites', getDFavorites);
 router.post('/favorites/:id', setUFavorites);
 router.get('/favorites/:id', getFavorites);
-
+// prices
 router.get('/price', getCryptoPrice);
 router.get('/prices', getCryptoPrices);
-
+// markets
 router.get('/markets', getAllMarkets);
 module.exports = router;
-// functions
 
+// functions
 /// \brief Get the favorites of the user if he exists, the default favorites otherwise
 /// \param req The request
 /// \param res The response
