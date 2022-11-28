@@ -53,8 +53,11 @@
 
   }
   .container_news{
-    width: 30%;
-    min-height: 80vh;
+    width: 80%;
+    margin:10%;
+    height: 80vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     background-color: rgba(255, 255, 255, 0.418);
     border-radius: 15px;
   }
@@ -67,7 +70,7 @@
   .container_CardCrypto{
     width: 80%;
     margin: 15px;
-    background-color: rgba(42, 40, 212, 0.301);
+    background-color: rgba(43, 40, 212, 0.082);
     height: 20vh;
     border-radius: 15px;
     padding: 15px;
@@ -119,9 +122,27 @@
   }
   .icons_profil{
     cursor: pointer;
-
   }
-
+  .container_Card_News{
+    padding: 10px 15px 15px 10px;
+  }
+  .card_News_Link{
+    text-decoration: none;
+    color: rgb(75, 73, 73);
+    margin-bottom: 500px !important;
+  }
+  .card_News_Link:hover{
+    color: #74b6e6;
+  }
+  .container_loading{
+    margin-left:30%;
+    margin-right:30%;
+    width: 40%;
+    margin-top: 40%;
+  }
+  .size_load{
+    width: 100% !important;
+  }
   @media screen and (min-width: 800px) {
     .logo{
         height: 5vh;
@@ -142,6 +163,7 @@
     }
     .container_home{
       min-height: 80vh;
+      max-height: 100vh;
       width: 90%;
       margin-left: 5%;
       margin-right: 5%;
@@ -161,6 +183,10 @@
       width: 27%;
       margin: 15px;
       height: 20vh;
+    }
+    .container_news{
+      width: 30%;
+      margin:0%;
     }
 
   }
