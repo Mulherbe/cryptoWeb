@@ -45,7 +45,8 @@ async function initialize()
     db.Users = usersModel(sequelize);
     db.Cryptos = cryptoModel(sequelize);
 
-    db.Users.hasMany(db.Cryptos, { as: "favorites" });
+    db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
+    db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
 
     // db.Users = require('model/User/User.model')(sequelize);
     // db.Popular = require('model/Crypto/Crypto.model')(sequelize);
