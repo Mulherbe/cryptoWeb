@@ -75,6 +75,13 @@
     border-radius: 15px;
     padding: 15px;
   }
+  .click_test{
+    position: absolute;
+    height: 20vh;
+    width: 18vw;
+    z-index: 999;
+    border: solid 1px black;
+  }
   /* Page profil */
   .container_profil{
     background-color: #92d0fd50;
