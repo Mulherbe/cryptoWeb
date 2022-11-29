@@ -17,6 +17,6 @@ jobs:
           port: ${{ secrets.PORT }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd cryptoWeb && git pull && source /home/CryptoWebUser/.bashrc && dcup && cd ..
+            cd cryptoWeb && git pull && docker compose up --build -d && cd ..
             cp -rf cryptoWeb/* T-WEB-700-NCE_10/
             cd T-WEB-700-NCE_10/ && git add . && git commit -m "Mirroring Push" && git push
