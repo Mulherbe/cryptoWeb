@@ -17,7 +17,7 @@ let cryptoSymbol = 'BINANCE:' + props.crypto.replace('/', '')
           <div id="minichart">
             <MiniChart 
               symbol={cryptoSymbol}
-              trendLineColor="rgba(0, 0, 0, 0.7)"
+              trendLineColor="#040463"
               isTransparent="black"
               underlineColor="rgba(41, 255, 255, 0.3)"
               underLineBottomColor="black"
