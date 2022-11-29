@@ -1,3 +1,10 @@
+
+.mystyle{
+  background-color: red;
+}
+html{
+  background-color: blue !important;
+}
 .nav_container{
     background-color: white;
     height: 10vh;
@@ -70,17 +77,30 @@
   .container_CardCrypto{
     width: 80%;
     margin: 15px;
-    background-color: rgba(43, 40, 212, 0.082);
+      /* background-color: rgba(43, 40, 212, 0.082); */
     height: 20vh;
     border-radius: 15px;
     padding: 15px;
   }
   .click_test{
-    position: absolute;
+    /* position: absolute;
     height: 20vh;
     width: 18vw;
     z-index: 999;
-    border: solid 1px black;
+    cursor:pointer; */
+  }
+  .label-cViDSmuy{
+    position: none !important;
+  }
+  #minichart div div{
+  }
+  #minichart div iframe html body  div div a{
+    background-color: red;
+    color:pink;
+    height: 800px;
+  }
+  .label-cViDSmuy .label-wAvQLR3C .end-cViDSmuy .top-cViDSmuy .js-copyright-label{
+    display: none !important;
   }
   /* Page profil */
   .container_profil{
