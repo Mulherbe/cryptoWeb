@@ -1,19 +1,14 @@
 
-.mystyle{
-  background-color: red;
-}
-html{
-  background-color: blue !important;
-}
 .nav_container{
-    background-color: white;
-    height: 10vh;
-    display: flex;
-    flex-direction: row;
-    background-color: #74b6e613;
-    z-index: 99;
-    border-bottom: 1px solid #0776c5;
-
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  z-index: 99;
+  top: 74px;
+  position: absolute;
+  width: 100vw;
+  border-bottom: 1px solid #0776c5;
 }
 .logo{
     margin-left: 15%;
@@ -40,6 +35,7 @@ html{
 
   .container{
     height: 100vh;
+    margin-top: 5%;
     background-image: url("../../assets/img/bg.jpg");
     background-size: cover;
     padding-top: 2%;
@@ -214,6 +210,9 @@ html{
     .container_news{
       width: 30%;
       margin:0%;
+    }
+    .nav_container{
+      top: 47px;
     }
 
   }
