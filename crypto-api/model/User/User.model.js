@@ -1,8 +1,10 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = model;
+module.exports = {
+    users
+};
 
-function model(sequelize)
+function users(sequelize)
 {
     const attributes = {
         username: { type: DataTypes.STRING, allowNull: false },

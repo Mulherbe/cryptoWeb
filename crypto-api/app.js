@@ -20,11 +20,14 @@ app.use(express.static("public"));
 //===================================== ROUTES API ===================================================
 //controller
 const userController = require('model/User/User.controller');
+const cryptoController = require('model/Crypto/Crypto.controller');
 //route api
-app.get('/', (req,res, next) => {
+app.get('/', (req, res, next) =>
+{
     res.send('Bienvenue sur l\'api de cryptoTech');
 });
 app.use('/api/users', userController);
+app.use('/api/crypto', cryptoController);
 
 //================================================================================================
 //===================================== ROUTE FLUX RSS ===================================================
@@ -33,56 +36,68 @@ app.use('/api/users', userController);
 const { fetchRssBtc, fetchRssEth, fetchRssActu, fetchRssNft } = require('model/FluxRSS/fluxRss');
 const url = require('model/FluxRSS/urlRss');
 //route flux rss
-app.get('/api/rss/btc', async (req, res) => {
+app.get('/api/rss/btc', async (req, res) =>
+{
     await fetchRssBtc(url.btcRss)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        res.status(404).json({
-            status: 'error',
-            message: 'An error occurred when fetching news'
+        .then(data =>
+        {
+            res.status(200).json(data)
         })
-    })
+        .catch(err =>
+        {
+            res.status(404).json({
+                status: 'error',
+                message: 'An error occurred when fetching news'
+            })
+        })
 })
 
-app.get('/api/rss/eth', async (req, res) => {
+app.get('/api/rss/eth', async (req, res) =>
+{
     await fetchRssEth(url.ethRss)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        res.status(404).json({
-            status: 'error',
-            message: 'An error occurred when fetching news'
+        .then(data =>
+        {
+            res.status(200).json(data)
         })
-    })
+        .catch(err =>
+        {
+            res.status(404).json({
+                status: 'error',
+                message: 'An error occurred when fetching news'
+            })
+        })
 })
 
-app.get('/api/rss/actu', async (req, res) => {
+app.get('/api/rss/actu', async (req, res) =>
+{
     await fetchRssActu(url.actuRss)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        res.status(404).json({
-            status: 'error',
-            message: 'An error occurred when fetching news'
+        .then(data =>
+        {
+            res.status(200).json(data)
         })
-    })
+        .catch(err =>
+        {
+            res.status(404).json({
+                status: 'error',
+                message: 'An error occurred when fetching news'
+            })
+        })
 })
 
-app.get('/api/rss/nft', async (req, res) => {
+app.get('/api/rss/nft', async (req, res) =>
+{
     await fetchRssNft(url.nftRss)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        res.status(404).json({
-            status: 'error',
-            message: 'An error occurred when fetching news'
+        .then(data =>
+        {
+            res.status(200).json(data)
         })
-    })
+        .catch(err =>
+        {
+            res.status(404).json({
+                status: 'error',
+                message: 'An error occurred when fetching news'
+            })
+        })
 })
 //fin route flux rss
 //================================================================================================
@@ -99,4 +114,4 @@ app.listen(port, () =>
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
 
-
+require('model/Crypto/Crypto.service').updateMarkets();
