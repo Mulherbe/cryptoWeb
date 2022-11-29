@@ -8,6 +8,7 @@ import Profil from './component/profil'
 import Admin from './component/admin'
 import Login from './component/login'
 import Register from './component/register'
+import Market from './component/market'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
        <Nav /> 
       <Routes>
         <Route path="" element={<Home />} />
+        <Route path="market" element={<Market />} />
         <Route path="news" element={<News />} />
         <Route path="profil" element={<Profil />} />
         <Route path="admin" element={<Admin />} />

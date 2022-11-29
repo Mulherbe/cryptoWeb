@@ -17,7 +17,6 @@ let cryptoSymbol = 'BINANCE:' + props.crypto.replace('/', '')
           <div id="minichart">
             <MiniChart symbol={cryptoSymbol}
              colorTheme="light"  isTransparent="true" width="100%"></MiniChart>
-             
           </div>
 
       </div>
