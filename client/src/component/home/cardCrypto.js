@@ -15,12 +15,19 @@ let cryptoSymbol = 'BINANCE:' + props.crypto.replace('/', '')
           {/* <div class="click_test"  onClick={cryptoDetails} >
           </div> */}
           <div id="minichart">
-            <MiniChart symbol={cryptoSymbol}
-             colorTheme="light"  isTransparent="true" width="100%"></MiniChart>
+            <MiniChart 
+              symbol={cryptoSymbol}
+              trendLineColor="rgba(0, 0, 0, 0.7)"
+              isTransparent="black"
+              underlineColor="rgba(41, 255, 255, 0.3)"
+              underLineBottomColor="black"
+              dateRange="1D"
+               width="100%"></MiniChart>
+                          
           </div>
 
       </div>
-    </>
+    </> 
   ); }
 
 

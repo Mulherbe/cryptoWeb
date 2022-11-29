@@ -18,7 +18,9 @@ const News_home = () => {
           <div key={index} className="container_Card_News">
             <a href={response.data[key].link} target="_blank" className="card_News_Link">{response.data[key].title}</a>
             <br></br>
-            {formatted}
+            <div className="date_style">
+              {formatted}
+            </div>
             <hr />
           </div>
         );
