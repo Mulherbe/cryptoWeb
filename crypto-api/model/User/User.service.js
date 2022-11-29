@@ -13,9 +13,9 @@ module.exports = {
 
 async function GetUserId(authorization)
 {
-    const token = authorization.split(' ')[1];
-    const decoded = jwt.verify(token, config.secret);
-    return decoded.sub;
+    // const token = authorization.split(' ')[1];
+    // const decoded = jwt.verify(token, config.secret);
+    // return decoded.sub;
 }
 
 async function getAll()

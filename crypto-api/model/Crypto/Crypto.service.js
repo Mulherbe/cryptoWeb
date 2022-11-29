@@ -66,26 +66,15 @@ async function getDefaultFavorites()
 /// \return The default favorites
 async function setDefaultFavorites(favorites)
 {
-    if (!isAdmin())
-        return await getDefaultFavorites();
-    // get default favorites
-    const defaultFavorites = await db.Cryptos.findAll({ where: { isDefault: true } });
-    // update defaultFavorites isDefault to false and rank to 0
-    defaultFavorites.forEach(favorite =>
-    {
-        favorite.isDefault = false;
-        favorite.rank = 0;
-    });
-    await defaultFavorites.save();
+    // if (!isAdmin())
+    //     return await getDefaultFavorites();
+
+    await db.Cryptos.update({ isDefault: false }, { where: { isDefault: true } });
 
     // update favorites isDefault to true
-    await favorites.forEach(async favorite =>
-    {
-        var crypto = await db.Cryptos.findOne({ where: { pair: favorite.pair } });
-        crypto.isDefault = true;
-        crypto.rank = favorite.rank;
-        await crypto.save();
-    });
+    for (let i = 0; i < favorites.length; i++)
+        await db.Cryptos.update({ isDefault: true }, { where: { pair: favorites[i].pair } });
+
     return await db.Cryptos.findAll({ where: { isDefault: true } });
 }
 
@@ -119,27 +108,22 @@ async function getUserFavorites(userId)
 /// \return The favorites set or the default favorites if: the user doesn't exist or the favorites are empty
 async function setUserFavorites(userId, favorites)
 {
+    if (favorites === null || favorites === undefined || favorites.length === 0)
+        favorites = await getUserFavorites(userId);
     // get user with his favorites
     var userFound = await db.Users.findOne({ where: { id: userId }, include: { model: db.Cryptos, as: "favorites" } });
 
     var isUserNull = userFound === null || userFound === undefined || userFound.length === 0;
     if (isUserNull)
         return await getDefaultFavorites();
-    userFound.favorites = [];
-    var rank = 0;
+    var resultFav = [];
     for (var fav in favorites)
     {
-        var crypto = await db.Cryptos.findOne({ where: { pair: fav.pair } });
-        if (crypto === null || crypto === undefined)
-            continue;
-        crypto.rank = rank;
-        await crypto.save();
-
-        userFound.favorites.push(crypto);
-        rank += 1;
+        var newCrypto = new db.Cryptos();
+        Object.assign(newCrypto, fav);
+        resultFav.push(newCrypto);
     }
-
-    await userFound.save();
+    await db.Users.update({ favorites: resultFav }, { where: { id: userId } });
     return userFound.favorites;
 }
 
@@ -189,7 +173,7 @@ async function setMarkets()
         {
             crypto = new db.Cryptos();
             crypto.pair = tmpMarkets[market].symbol;
-            await crypto.save();
+            await db.Cryptos.create(crypto);
         }
         totalMarkets.push(crypto);
     }

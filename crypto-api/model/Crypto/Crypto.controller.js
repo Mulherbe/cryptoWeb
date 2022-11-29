@@ -69,8 +69,8 @@ async function setDFavorites(req, res, next)
 {
     try
     {
-        const userId = GetUserId(req.headers.authorization);
-        const favorites = req.body;
+        // const userId = GetUserId(req.headers.authorization);
+        const favorites = req.body.favorites;
         const result = await getDefaultFavorites(favorites);
         res.status(200).json(result);
     } catch (err)
