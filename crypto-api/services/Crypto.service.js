@@ -1,6 +1,9 @@
 const db = require('../helper/db');
 const ccxt = require('ccxt');
 
+/// \brief Sleep for a given time
+/// \param millis The time to sleep in milliseconds
+/// \return None
 function sleep(millis)
 {
     return new Promise(resolve => setTimeout(resolve, millis));
