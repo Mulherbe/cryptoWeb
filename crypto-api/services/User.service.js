@@ -7,13 +7,20 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    GetUserId
 };
 
+async function GetUserId(authorization)
+{
+    // const token = authorization.split(' ')[1];
+    // const decoded = jwt.verify(token, config.secret);
+    // return decoded.sub;
+}
 
 async function getAll()
 {
-    const users =  await db.Users.findAll();
+    const users = await db.Users.findAll();
     console.log(users.every(user => user instanceof db.Users));
     //console.log("All users:", JSON.stringify(users, null, 2));
     return users;
@@ -22,42 +29,46 @@ async function getAll()
 async function getById(id)
 {
     const user = await db.Users.findByPk(id);
-    if (user === null) {
+    if (user === null)
+    {
         console.log('Not found!');
-    } else {
+    } else
+    {
         console.log(user instanceof db.Users); // true
         console.log("The user's name is", user.username);
-        
+
     }
     return user;
 }
 
 async function create(params)
 {
-    try{
-    const user = new db.Users(params);
-    
-    // hash password
-    user.password = await bcrypt.hashSync(params.password, 10);
-    //mettre le role par defaut
-    user.role = Role.User;
-    //mettre created_at et updated_at à la date actuelle
-    user.created_at = Date.now();
-    user.updated_at = Date.now();
+    try
+    {
+        const user = new db.Users(params);
 
-    // save user
-    await user.save();
-    
-    
-    }catch(err){
+        // hash password
+        user.password = await bcrypt.hashSync(params.password, 10);
+        //mettre le role par defaut
+        user.role = Role.User;
+        //mettre created_at et updated_at à la date actuelle
+        user.created_at = Date.now();
+        user.updated_at = Date.now();
+
+        // save user
+        await user.save();
+
+
+    } catch (err)
+    {
         console.log(err)
-        
+
     }
 }
 
 async function update(id, params)
 {
-    const user =  await db.Users.findByPk(id);
+    const user = await db.Users.findByPk(id);
 
     // validation
     const usernameChanged = params.username && user.username !== params.username;
@@ -67,7 +78,8 @@ async function update(id, params)
     }
 
     // hash password si il a été changé
-    if (params.password) {
+    if (params.password)
+    {
         params.password = await bcrypt.hashSync(params.password);
     }
     //mettre updated_at à la date actuelle
@@ -76,7 +88,7 @@ async function update(id, params)
     // copie params dans user et sauvegarde
     Object.assign(user, params);
     await user.save();
-    
+
 }
 
 async function _delete(id)

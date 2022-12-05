@@ -14,12 +14,13 @@ const News_home = () => {
       Object.keys(response.data).map((key, index) => {
         const date = new Date(response.data[key].date);
         const formatted = date.toLocaleDateString("fr-FR")
-        console.log(formatted)
         return (
           <div key={index} className="container_Card_News">
             <a href={response.data[key].link} target="_blank" className="card_News_Link">{response.data[key].title}</a>
             <br></br>
-            {formatted}
+            <div className="date_style">
+              {formatted}
+            </div>
             <hr />
           </div>
         );
