@@ -1,5 +1,5 @@
 version: '3.8'
-services: 
+services:
   db:
     image: mysql:8.0
     restart: unless-stopped
@@ -12,9 +12,9 @@ services:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  crypto-api:
+  api:
     build: ./crypto-api
-    container_name: crypto-api
+    container_name: api
     image: crypto-api
     ports:
       - 5000:5000
@@ -30,9 +30,9 @@ services:
     volumes:
       - ./:/src
 
-  client: 
+  front:
     build: ./client
-    container_name: client_frontend
+    container_name: frontend
     ports:
       - 3000:3000
     volumes:
