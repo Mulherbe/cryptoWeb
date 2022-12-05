@@ -12,7 +12,6 @@ function crypto(sequelize)
         rank: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
         isDefault: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
     };
-
     // pas de created at ou de uptaded at
     const options = {
         timestamps: false

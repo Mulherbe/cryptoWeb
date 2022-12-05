@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const Role = require('../helper/role');
 const db = require('../helper/db');
 
+
+
+
 module.exports = {
     getAll,
     getById,
@@ -74,12 +77,13 @@ async function login(params)
         if (user && bcrypt.compareSync(params.password, user.password))
         {
             // authentication successful
-            const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' });
+            const token = jwt.sign({ sub: user.id, role: user.role }, config.secret, { expiresIn: '7d' });
+            
+            console.log('token', token);
             return {
                 ...user.toJSON(),
                 token
             };
-            console.log('token', token);
         }
     } catch (err)
         {
@@ -87,6 +91,18 @@ async function login(params)
 
         }
 
+}
+
+async function authenticate({ username, password }) {
+    const user = db.Users.find(u => u.username === username && u.password === password);
+    if (user) {
+        const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
+        const { password, ...userWithoutPassword } = user;
+        return {
+            ...userWithoutPassword,
+            token
+        };
+    }
 }
 
 
