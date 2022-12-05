@@ -174,9 +174,13 @@ async function setMarkets()
         var crypto = await db.Cryptos.findOne({ where: { pair: market } });
         if (crypto === null || crypto === undefined)
         {
-            crypto = new db.Cryptos();
-            crypto.pair = tmpMarkets[market].symbol;
-            await db.Cryptos.create(crypto);
+            if (tmpMarkets[market].symbol === null || tmpMarkets[market].symbol === undefined || tmpMarkets[market].symbol.length <= 0)
+                continue;
+            await db.Cryptos.create({ pair: tmpMarkets[market].symbol, isDefault: false });
+            await db.Cryptos.save();
+            // crypto = new db.Cryptos();
+            // crypto.pair = tmpMarkets[market].symbol;
+            // await db.Cryptos.create(crypto);
         }
         totalMarkets.push(crypto);
     }
