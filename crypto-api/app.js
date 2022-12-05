@@ -10,62 +10,57 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-var corsOptions = {
+/*var corsOptions = {
     baseUrl : 'http://localhost:3000/',
     headers: {
         'Content-Type': 'application/json',
     }
 }
-
+*/
 
 
 // Make public static folder
 app.use(express.static("public"));
 
 //================================================================================================
-//===================================== ROUTES API ===================================================
+//===================================== ROUTES OAuth2 GoogleAPI ===================================================
 //controller
-const userController = require('model/User/User.controller');
 //route api
 app.get('/', (req,res, next) => {
     res.send('Bienvenue sur l\'api de cryptoTech');
 });
 
-const utils = require ('model/Auth/utils/utils');
-app.get('/auth', async (req, res) => {
+const utils = require('model/Auth/utils/utils');
+
+app.get('/api/auth', async(req, res) => {
     try {
-        res.redirect (utils.request_get_auth_code_url);
+        res.redirect(utils.request_get_auth_code_url);
         } catch (error) {
-        res.sendStatus (500);
-        console.log (error.message);
+            res.sendStatus(500);
+            console.log(error.message);
         }
 });
-app.get(process.env.REDIRECT_URI, async (req, res) => {
-    // get authorization token
+
+app.get('/api/callback', async (req, res) => {
     const authorization_token = req.query.code;
-    try {
-        // ! get access token using authorization token
-        const response = await utils.get_access_token (authorization_token.code);
+    console.log('authorization_token', authorization_token);
+    try{
+        const response = await utils.get_access_token (authorization_token);
         console.log ({data: response.data});
-        // get access token from payload
-        const {access_token} = response.data;
-        const user = await helpers.get_profile_data (access_token);
-        const user_data = user.data;
-        res.send (`
-        <h1> welcome ${user_data.name}</h1>
-        <img src="${user_data.picture}" alt="user_image" />
-        `);
-        console.log (user_data);
-
+        const user_info = await utils.get_user_info(response.data);
+        console.log('user_info', user_info);
+       // res.send(`Hello ${user_info.name}`);
     } catch (error) {
-        console.log(error.message);
         res.sendStatus (500);
-        
+        console.log (error.message);
     }
-
 });
 
 
+
+
+
+const userController = require('controller/User.controller');
 app.use('/api/users', userController);
 
 

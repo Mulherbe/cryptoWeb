@@ -3,11 +3,12 @@ const { Sequelize } = require('sequelize');
 const dbhost = process.env.DB_HOST;
 const dbport = process.env.DB_PORT;
 const dbuser = process.env.DB_USER;
-const dbpwd = process.env.DB_PWD || 'db_password';
+const dbpwd = process.env.DB_PWD || "db_password";
 const dbName = process.env.DB_NAME;
 
 module.exports = db = {};
 //function iniatilize
+
 initialize();
 
 
@@ -34,6 +35,11 @@ async function initialize()
             dialect: "mysql",
         }
     );
+    sequelize.authenticate().then(() => {
+        console.log('🔥🔥Connection has been established successfully.🔥🔥'); 
+      }).catch((error) => {
+        console.error('🌕🌕🌕 Unable to connect to the database 🌕🌕🌕 : ', error); 
+      });
 
     // initialisation des modèles   
     db.Users = require('model/User/User.model')(sequelize);
