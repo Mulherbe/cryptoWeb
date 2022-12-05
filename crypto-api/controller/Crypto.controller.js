@@ -1,6 +1,6 @@
 const express = require('express');
 const { GetUserId } = require('../services/User.service');
-const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites } = require('../services/Crypto.service');
+const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites, setDefaultFavorites } = require('../services/Crypto.service');
 const router = express.Router();
 
 // routes
@@ -72,7 +72,7 @@ async function setDFavorites(req, res, next)
     {
         // const userId = GetUserId(req.headers.authorization);
         const favorites = req.body.favorites;
-        const result = await getDefaultFavorites(favorites);
+        const result = await setDefaultFavorites(favorites);
         res.status(200).json(result);
     } catch (err)
     {
