@@ -79,6 +79,7 @@ async function login(params)
                 ...user.toJSON(),
                 token
             };
+            console.log('token', token);
         }
     } catch (err)
         {
