@@ -75,3 +75,6 @@
 .error_form{
   color: red;
 }
+.form_input{
+  border:1px solid black;
+}

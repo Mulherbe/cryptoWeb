@@ -2,6 +2,7 @@ import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {registerUser} from '../service/call_api/user_service';
+import './../assets/css/login.css';
 
  const Register = (props) => {
 
@@ -58,7 +59,7 @@ import {registerUser} from '../service/call_api/user_service';
                                         type="text"
                                         id="username"
                                         name="username"
-                                        className="form-control"
+                                        className="form_input"
                                     />
                                     <ErrorMessage
                                         name="username"
@@ -74,7 +75,7 @@ import {registerUser} from '../service/call_api/user_service';
                                         type="email"
                                         id="email"
                                         name="email"
-                                        className="form-control"
+                                        className="form_input"
                                     />
                                     <ErrorMessage
                                         name="email"
@@ -90,7 +91,7 @@ import {registerUser} from '../service/call_api/user_service';
                                         type="password"
                                         id="password"
                                         name="password"
-                                        className="form-control"
+                                        className="form_input"
                                     />
                                     <ErrorMessage
                                         name="password"
@@ -107,7 +108,7 @@ import {registerUser} from '../service/call_api/user_service';
                                         type="password"
                                         id="confirmPassword"
                                         name="confirmPassword"
-                                        className="form-control"
+                                        className="form_input"
                                     />
                                     <ErrorMessage
                                         name="confirmPassword"
@@ -137,7 +138,7 @@ import {registerUser} from '../service/call_api/user_service';
                                 <div className="form-group d-flex justify-content-end gap-3">
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn form_input"
                                     >
                                         S'inscrire
                                     </button>
