@@ -1,4 +1,4 @@
-const db = require('helper/db');
+const db = require('../helper/db');
 const ccxt = require('ccxt');
 
 function sleep(millis)

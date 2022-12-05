@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const Role = require('helper/role');
-const db = require('helper/db');
+const Role = require('../helper/role');
+const db = require('../helper/db');
 
 module.exports = {
     getAll,
@@ -49,7 +49,7 @@ async function create(params)
         const user = new db.Users(params);
 
         // hash password
-        user.password = await bcrypt.hashSync(params.password, 10);
+        user.password = bcrypt.hashSync(params.password, 10);
         //mettre le role par defaut
         user.role = Role.User;
         //mettre created_at et updated_at à la date actuelle
@@ -69,7 +69,7 @@ async function create(params)
 async function login(params)
 {
     //vérifier que l'utilisateur existe
-    const user = await db.Users.findOne({ where: { username: params.username } });
+    const user = await db.Users.findOne({ where: { email: params.email } });
     try{
         if (user && bcrypt.compareSync(params.password, user.password))
         {

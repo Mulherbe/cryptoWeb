@@ -1,5 +1,5 @@
 const express = require('express');
-const { GetUserId } = require('../User/User.service');
+const { GetUserId } = require('../services/User.service');
 const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites } = require('../services/Crypto.service');
 const router = express.Router();
 

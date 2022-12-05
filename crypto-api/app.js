@@ -1,6 +1,5 @@
 require('rootpath')();
-//Petite aide pour rendre node.js require relatif à la racine de votre projet
-//ROOTH_PATH = __dirname;
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -18,23 +17,20 @@ app.use(cors());
 }
 */
 
-
 // Make public static folder
 app.use(express.static("public"));
 
 //================================================================================================
-//===================================== ROUTES OAuth2 GoogleAPI ===================================================
-//controller
-const userController = require('controller/User.controller');
-const cryptoController = require('controller/Crypto.controller');
+//===================================== ROUTES OAuth2 GoogleAPI ==================================
+
 //route api
 app.get('/', (req, res, next) =>
 {
     res.send('Bienvenue sur l\'api de cryptoTech');
 });
 
-const utils = require('model/Auth/utils/utils');
 
+const utils = require('./model/Auth/utils');
 app.get('/api/auth', async(req, res) => {
     try {
         res.redirect(utils.request_get_auth_code_url);
@@ -58,6 +54,11 @@ app.get('/api/callback', async (req, res) => {
         console.log (error.message);
     }
 });
+//================================================================================================
+//===================================== ROUTES API ===============================================
+//controller
+const userController = require('./controller/User.controller');
+const cryptoController = require('./controller/Crypto.controller');
 
 app.use('/api/users', userController);
 app.use('/api/crypto', cryptoController);
@@ -67,8 +68,8 @@ app.use('/api/crypto', cryptoController);
 //===================================== ROUTE FLUX RSS ===================================================
 //flux rss
 
-const { fetchRssBtc, fetchRssEth, fetchRssActu, fetchRssNft } = require('model/FluxRSS/fluxRss');
-const url = require('model/FluxRSS/urlRss');
+const { fetchRssBtc, fetchRssEth, fetchRssActu, fetchRssNft } = require('./model/FluxRSS/fluxRss');
+const url = require('./model/FluxRSS/urlRss');
 //route flux rss
 app.get('/api/rss/btc', async (req, res) =>
 {
@@ -134,11 +135,10 @@ app.get('/api/rss/nft', async (req, res) =>
         })
 })
 //fin route flux rss
-//================================================================================================
-//===================================== ROUTE FLUX RSS ===================================================
+
 
 // middleware gestion erreur
-const errorHandler = require('middleware/error-handler');
+const errorHandler = require('./middleware/error-handler');
 app.use(errorHandler);
 
 
@@ -148,4 +148,4 @@ app.listen(port, () =>
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
 
-require('model/Crypto/Crypto.service').updateMarkets();
+require('./services/Crypto.service').updateMarkets();
