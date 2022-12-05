@@ -36,6 +36,11 @@ function create(req, res, next)
     userService.create(req.body).then(() => res.json({message: 'User created'})).catch(next);
 }
 
+function login(req, res, next)
+{
+    userService.login(req.body).then(() => res.json({message: 'User logged'})).catch(next);
+}
+
 function update(req, res, next)
 {
     userService.update(req.params.id, req.body)

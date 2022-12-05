@@ -6,6 +6,7 @@ module.exports = {
     getAll,
     getById,
     create,
+    login,
     update,
     delete: _delete,
     GetUserId
@@ -65,6 +66,28 @@ async function create(params)
 
     }
 }
+async function login(params)
+{
+    //vérifier que l'utilisateur existe
+    const user = await db.Users.findOne({ where: { username: params.username } });
+    try{
+        if (user && bcrypt.compareSync(params.password, user.password))
+        {
+            // authentication successful
+            const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' });
+            return {
+                ...user.toJSON(),
+                token
+            };
+        }
+    } catch (err)
+        {
+            console.log(err)
+
+        }
+
+}
+
 
 async function update(id, params)
 {
@@ -80,7 +103,7 @@ async function update(id, params)
     // hash password si il a été changé
     if (params.password)
     {
-        params.password = await bcrypt.hashSync(params.password);
+        params.password = bcrypt.hashSync(params.password);
     }
     //mettre updated_at à la date actuelle
     user.updated_at = Date.now();
