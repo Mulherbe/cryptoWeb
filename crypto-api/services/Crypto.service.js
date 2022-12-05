@@ -162,6 +162,18 @@ async function getMarkets()
     return tmpMarkets;
 }
 
+const defaultMarkets = [
+    "BTC/USDT",
+    "BNB/USDT",
+    "ETH/USDT",
+    "XRP/USDT",
+    "DOGE/USDT",
+    "ADA/USDT",
+    "LTC/USDT",
+    "DAI/USDT",
+    "SHIB/USDT"
+];
+
 /// \brief Set the markets of an exchange in the database
 /// \return None
 async function setMarkets()
@@ -174,9 +186,10 @@ async function setMarkets()
         var crypto = await db.Cryptos.findOne({ where: { pair: market } });
         if (crypto === null || crypto === undefined)
         {
-            if (tmpMarkets[market].symbol === null || tmpMarkets[market].symbol === undefined || tmpMarkets[market].symbol.length <= 0)
+            var tmpPair = tmpMarkets[market].symbol;
+            if (tmpPair === null || tmpPair === undefined || tmpPair.length <= 0)
                 continue;
-            await db.Cryptos.create({ pair: tmpMarkets[market].symbol, isDefault: false });
+            await db.Cryptos.create({ pair: tmpMarkets[market].symbol, isDefault: defaultMarkets.includes(tmpPair) });
             await db.Cryptos.save();
             // crypto = new db.Cryptos();
             // crypto.pair = tmpMarkets[market].symbol;
