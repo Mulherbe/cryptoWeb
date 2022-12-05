@@ -12,3 +12,11 @@ export const registerUser = (values) => {
         confirmPassword: values.confirmPassword
       });
 }
+
+
+export const login = (values) => {
+    return http.post('/users/create', {
+        email: values.email,
+        password: values.password,
+      });
+}
