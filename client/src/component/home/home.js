@@ -1,5 +1,5 @@
 import React , { useEffect } from 'react';
-import './../../assets/css/style.css';
+import '../../assets/css/style.css';
 import Crypto from './crypto'
 import News_home from './news_home'
 
