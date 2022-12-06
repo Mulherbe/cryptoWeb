@@ -189,11 +189,7 @@ async function setMarkets()
             var tmpPair = tmpMarkets[market].symbol;
             if (tmpPair === null || tmpPair === undefined || tmpPair.length <= 0)
                 continue;
-            await db.Cryptos.create({ pair: tmpMarkets[market].symbol, isDefault: defaultMarkets.includes(tmpPair) });
-            await db.Cryptos.save();
-            // crypto = new db.Cryptos();
-            // crypto.pair = tmpMarkets[market].symbol;
-            // await db.Cryptos.create(crypto);
+            await db.Cryptos.create({ pair: tmpPair, isDefault: defaultMarkets.includes(tmpPair) });
         }
         totalMarkets.push(crypto);
     }
@@ -213,6 +209,7 @@ async function updateMarkets()
         } catch (err)
         {
             console.log(err);
+            await sleep(300000);
         }
     }
 }
