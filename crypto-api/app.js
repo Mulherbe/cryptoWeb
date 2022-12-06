@@ -149,7 +149,6 @@ const errorHandler = require('./middleware/error-handler');
 app.use(errorHandler);
 
 
-console.log(process.env.DB_PORT);
 const port = process.env.PORT || 5000;
 app.listen(port, () =>
 {
