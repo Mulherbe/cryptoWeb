@@ -12,7 +12,7 @@ const Home = () => {
             <div class="container_crypto">
               <Crypto />
             </div>
-            <div class="container_news">
+            <div class="container_news" id="style-1">
               <News_home />
             </div>
           </div>

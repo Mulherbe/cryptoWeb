@@ -1,19 +1,24 @@
 
+body{
+  background-image: linear-gradient(to right top, #2962ff, #3153d2, #3245a7, #2f377e, #282a57, #203259, #1d385a, #1e3e59, #005d7b, #007f93, #00a09d, #12c19a);  
+  overflow: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
 .nav_container{
   height: 10vh;
   display: flex;
   flex-direction: row;
-  background-color: white;
   z-index: 99;
   top: 74px;
   position: absolute;
-  width: 100vw;
-  border-bottom: 1px solid #0776c5;
+  width: 100%;
+  border-bottom: 1px solid #CDE6F5;
 }
 .logo{
     margin-left: 100%;
-    margin-top: 2.5vh;
-    height: 5vh;
+    height: 11vh;
 }
 .nav_link{
     display: flex;
@@ -21,12 +26,15 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 15vw;
+    color: white;
 }
 
 .nav_item:hover{
-    background-color: #3091d6;
+    background-color: #CDE6F5;
     color: white;
     cursor: pointer;
+    -webkit-box-shadow: -1px 4px 18px 5px rgba(0,0,0,0.11); 
+    box-shadow: -1px 4px 18px 5px rgba(0,0,0,0.11);
 
 }
 .nav_item{
@@ -36,12 +44,10 @@
   .container{
     height: 100vh;
     margin-top: 5%;
-    background-image: url("../../assets/img/bg.jpg");
-    background-size: cover;
+    /* background-image: url("../../assets/img/bg.jpg"); */
+    /* background-size: cover; */
     padding-top: 2%;
   }
-  /* Home */
-  
   .container_home{
     flex-direction: column;
     /* background-color: #92d0fd50; */
@@ -61,10 +67,35 @@
     height: 80vh;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    background-color: rgba(255, 255, 255, 0.719);
+    -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
+    box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
     border-radius: 15px;
     padding:1%;
+    color:white;
+    border: 1px solid #CDE6F5;
+    background-color: rgba(26, 28, 43, 0.432);
+ 
+
   }
+  #style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: rgb(0, 0, 0);
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: rgb(0, 0, 0);
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #2962ff98;
+}
   /* Crypto */
   .container_Crypto{
     display: flex;
@@ -74,8 +105,8 @@
   .container_CardCrypto{
     width: 80%;
     margin: 15px;
-      background-color:  rgba(255, 255, 255, 0.719);
-      -webkit-box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25); 
+    background-color: rgba(26, 28, 43, 0.432);
+    /* background-image: linear-gradient(to right top, #2a2936, #272633, #242330, #22212e, #1f1e2b, #1f1e2e, #201f32, #201f35, #24223f, #282648, #2c2952, #302c5c);     */
     box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);
     /* height: 20vh; */
     border-radius: 15px;
@@ -92,13 +123,14 @@
 
   /* Page profil */
   .container_profil{
-    background-color:  rgba(255, 255, 255, 0.719);
+    background-image: linear-gradient(to right top, #2a2936, #272633, #242330, #22212e, #1f1e2b, #1f1e2e, #201f32, #201f35, #24223f, #282648, #2c2952, #302c5c);   
     -webkit-box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25); 
-  box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);    height:70% ;
+    box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);    height:70% ;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
     border-radius: 40px;
+    color:white;
   }
   .title_profil{
     padding-top: 5%;
@@ -144,12 +176,13 @@
   }
   .card_News_Link{
     text-decoration: none;
-    color: rgb(75, 73, 73);
+    color:white;
     margin-bottom: 500px !important;
     font-size: 1.2em;
   }
   .card_News_Link:hover{
     color: #74b6e6;
+    
   }
   .container_loading{
     margin-left:30%;
@@ -161,24 +194,26 @@
     padding-top:10px;
     padding-bottom: 10px;
     text-align: right;
+    color:white;
+
   }
   .size_load{
     width: 100% !important;
   }
   @media screen and (min-width: 800px) {
     .logo{
-        height: 5vh;
+        height: 11vh;
     }
     .nav_item{
       margin-left: 1vw;
       /* background-color: #1190CB; */
       border-radius: 40px;
       padding: 8px 20px ;
-      color: black;
+      color: white;
       text-decoration: none;
       display: block;
       font-size: 1.2em;
-      border: solid 1px rgba(0, 0, 0, 0.219);
+      border: solid 1px #CDE6F5;
     }
     .container_profil{
       width: 60%;
@@ -188,7 +223,7 @@
     .container_home{
       min-height: 80vh;
       max-height: 100vh;
-      width: 96%;
+      width: 94%;
       margin-left: 2%;
       margin-right: 2%;
       display: flex;
@@ -224,4 +259,5 @@
       margin-left: 30%;
       margin-right: 30%;
     }
+
   }

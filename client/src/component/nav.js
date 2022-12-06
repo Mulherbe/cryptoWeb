@@ -13,7 +13,7 @@ const Nav = () => {
     <>
     <div>
 
-    <TickerTape colorTheme="LIGHT" symbols={[    
+    <TickerTape colorTheme="dark" symbols={[    
             {
           "proName": "BINANCE:BTCUSD",
           "title": "BTC/USD"
