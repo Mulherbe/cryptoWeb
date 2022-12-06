@@ -4,11 +4,12 @@ const Joi = require('joi');
 const validateRequest = require('../middleware/validate-request');
 const Role = require('../helper/role');
 const userService = require('../services/User.service');
+const authorizeUser = require('../helper/authorize')
 
 // routes 
-router.get('/', getAll);
-router.get('/:id', getById);
-router.post('/login', login);
+router.get('/login', authDataSchema, login);
+router.get('/admin', authorizeUser(Role.Admin), getAll);
+router.get('/:id',  authorizeUser(), getById);
 router.post('/create', createSchema, create);
 router.put('/update/:id', updateSchema, update);
 router.delete('/delete/:id', _delete);
@@ -16,6 +17,7 @@ router.delete('/delete/:id', _delete);
 module.exports = router;
 
 // function 
+
 function getAll(req, res, next)
 {
     userService.getAll()
@@ -37,7 +39,9 @@ function create(req, res, next)
 
 function login(req, res, next)
 {
-    userService.login(req.body).then(() => res.json({message: 'User logged'})).catch(next);
+    userService.authenticate(req.body)
+    .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password is incorrect' }))
+    .catch(err => next(err));
 }
 
 function update(req, res, next)

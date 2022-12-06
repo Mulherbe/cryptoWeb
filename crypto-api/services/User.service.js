@@ -1,9 +1,8 @@
 const bcrypt = require('bcryptjs');
 const Role = require('../helper/role');
 const db = require('../helper/db');
-
-
-
+const jwt = require('jsonwebtoken');
+const config = require('../config.json')
 
 module.exports = {
     getAll,
@@ -93,25 +92,13 @@ async function login(params)
 
 }
 
-async function authenticate({ username, password }) {
-    const user = db.Users.find(u => u.username === username && u.password === password);
-    if (user) {
-        const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
-        const { password, ...userWithoutPassword } = user;
-        return {
-            ...userWithoutPassword,
-            token
-        };
-    }
-}
-
 
 async function update(id, params)
 {
     const user = await db.Users.findByPk(id);
 
     // validation
-    const usernameChanged = params.username && user.username !== params.username;
+    const usernameChanged = params.email && user.username !== params.username;
     if (usernameChanged && await db.User.findOne({ where: { username: params.username } }))
     {
         throw 'Username "' + params.username + '" is already taken';
