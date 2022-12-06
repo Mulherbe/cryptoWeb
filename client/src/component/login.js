@@ -1,7 +1,7 @@
 import React from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-import {registerUser} from '../service/call_api/user_service';
+import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
 
  const Login = (props) => {
@@ -23,10 +23,10 @@ import './../assets/css/login.css';
 
     const handleSubmit = (values) => {
         
-        console.log(registerUser(values))
+        console.log(loginUser(values))
     };
      return (
-        <div className="container">
+        <div className="container_2">
             <div className="container_login">
                     <h1 className="text-center">Inscription</h1>
                     <Formik
