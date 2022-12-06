@@ -38,7 +38,7 @@ import './../assets/css/login.css';
 
     const handleSubmit = (values) => {
         
-        registerUser(values);
+        console.log(registerUser(values));
     };
      return (
         <div className="container">
