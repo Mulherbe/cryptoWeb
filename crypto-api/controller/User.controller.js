@@ -7,7 +7,7 @@ const userService = require('../services/User.service');
 const authorizeUser = require('../helper/authorize')
 
 // routes 
-router.get('/login', login);
+
 router.get('/admin', getAll);
 router.get('/:id',  getById);
 router.post('/create', createSchema, create);
@@ -35,17 +35,6 @@ function getById(req, res, next)
 function create(req, res, next)
 {
     userService.create(req.body).then(() => res.json({message: 'User created'})).catch(next);
-}
-
-function login(req, res, next)
-{
-    userService.authenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json(
-        { 
-            message: 'Email or password is incorrect' 
-        }
-    ))
-    .catch(err => next(err));
 }
 
 function update(req, res, next)
@@ -82,15 +71,6 @@ function updateSchema(req, res, next)
         email: Joi.string().email().lowercase().required(), 
         password: Joi.string().min(7).required().strict(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
-    });
-    validateRequest(req, next, schema);
-}
-
-function authDataSchema(req, res, next)
-{
-    const schema =  Joi.object({
-    email: Joi.string().email().lowercase().required(),
-    password: Joi.string().min(7).required().strict()
     });
     validateRequest(req, next, schema);
 }
