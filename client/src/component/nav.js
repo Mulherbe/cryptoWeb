@@ -51,7 +51,7 @@ const Nav = () => {
           <img src={logo} alt="Logo" className="logo"/>
         </Link>
         <div className="nav_link">
-          <Link className="nav_item" to="/">Acceuil</Link>
+          <Link className="nav_item" to="/">Accueil</Link>
           <Link   className="nav_item" to="/market">Market</Link> 
           {/* <Link  className="nav_item"  to="/news">News</Link>  */}
           <Link   className="nav_item" to="/profil">Profil</Link> 
