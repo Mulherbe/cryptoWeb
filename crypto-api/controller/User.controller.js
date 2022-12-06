@@ -7,7 +7,7 @@ const userService = require('../services/User.service');
 const authorizeUser = require('../helper/authorize')
 
 // routes 
-router.get('/login', authDataSchema, login);
+router.get('/login', login);
 router.get('/admin', authorizeUser(Role.Admin), getAll);
 router.get('/:id',  authorizeUser(), getById);
 router.post('/create', createSchema, create);

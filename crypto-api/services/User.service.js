@@ -8,7 +8,7 @@ module.exports = {
     getAll,
     getById,
     create,
-    login,
+    authenticate,
     update,
     delete: _delete,
     GetUserId
@@ -68,7 +68,7 @@ async function create(params)
 
     }
 }
-async function login(params)
+async function authenticate(params)
 {
     //vérifier que l'utilisateur existe
     const user = await db.Users.findOne({ where: { email: params.email } });
