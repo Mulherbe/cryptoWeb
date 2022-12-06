@@ -1,6 +1,5 @@
 var { expressjwt: jwt } = require("express-jwt");
 const { secret } = require('../config.json');
-const role = require('../helper/role');
 
 authorizeUser = (role=[]) => {
     //vérifier si le role est un tableau ou non et le convertir en tableau si ce n'est pas le cas 

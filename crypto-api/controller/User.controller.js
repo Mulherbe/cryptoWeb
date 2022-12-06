@@ -8,8 +8,8 @@ const authorizeUser = require('../helper/authorize')
 
 // routes 
 router.get('/login', login);
-router.get('/admin', authorizeUser(Role.Admin), getAll);
-router.get('/:id',  authorizeUser(), getById);
+router.get('/admin', getAll);
+router.get('/:id',  getById);
 router.post('/create', createSchema, create);
 router.put('/update/:id', updateSchema, update);
 router.delete('/delete/:id', _delete);
@@ -40,7 +40,11 @@ function create(req, res, next)
 function login(req, res, next)
 {
     userService.authenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password is incorrect' }))
+    .then(user => user ? res.json(user) : res.status(400).json(
+        { 
+            message: 'Email or password is incorrect' 
+        }
+    ))
     .catch(err => next(err));
 }
 

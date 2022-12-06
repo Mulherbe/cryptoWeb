@@ -68,28 +68,19 @@ async function create(params)
 
     }
 }
-async function authenticate(params)
+
+async function authenticate(email, password)
 {
-    //vérifier que l'utilisateur existe
-    const user = await db.Users.findOne({ where: { email: params.email } });
-    try{
-        if (user && bcrypt.compareSync(params.password, user.password))
-        {
-            // authentication successful
-            const token = jwt.sign({ sub: user.id, role: user.role }, config.secret, { expiresIn: '7d' });
-            
-            console.log('token', token);
-            return {
-                ...user.toJSON(),
-                token
-            };
-        }
-    } catch (err)
-        {
-            console.log(err)
-
-        }
-
+    const user = await db.Users.findOne({ where: { email } });
+    if (user && bcrypt.compareSync(password, user.password))
+    {
+        const { password, ...userWithoutPassword } = user;
+        const token = jwt.sign({ sub: user.id }, config.secret);
+        return {
+            ...userWithoutPassword,
+            token
+        };
+    }
 }
 
 
