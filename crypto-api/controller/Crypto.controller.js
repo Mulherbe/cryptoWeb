@@ -1,21 +1,22 @@
 const express = require('express');
-const { GetUserId } = require('../User/User.service');
-const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites } = require('./Crypto.service');
+const { GetUserId } = require('../services/User.service');
+const { getDefaultFavorites, getUserFavorites, getPrice, getPrices, tmpTest, getMarkets, setUserFavorites, setDefaultFavorites } = require('../services/Crypto.service');
 const router = express.Router();
 
 // routes
+// favorites
 router.post('/favorites', setDFavorites);
 router.get('/favorites', getDFavorites);
 router.post('/favorites/:id', setUFavorites);
 router.get('/favorites/:id', getFavorites);
-
+// prices
 router.get('/price', getCryptoPrice);
 router.get('/prices', getCryptoPrices);
-
+// markets
 router.get('/markets', getAllMarkets);
 module.exports = router;
-// functions
 
+// functions
 /// \brief Get the favorites of the user if he exists, the default favorites otherwise
 /// \param req The request
 /// \param res The response
@@ -71,7 +72,7 @@ async function setDFavorites(req, res, next)
     {
         // const userId = GetUserId(req.headers.authorization);
         const favorites = req.body.favorites;
-        const result = await getDefaultFavorites(favorites);
+        const result = await setDefaultFavorites(favorites);
         res.status(200).json(result);
     } catch (err)
     {

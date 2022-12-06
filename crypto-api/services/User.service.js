@@ -1,11 +1,15 @@
 const bcrypt = require('bcryptjs');
-const Role = require('helper/role');
-const db = require('helper/db');
+const Role = require('../helper/role');
+const db = require('../helper/db');
+
+
+
 
 module.exports = {
     getAll,
     getById,
     create,
+    login,
     update,
     delete: _delete,
     GetUserId
@@ -48,7 +52,7 @@ async function create(params)
         const user = new db.Users(params);
 
         // hash password
-        user.password = await bcrypt.hashSync(params.password, 10);
+        user.password = bcrypt.hashSync(params.password, 10);
         //mettre le role par defaut
         user.role = Role.User;
         //mettre created_at et updated_at à la date actuelle
@@ -65,6 +69,42 @@ async function create(params)
 
     }
 }
+async function login(params)
+{
+    //vérifier que l'utilisateur existe
+    const user = await db.Users.findOne({ where: { email: params.email } });
+    try{
+        if (user && bcrypt.compareSync(params.password, user.password))
+        {
+            // authentication successful
+            const token = jwt.sign({ sub: user.id, role: user.role }, config.secret, { expiresIn: '7d' });
+            
+            console.log('token', token);
+            return {
+                ...user.toJSON(),
+                token
+            };
+        }
+    } catch (err)
+        {
+            console.log(err)
+
+        }
+
+}
+
+async function authenticate({ username, password }) {
+    const user = db.Users.find(u => u.username === username && u.password === password);
+    if (user) {
+        const token = jwt.sign({ sub: user.id, role: user.role }, config.secret);
+        const { password, ...userWithoutPassword } = user;
+        return {
+            ...userWithoutPassword,
+            token
+        };
+    }
+}
+
 
 async function update(id, params)
 {
@@ -80,7 +120,7 @@ async function update(id, params)
     // hash password si il a été changé
     if (params.password)
     {
-        params.password = await bcrypt.hashSync(params.password);
+        params.password = bcrypt.hashSync(params.password);
     }
     //mettre updated_at à la date actuelle
     user.updated_at = Date.now();

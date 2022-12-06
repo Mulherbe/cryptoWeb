@@ -66,3 +66,15 @@
         width: 20%;
     }
 }
+
+.form_style{
+  display: flex;
+  flex-direction: column;
+}
+
+.error_form{
+  color: red;
+}
+.form_input{
+  border:1px solid black;
+}

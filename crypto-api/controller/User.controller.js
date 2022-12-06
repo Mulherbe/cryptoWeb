@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const validateRequest = require('middleware/validate-request');
-const Role = require('helper/role');
-const userService = require('./User.service');
+const validateRequest = require('../middleware/validate-request');
+const Role = require('../helper/role');
+const userService = require('../services/User.service');
 
 // routes 
-
 router.get('/', getAll);
 router.get('/:id', getById);
+router.post('/login', login);
 router.post('/create', createSchema, create);
 router.put('/update/:id', updateSchema, update);
 router.delete('/delete/:id', _delete);
@@ -16,7 +16,6 @@ router.delete('/delete/:id', _delete);
 module.exports = router;
 
 // function 
-
 function getAll(req, res, next)
 {
     userService.getAll()
@@ -34,6 +33,11 @@ function getById(req, res, next)
 function create(req, res, next)
 {
     userService.create(req.body).then(() => res.json({message: 'User created'})).catch(next);
+}
+
+function login(req, res, next)
+{
+    userService.login(req.body).then(() => res.json({message: 'User logged'})).catch(next);
 }
 
 function update(req, res, next)
@@ -78,8 +82,7 @@ function authDataSchema(req, res, next)
 {
     const schema =  Joi.object({
     email: Joi.string().email().lowercase().required(),
-    password: Joi.string().min(7).required().strict(),
-    confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict(),
+    password: Joi.string().min(7).required().strict()
     });
     validateRequest(req, next, schema);
 }
