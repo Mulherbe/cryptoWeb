@@ -31,27 +31,33 @@ app.get('/', (req, res, next) =>
 
 
 const utils = require('./model/Auth/utils');
-app.get('/api/auth', async(req, res) => {
-    try {
+app.get('/api/auth', async (req, res) =>
+{
+    try
+    {
         res.redirect(utils.request_get_auth_code_url);
-        } catch (error) {
-            res.sendStatus(500);
-            console.log(error.message);
-        }
+    } catch (error)
+    {
+        res.sendStatus(500);
+        console.log(error.message);
+    }
 });
 
-app.get('/api/callback', async (req, res) => {
+app.get('/api/callback', async (req, res) =>
+{
     const authorization_token = req.query.code;
     console.log('authorization_token', authorization_token);
-    try{
-        const response = await utils.get_access_token (authorization_token);
-        console.log ({data: response.data});
+    try
+    {
+        const response = await utils.get_access_token(authorization_token);
+        console.log({ data: response.data });
         const user_info = await utils.get_user_info(response.data);
         console.log('user_info', user_info);
-       // res.send(`Hello ${user_info.name}`);
-    } catch (error) {
-        res.sendStatus (500);
-        console.log (error.message);
+        // res.send(`Hello ${user_info.name}`);
+    } catch (error)
+    {
+        res.sendStatus(500);
+        console.log(error.message);
     }
 });
 //================================================================================================
@@ -143,10 +149,12 @@ const errorHandler = require('./middleware/error-handler');
 app.use(errorHandler);
 
 
+console.log(process.env.DB_PORT);
 const port = process.env.PORT || 5000;
 app.listen(port, () =>
 {
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
+
 
 require('./services/Crypto.service').updateMarkets();
