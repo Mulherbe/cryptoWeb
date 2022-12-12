@@ -14,7 +14,7 @@ export const registerUser = (values) => {
 }
 
 
-export const login = (values) => {
+export const loginUser = (values) => {
     return http.post('/users/create', {
         email: values.email,
         password: values.password,

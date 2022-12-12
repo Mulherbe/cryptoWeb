@@ -11,7 +11,7 @@ const Admin = () => {
     <>
         <div class="container">
       
-        <CryptoCurrencyMarket colorTheme="light" locale="fr" width="100%" height={1000}></CryptoCurrencyMarket>
+        <CryptoCurrencyMarket colorTheme="dark" locale="fr" width="100%" height={1000}></CryptoCurrencyMarket>
 
       </div>
   

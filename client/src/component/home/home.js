@@ -3,6 +3,7 @@ import './../../assets/css/style.css';
 import Crypto from './crypto'
 import News_home from './news_home'
 
+
 const Home = () => {
 
   return (
@@ -12,7 +13,7 @@ const Home = () => {
             <div class="container_crypto">
               <Crypto />
             </div>
-            <div class="container_news">
+            <div class="container_news" id="style-1">
               <News_home />
             </div>
           </div>

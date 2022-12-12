@@ -31,27 +31,33 @@ app.get('/', (req, res, next) =>
 
 
 const utils = require('./model/Auth/utils');
-app.get('/api/auth', async(req, res) => {
-    try {
+app.get('/api/auth', async (req, res) =>
+{
+    try
+    {
         res.redirect(utils.request_get_auth_code_url);
-        } catch (error) {
-            res.sendStatus(500);
-            console.log(error.message);
-        }
+    } catch (error)
+    {
+        res.sendStatus(500);
+        console.log(error.message);
+    }
 });
 
-app.get('/api/callback', async (req, res) => {
+app.get('/api/callback', async (req, res) =>
+{
     const authorization_token = req.query.code;
     console.log('authorization_token', authorization_token);
-    try{
-        const response = await utils.get_access_token (authorization_token);
-        console.log ({data: response.data});
+    try
+    {
+        const response = await utils.get_access_token(authorization_token);
+        console.log({ data: response.data });
         const user_info = await utils.get_user_info(response.data);
         console.log('user_info', user_info);
-       // res.send(`Hello ${user_info.name}`);
-    } catch (error) {
-        res.sendStatus (500);
-        console.log (error.message);
+        // res.send(`Hello ${user_info.name}`);
+    } catch (error)
+    {
+        res.sendStatus(500);
+        console.log(error.message);
     }
 });
 //================================================================================================
@@ -59,8 +65,10 @@ app.get('/api/callback', async (req, res) => {
 //controller
 const userController = require('./controller/User.controller');
 const cryptoController = require('./controller/Crypto.controller');
+const accountController = require('./controller/Account.controller');
 
 app.use('/api/users', userController);
+app.use('/api/login', accountController);
 app.use('/api/crypto', cryptoController);
 
 
@@ -148,5 +156,6 @@ app.listen(port, () =>
 {
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
+
 
 require('./services/Crypto.service').updateMarkets();
