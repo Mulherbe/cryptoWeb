@@ -5,7 +5,7 @@ const validateRequest = require('../middleware/validate-request');
 const Role = require('../helper/role');
 const userService = require('../services/User.service');
 const auth = require('../middleware/auth');
-const isRole = require('../middleware/Role');
+const isRole = require('../middleware/isRole');
 
 // routes 
 router.post('/authenticate', login);
