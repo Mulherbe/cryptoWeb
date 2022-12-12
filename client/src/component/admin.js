@@ -1,22 +1,25 @@
-import React , { useEffect } from 'react';
+import React , { useEffect} from 'react';
 import './../assets/css/style.css';
-// import bg from "../assets/img/bg.jpg"; 
-import SearchBar from '../component/home/searchBar';
-
+import CardFlux from './home/CardFlux';
+import CardCrpto2 from './home/CardListCrypto';
+import SearchBar from './home/searchBar';
+// import logo from '../../assets/img/logo.png';
 
 const Admin = () => {
-
-
   return (
     <>
-      <div class="container_search">
-
-      <div className='search'>
+          <div className='search'>
             <SearchBar/>
-      </div>  
-
-      </div>
-  
+          </div>        
+          <div className='container_admin'>
+              {/* <CardAdmin name='Liste Crypto : ' ></CardAdmin> */}
+              <CardCrpto2 name='Liste Crypto'></CardCrpto2>
+              <CardFlux name='Flux RSS : ' nft='ㅤNFT' btc='ㅤBTC' eth='ㅤETH' actu='ACTU'> </CardFlux>
+          
+          {/* <CardAdmin name="Utilisateur :" ></CardAdmin> */}
+          {/* <CardAdmin ></CardAdmin> */}
+          </div>
+        
     </>
   ); }
 

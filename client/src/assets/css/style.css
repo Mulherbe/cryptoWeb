@@ -61,12 +61,10 @@ body{
     margin-right: auto;
 
   }
-  .container_news{
+  .container_admin{
     width: 80%;
     margin:10%;
-    height: 80vh;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    height: 85vh;
     -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
     box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
     border-radius: 15px;
@@ -124,7 +122,7 @@ body{
     width: 80%;
     margin: 15px;
     background-color: rgba(43, 40, 212, 0.082);
-    height: 20vh;
+    height: 35vh;
     border-radius: 15px;
     padding: 15px;
   }
@@ -266,10 +264,10 @@ body{
       margin: 15px;
       /* height: 20vh; */
     }
-    .container_news{
+    /* .container_news{
       width: 30%;
       margin:0%;
-    }
+    } */
     .nav_container{
       top: 47px;
     }
