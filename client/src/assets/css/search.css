@@ -1,6 +1,7 @@
 input {
-    width: 60%;
+    width: 80%;
     caret-color: #74b6e6;
+    margin: auto;
 }
 
 .search-container {
@@ -9,10 +10,10 @@ input {
 }
     
 .search-inner {
-    margin-left: 400px;
-    margin-top: -1rem;
+    margin: auto;
+    margin-top: 4rem;
     align-items: center;
-    padding: .1rem;
+    width: 50%;
 }
 
 
