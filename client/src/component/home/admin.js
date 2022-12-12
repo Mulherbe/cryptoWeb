@@ -3,13 +3,10 @@ import '../../assets/css/style.css';
 import CardAdmin from './cardAdmin';
 import SearchBar from './searchBar';
 // import logo from '../../assets/img/logo.png';
-import Dark from './dark.js';
-
 
 const Admin = () => {
   return (
     <>
-          <Dark></Dark>
           <div className='search'>
             <SearchBar/>
           </div>        

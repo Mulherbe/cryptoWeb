@@ -23,7 +23,7 @@ function App() {
         <Route path="admin" element={<Admin />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="flux" element={<Flux/>} />
+        {/* <Route path="flux" element={<Flux/>} /> */}
 
     </Routes>
     </div>
