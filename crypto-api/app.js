@@ -65,10 +65,9 @@ app.get('/api/callback', async (req, res) =>
 //controller
 const userController = require('./controller/User.controller');
 const cryptoController = require('./controller/Crypto.controller');
-const accountController = require('./controller/Account.controller');
 
-app.use('/api/users', userController);
-app.use('/api/login', accountController);
+//callback route api user controller
+app.use('/api/user', userController);
 app.use('/api/crypto', cryptoController);
 
 
@@ -94,7 +93,6 @@ app.get('/api/rss/btc', async (req, res) =>
             })
         })
 })
-
 app.get('/api/rss/eth', async (req, res) =>
 {
     await fetchRssEth(url.ethRss)
@@ -110,7 +108,6 @@ app.get('/api/rss/eth', async (req, res) =>
             })
         })
 })
-
 app.get('/api/rss/actu', async (req, res) =>
 {
     await fetchRssActu(url.actuRss)
@@ -126,7 +123,6 @@ app.get('/api/rss/actu', async (req, res) =>
             })
         })
 })
-
 app.get('/api/rss/nft', async (req, res) =>
 {
     await fetchRssNft(url.nftRss)
@@ -143,9 +139,6 @@ app.get('/api/rss/nft', async (req, res) =>
         })
 })
 //fin route flux rss
-
-
-
 // middleware gestion erreur
 const errorHandler = require('./middleware/error-handler');
 app.use(errorHandler);

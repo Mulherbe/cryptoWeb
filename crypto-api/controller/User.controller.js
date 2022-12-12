@@ -4,19 +4,28 @@ const Joi = require('joi');
 const validateRequest = require('../middleware/validate-request');
 const Role = require('../helper/role');
 const userService = require('../services/User.service');
-const authorizeUser = require('../helper/authorize')
+const auth = require('../middleware/auth');
+const isRole = require('../middleware/Role');
 
 // routes 
+router.post('/authenticate', login);
+router.post('/register', createSchema, create);
+router.get('/', auth, isRole(Role.Admin), getAll);
+router.get('/:id', auth, isRole(Role.Admin), getById);
+router.put('/:id', auth, isRole(Role.Admin), updateSchema, update);
+router.delete('/:id', auth, isRole(Role.Admin), _delete);
 
-router.get('/admin', getAll);
-router.get('/:id',  getById);
-router.post('/create', createSchema, create);
-router.put('/update/:id', updateSchema, update);
-router.delete('/delete/:id', _delete);
+
 
 module.exports = router;
 
 // function 
+function login(req, res, next)
+{
+    userService.authenticate(req.body)
+        .then(user => res.json(user))
+        .catch(next);
+}
 
 function getAll(req, res, next)
 {

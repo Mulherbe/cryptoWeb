@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const Role = require('../helper/role');
 const db = require('../helper/db');
 const jwt = require('jsonwebtoken');
-const config = require('../config.json')
 
 module.exports = {
     getAll,
@@ -68,21 +67,30 @@ async function create(params)
 
     }
 }
-
-async function authenticate(email, password)
-{
-    const user = await db.Users.findOne({ where: { email } });
-    if (user && bcrypt.compareSync(password, user.password))
-    {
-        const { password, ...userWithoutPassword } = user;
-        const token = jwt.sign({ sub: user.id }, config.secret);
-        return {
-            ...userWithoutPassword,
-            token
-        };
-    }
-}
-
+async function authenticate (req, res, next) {
+    db.Users.findOne({ email: req.body.email })
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+            }
+            bcrypt.compare(req.body.password, user.password)
+                .then(valid => {
+                    if (!valid) {
+                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                    }
+                    res.status(200).json({
+                        userId: user._id,
+                        token: jwt.sign(
+                            { userId: user._id },
+                            process.env.SECRET_KEY,
+                            { expiresIn: '24h' }
+                        )
+                    });
+                })
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+};
 
 async function update(id, params)
 {
@@ -106,7 +114,6 @@ async function update(id, params)
     // copie params dans user et sauvegarde
     Object.assign(user, params);
     await user.save();
-
 }
 
 async function _delete(id)
