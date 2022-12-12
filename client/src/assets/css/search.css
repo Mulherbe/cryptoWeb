@@ -1,0 +1,36 @@
+input {
+    width: 170px;
+    caret-color: #74b6e6;
+}
+
+.search-container {
+    display: grid;
+    border: 2px solid black;
+    background-color: #74b6e6;
+
+}
+    
+.search-inner {
+    display: flex; 
+    margin-left: 500px;
+    align-items: center;
+    /* color: #74b6e6; */
+}
+
+.dropdown {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+  }
+
+.dropdown:empty {
+    border: none;
+}
+  
+.dropdown-row {
+    cursor: pointer;
+    text-align: start;
+    margin: 2px 0;
+}
+  
