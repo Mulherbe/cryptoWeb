@@ -47,6 +47,7 @@ body{
     /* background-size: cover; */
     padding-top: 2%;
   }
+  
   .container_home{
     flex-direction: column;
     /* background-color: #92d0fd50; */
@@ -75,6 +76,9 @@ body{
     background-color: rgba(26, 28, 43, 0.432);
  
 
+  }
+  .container_search{
+    height: 100vh;
   }
   #style-1::-webkit-scrollbar-track
 {

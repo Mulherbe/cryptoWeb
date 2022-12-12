@@ -1,28 +1,28 @@
 input {
-    width: 170px;
+    width: 80%;
     caret-color: #74b6e6;
+    margin: auto;
 }
 
 .search-container {
     display: grid;
-    border: 2px solid black;
-    background-color: #74b6e6;
 
 }
     
 .search-inner {
-    display: flex; 
-    margin-left: 500px;
+    margin: auto;
+    margin-top: 4rem;
     align-items: center;
-    /* color: #74b6e6; */
+    width: 50%;
 }
+
 
 .dropdown {
     background-color: white;
     display: flex;
     flex-direction: column;
     border: 1px solid gray;
-  }
+}
 
 .dropdown:empty {
     border: none;
@@ -33,4 +33,5 @@ input {
     text-align: start;
     margin: 2px 0;
 }
+  
   
