@@ -63,7 +63,7 @@ body{
   }
   .container_admin{
     width: 80%;
-    margin:10%;
+    margin: 10%;
     height: 85vh;
     -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
     box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
@@ -120,7 +120,8 @@ body{
   /* Card Admin */
   .container_CardAdmin{
     width: 80%;
-    margin: 15px;
+    margin: auto;
+    margin-bottom: 1%;
     background-color: rgba(43, 40, 212, 0.082);
     height: 35vh;
     border-radius: 15px;
