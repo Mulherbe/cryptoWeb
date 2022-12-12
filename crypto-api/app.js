@@ -65,8 +65,10 @@ app.get('/api/callback', async (req, res) =>
 //controller
 const userController = require('./controller/User.controller');
 const cryptoController = require('./controller/Crypto.controller');
+const accountController = require('./controller/Account.controller');
 
 app.use('/api/users', userController);
+app.use('/api/login', accountController);
 app.use('/api/crypto', cryptoController);
 
 
