@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+/*const Sequelize = require("sequelize");
 
 const dbuser = process.env.DB_USER;
 const dbpwd = process.env.DB_PWD;
@@ -22,3 +22,4 @@ sequelize.authenticate().then(() => {
 });
 module.exports = sequelize;
 
+*/

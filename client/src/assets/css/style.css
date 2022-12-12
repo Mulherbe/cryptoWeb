@@ -1,7 +1,6 @@
 
 body{
   background-image: linear-gradient(to right top, #2962ff, #3153d2, #3245a7, #2f377e, #282a57, #203259, #1d385a, #1e3e59, #005d7b, #007f93, #00a09d, #12c19a);  
-  overflow: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
@@ -105,7 +104,7 @@ body{
   .container_CardCrypto{
     width: 80%;
     margin: 15px;
-    background-color: rgba(26, 28, 43, 0.432);
+    background-color: rgba(26, 28, 43, 0.705);
     box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);
     border-radius: 15px;
     padding: 15px;
@@ -121,7 +120,8 @@ body{
 
   /* Page profil */
   .container_profil{
-    background-image: linear-gradient(to right top, #2a2936, #272633, #242330, #22212e, #1f1e2b, #1f1e2e, #201f32, #201f35, #24223f, #282648, #2c2952, #302c5c);   
+    background-color: rgba(26, 28, 43, 0.432);
+
     -webkit-box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25); 
     box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);    height:70% ;
     width: 80%;
@@ -222,13 +222,11 @@ body{
       min-height: 80vh;
       max-height: 100vh;
       width: 94%;
-      margin-left: 2%;
-      margin-right: 2%;
+      margin-left: 3%;
+      margin-right: 3%;
       display: flex;
       flex-direction: row;
-      border-radius: 20px;
-      padding: 20px;
-  
+      border-radius: 20px;  
     }
     .container_Crypto{
       display: flex;
