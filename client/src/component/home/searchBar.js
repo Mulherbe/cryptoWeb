@@ -17,7 +17,7 @@ export default function Search() {
       <div className="search-container">
         <div className="search-inner">
           <input type="text" value={value} onChange={onChange} />
-            <button onClick={() => onSearch(value)}>🔎Search🔍</button>
+            <button onClick={() => onSearch(value)}>🔍</button>
         </div>
         <div className="dropdown">
           {data

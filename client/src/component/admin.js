@@ -16,7 +16,7 @@ const Admin = () => {
 
   return (
     <>
-      <div class="container">
+      <div class="container_search">
 
       <div className='search'>
             <SearchBar/>
