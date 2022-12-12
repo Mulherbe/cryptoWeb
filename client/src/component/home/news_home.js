@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getActu } from '../../service/call_api/rss_service';
+import ReactLoading from 'react-loading';
+
 import '../../assets/css/style.css';
 import bing_qui_lin from '../../assets/img/ads/bing_qui_lin.png';
 import cybers from '../../assets/img/ads/cybers.png';
@@ -7,14 +9,8 @@ import fleurs from '../../assets/img/ads/fleurs.png';
 import poutres from '../../assets/img/ads/poutres.png';
 import sacs from '../../assets/img/ads/sacs.png';
 
-import ReactLoading from 'react-loading';
-
-const getAdvertise = () =>
-{
-  const ads = [bing_qui_lin, cybers, fleurs, poutres, sacs];
-  // get a random variable from the list ads
-  return ads[Math.floor(Math.random() * ads.length)];
-}
+const ads = [bing_qui_lin, cybers, fleurs, poutres, sacs];
+const getAdvertise = () => ads[Math.floor(Math.random() * ads.length)];
 
 const News_home = () =>
 {
