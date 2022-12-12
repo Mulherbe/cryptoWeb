@@ -1,0 +1,22 @@
+name: Mirroring
+run-name: Mirroring Into Epitech Repo
+on:
+  push:
+    branches:
+      - main
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    name: Mirroring Into Epitech Repo
+    steps:
+      - name: Push on remote repo and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd cryptoWeb && git pull && docker compose up --build -d && cd ..
+            cp -rf cryptoWeb/* T-WEB-700-NCE_10/
+            cd T-WEB-700-NCE_10/ && git add . && git commit -m "Mirroring Push" && git push

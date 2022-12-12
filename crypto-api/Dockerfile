@@ -1,15 +1,13 @@
-FROM node:16-alpine
+FROM node:lts-alpine
+WORKDIR /usr/src/app
 
-RUN npm install -g nodemon
+EXPOSE 3000
+ENV NODE_ENV=production
 
-WORKDIR /app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 
-COPY package.json .
-
-RUN npm install
+RUN npm install --production --silent && mv node_modules ../
 
 COPY . .
 
-EXPOSE 5000
-
-CMD ["npm","run","dev"]
+CMD ["npm", "start"]

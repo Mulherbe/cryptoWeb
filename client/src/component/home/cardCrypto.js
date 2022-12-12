@@ -1,27 +1,32 @@
-import React , { useEffect } from 'react';
+import React , { useEffect, useState } from 'react';
 import '../../assets/css/style.css';
 import { MiniChart } from "react-ts-tradingview-widgets";
 
+const CardCrypto = (props) => {
+        const [pass, setPass] = useState('1');
 
-const CardCrypto = () => {
 
-const cryptoDetails = () => {
-console.log('toto')}
+let cryptoSymbol = 'BINANCE:' + props.crypto.replace('/', '')
 
   return (
     <>
-
         <div className='container_CardCrypto'>
-        <div class="click_test"  onClick={cryptoDetails} >
+          {/* <div class="click_test"  onClick={cryptoDetails} >
+          </div> */}
+          <div id="minichart">
+            <MiniChart 
+              symbol={cryptoSymbol}
+              // trendLineColor="#E8F2FC"
+              // underlineColor="#65E1FF"
+              // underLineBottomColor="black"
+              dateRange="1D"
+              colorTheme="dark" 
+              isTransparent="light"
 
-</div>
-            <div>
-            <MiniChart symbol="BINANCE:BTCUSD"
-             colorTheme="light"  isTransparent="true" width="100%"></MiniChart>
-
-              </div>
+               width="100%"></MiniChart>                      
+          </div>
       </div>
-    </>
+    </> 
   ); }
 
 
