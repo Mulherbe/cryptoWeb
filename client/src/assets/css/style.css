@@ -64,7 +64,7 @@ body{
   .container_Card{
     width: 80%;
     margin: 10%;
-    height: 85vh;
+    height: 120vh;
     -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
     box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
     border-radius: 15px;
@@ -126,7 +126,17 @@ body{
     height: 35vh;
     border-radius: 15px;
     padding: 15px;
+  }  /* Card Users */
+  .container_CardUsers{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 1%;
+    background-color: rgba(43, 40, 212, 0.082);
+    height: 35vh;
+    border-radius: 15px;
+    padding: 15px;
   }
+  
   .click_test{
     /* position: absolute;
     height: 20vh;
