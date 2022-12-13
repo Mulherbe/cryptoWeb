@@ -70,7 +70,7 @@ const cryptoController = require('./controller/Crypto.controller');
 const authController = require('./controller/Auth.controller');
 //callback route api user controller
 app.use('/api/user', userController);
-app.use('api/', authController)
+app.use('api/auth', authController);
 app.use('/api/crypto', cryptoController);
 
 
