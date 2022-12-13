@@ -14,10 +14,12 @@ export default function Search() {
   };
 
   return (
-      <div className="search-container">
+<>
         <div className="search-inner">
-          <input type="text" value={value} onChange={onChange} />
-            <button onClick={() => onSearch(value)}>🔍</button>
+          <form>            
+            <input type="text" className='input-search' value={value} onChange={onChange} />
+              <button className='btn-search' onClick={() => onSearch(value)}><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
         </div>
         <div className="dropdown">
           {data
@@ -42,7 +44,7 @@ export default function Search() {
               </div>
             ))}
         </div>
-      </div>
+</>
   );
 }
 
