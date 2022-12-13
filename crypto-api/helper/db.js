@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const dbhost = process.env.DB_HOST;
 const dbport = process.env.DB_PORT;
 const dbuser = process.env.DB_USER;
-const dbpwd = process.env.DB_PWD || "db_password";
+const dbpwd = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 
 const usersModels = require('../model/User/User.model');
@@ -28,7 +28,10 @@ async function initialize()
         password: dbpwd,
         multipleStatements: true
     });
-    const [rows, fields] = await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
+    
+    //créer tables et champs si la db n'existe pas
+    await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
+    
     // connexion à la db
     const sequelize = new Sequelize(
         dbName,
@@ -38,20 +41,30 @@ async function initialize()
             host: dbhost,
             dialect: "mysql",
         }
-    );
-    sequelize.authenticate().then(() => {
-        console.log('🔥🔥Connection has been established successfully.🔥🔥'); 
-      }).catch((error) => {
-        console.error('🌕🌕🌕 Unable to connect to the database 🌕🌕🌕 : ', error); 
-      });
-
+        );
+        sequelize.authenticate().then(() => {
+            console.log('🔥🔥Connection has been established successfully.🔥🔥'); 
+          }).catch((error) => {
+            console.error('🌕🌕🌕 Unable to connect to the database 🌕🌕🌕 : ', error); 
+          });
     // initialisation des modèles   
     db.Users = usersModel(sequelize);
     db.Cryptos = cryptoModel(sequelize);
 
-    db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
-    db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
+    
+
+    //db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
+    //db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
+    
+    //relation entre les tables
+    //db.Users.hasMany(db.Cryptos, { foreignKey: 'user_id' });
+    //db.Cryptos.belongsTo(db.Users, { foreignKey: 'user_id' });
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });
+
+
+
+
+
 }

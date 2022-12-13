@@ -3,6 +3,9 @@ import http from '../api_call';
 export const getUser = () => {
     return http.get('/users');
 }
+export const getUserById = (id) => {
+    return http.get(`/users/${id}`);
+}
 
 export const registerUser = (values) => {
     return http.post('/users/create', {

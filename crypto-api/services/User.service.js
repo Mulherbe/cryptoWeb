@@ -2,17 +2,34 @@ const bcrypt = require('bcryptjs');
 const Role = require('../helper/role');
 const db = require('../helper/db');
 const jwt = require('jsonwebtoken');
-const config = require('../config.json')
 
 module.exports = {
     getAll,
     getById,
     create,
-    authenticate,
     update,
     delete: _delete,
     GetUserId
 };
+
+
+
+const message = {
+    ATT_NOT_EXIST: 'Attribut not exist in body of request.',
+}
+const where = {
+    ATT_NOT_EXIST: 'ClientController::create',
+}
+
+async function verifBodyOfCreate(body) {
+    if (!('username' in body) || !('email' in body) || !('password' in body))
+        throw {
+            where: where.ATT_NOT_EXIST,
+            message: message.ATT_NOT_EXIST
+        }
+}
+
+
 
 async function GetUserId(authorization)
 {
@@ -24,8 +41,6 @@ async function GetUserId(authorization)
 async function getAll()
 {
     const users = await db.Users.findAll();
-    console.log(users.every(user => user instanceof db.Users));
-    //console.log("All users:", JSON.stringify(users, null, 2));
     return users;
 }
 
@@ -48,8 +63,10 @@ async function create(params)
 {
     try
     {
+        await Promise.all([
+            verifBodyOfCreate(params),
+        ])
         const user = new db.Users(params);
-
         // hash password
         user.password = bcrypt.hashSync(params.password, 10);
         //mettre le role par defaut
@@ -57,42 +74,24 @@ async function create(params)
         //mettre created_at et updated_at à la date actuelle
         user.created_at = Date.now();
         user.updated_at = Date.now();
-
         // save user
+        console.log('user',user)
         await user.save();
-
 
     } catch (err)
     {
-        console.log(err)
-
+        console.log(err.message);
     }
 }
-
-async function authenticate(email, password)
-{
-    const user = await db.Users.findOne({ where: { email } });
-    if (user && bcrypt.compareSync(password, user.password))
-    {
-        const { password, ...userWithoutPassword } = user;
-        const token = jwt.sign({ sub: user.id }, config.secret);
-        return {
-            ...userWithoutPassword,
-            token
-        };
-    }
-}
-
-
 async function update(id, params)
 {
     const user = await db.Users.findByPk(id);
 
     // validation
-    const usernameChanged = params.email && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } }))
+    const usernameChanged = params.username && user.email !== params.email;
+    if (usernameChanged && await db.User.findOne({ where: { email: params.email } }))
     {
-        throw 'Username "' + params.username + '" is already taken';
+        throw 'Email "' + params.email + '" is already taken';
     }
 
     // hash password si il a été changé
@@ -106,7 +105,6 @@ async function update(id, params)
     // copie params dans user et sauvegarde
     Object.assign(user, params);
     await user.save();
-
 }
 
 async function _delete(id)

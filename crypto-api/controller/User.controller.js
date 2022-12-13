@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 const validateRequest = require('../middleware/validate-request');
-const Role = require('../helper/role');
 const userService = require('../services/User.service');
-const authorizeUser = require('../helper/authorize')
+const auth = require('../middleware/auth');
 
 // routes 
 
-router.get('/admin', getAll);
-router.get('/:id',  getById);
-router.post('/create', createSchema, create);
-router.put('/update/:id', updateSchema, update);
-router.delete('/delete/:id', _delete);
+router.post('/register', createSchema, create);
+router.get('/', auth.RoleAdmin,getAll);
+router.get('/:id', auth.isAuthenticated,getById);
+router.put('/update/:id', auth.RoleAdmin,updateSchema, update);
+router.delete('/delete/:id', auth.RoleAdmin, _delete);
 
 module.exports = router;
-
-// function 
 
 function getAll(req, res, next)
 {
@@ -51,6 +49,8 @@ function _delete(req, res, next)
         .catch(next);
 }
 
+
+
 // schema grace au module joi
 
 function createSchema(req, res, next)
@@ -74,3 +74,4 @@ function updateSchema(req, res, next)
     });
     validateRequest(req, next, schema);
 }
+

@@ -21,5 +21,5 @@ function users(sequelize)
     
 
 
-    return sequelize.define('User', attributes, options);
+    return sequelize.define('Users', attributes, options);
 }
