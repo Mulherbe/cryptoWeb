@@ -1,31 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const bcrypt = require('bcryptjs');
 const validateRequest = require('../middleware/validate-request');
-const Role = require('../helper/role');
 const userService = require('../services/User.service');
 const auth = require('../middleware/auth');
-const isRole = require('../middleware/isRole');
 
 // routes 
-router.post('/authenticate', login);
+
 router.post('/register', createSchema, create);
-router.get('/', auth, isRole(Role.Admin), getAll);
-router.get('/:id', auth, isRole(Role.Admin), getById);
-router.put('/:id', auth, isRole(Role.Admin), updateSchema, update);
-router.delete('/:id', auth, isRole(Role.Admin), _delete);
-
-
+router.get('/', auth.RoleAdmin,getAll);
+router.get('/:id', auth.isAuthenticated,getById);
+router.put('/update/:id', auth.RoleAdmin,updateSchema, update);
+router.delete('/delete/:id', auth.RoleAdmin, _delete);
 
 module.exports = router;
-
-// function 
-function login(req, res, next)
-{
-    userService.authenticate(req.body)
-        .then(user => res.json(user))
-        .catch(next);
-}
 
 function getAll(req, res, next)
 {
@@ -60,6 +49,8 @@ function _delete(req, res, next)
         .catch(next);
 }
 
+
+
 // schema grace au module joi
 
 function createSchema(req, res, next)
@@ -83,3 +74,4 @@ function updateSchema(req, res, next)
     });
     validateRequest(req, next, schema);
 }
+

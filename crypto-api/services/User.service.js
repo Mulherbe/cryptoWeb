@@ -7,11 +7,29 @@ module.exports = {
     getAll,
     getById,
     create,
-    authenticate,
     update,
     delete: _delete,
     GetUserId
 };
+
+
+
+const message = {
+    ATT_NOT_EXIST: 'Attribut not exist in body of request.',
+}
+const where = {
+    ATT_NOT_EXIST: 'ClientController::create',
+}
+
+async function verifBodyOfCreate(body) {
+    if (!('username' in body) || !('email' in body) || !('password' in body))
+        throw {
+            where: where.ATT_NOT_EXIST,
+            message: message.ATT_NOT_EXIST
+        }
+}
+
+
 
 async function GetUserId(authorization)
 {
@@ -23,8 +41,6 @@ async function GetUserId(authorization)
 async function getAll()
 {
     const users = await db.Users.findAll();
-    console.log(users.every(user => user instanceof db.Users));
-    //console.log("All users:", JSON.stringify(users, null, 2));
     return users;
 }
 
@@ -47,8 +63,10 @@ async function create(params)
 {
     try
     {
+        await Promise.all([
+            verifBodyOfCreate(params),
+        ])
         const user = new db.Users(params);
-
         // hash password
         user.password = bcrypt.hashSync(params.password, 10);
         //mettre le role par defaut
@@ -56,51 +74,24 @@ async function create(params)
         //mettre created_at et updated_at à la date actuelle
         user.created_at = Date.now();
         user.updated_at = Date.now();
-
         // save user
+        console.log('user',user)
         await user.save();
-
 
     } catch (err)
     {
-        console.log(err)
-
+        console.log(err.message);
     }
 }
-async function authenticate (req, res, next) {
-    db.Users.findOne({ email: req.body.email })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-            }
-            bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
-                    if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
-                    }
-                    res.status(200).json({
-                        userId: user._id,
-                        token: jwt.sign(
-                            { userId: user._id },
-                            process.env.SECRET_KEY,
-                            { expiresIn: '24h' }
-                        )
-                    });
-                })
-                .catch(error => res.status(500).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
-};
-
 async function update(id, params)
 {
     const user = await db.Users.findByPk(id);
 
     // validation
-    const usernameChanged = params.email && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } }))
+    const usernameChanged = params.username && user.email !== params.email;
+    if (usernameChanged && await db.User.findOne({ where: { email: params.email } }))
     {
-        throw 'Username "' + params.username + '" is already taken';
+        throw 'Email "' + params.email + '" is already taken';
     }
 
     // hash password si il a été changé

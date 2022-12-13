@@ -1,21 +1,67 @@
 const jwt = require('jsonwebtoken');
+const config = require("../helper/auth.config");
+const db = require("../helper/db");
+const Role = require('../helper/role');
 
-
-//create auth middleware to check if user is logged in or not with token
-const auth = async (req, res, next) => {
+exports.isAuthenticated = (req, res, next) => {
     try {
-        const token = req.header("Authorization");
-        if (!token) return res.status(400).json({ msg: "Invalid Authentication." });
-
-        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-            if (err) return res.status(400).json({ msg: "Invalid Authentication." });
-
-            req.user = user;
-            next();
-        });
-    } catch (err) {
-        return res.status(500).json({ msg: err.message });
+        const token = req.session.token
+        const decodedToken = jwt.verify(token, config.secret);
+        const userId = decodedToken.id;
+        if (req.session.id != userId) {
+            return res.status(403).send({ message: "Error on id" })
+        }
+        req.auth = {
+            userId: userId
+        };
+        next();
+    } catch (error) {
+        res.status(401).json({ error });
     }
-}
+};
 
-module.exports = auth;
+exports.loginClient = (req, res, next) => {
+    try {
+        db.Users.findOne({
+            email: req.body.email,
+        })
+            .exec((err, user) => {
+                if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                }
+                if (req.session.id != null) {
+                    return res.status(403).send({ message: "you are already loggin, try to log out" })
+                }
+                if (!user) {
+                    return res.status(404).send({ message: "User Not found." });
+                }
+                next();
+            });
+    } catch (error) {
+        res.status(401).json({ error });
+    }
+};
+
+
+exports.RoleUser = (req, res, next) => {
+    try {
+        if (req.session.role !== Role.User) {
+            return res.status(403).send({ message: "You are not Authorised to be here" })
+        }
+        next();
+    } catch (error) {
+        res.status(401).json({ error });
+    }
+};
+
+exports.RoleAdmin = (req, res, next) => {
+    try {
+        if (req.session.role !== Role.Admin) {
+            return res.status(403).send({ message: "You are not Authorised to be here" })
+        }
+        next();
+    } catch (error) {
+        res.status(401).json({ error });
+    }
+};

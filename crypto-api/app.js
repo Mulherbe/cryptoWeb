@@ -2,7 +2,9 @@ require('rootpath')();
 
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
 const app = express();
+const server = http.createServer(app);
 require('dotenv').config();
 
 app.use(express.json());
@@ -30,7 +32,7 @@ app.get('/', (req, res, next) =>
 });
 
 
-const utils = require('./model/Auth/utils');
+const utils = require('./model/OAuth2/utils');
 app.get('/api/auth', async (req, res) =>
 {
     try
@@ -145,7 +147,7 @@ app.use(errorHandler);
 
 
 const port = process.env.PORT || 5000;
-app.listen(port, () =>
+server.listen(port, () =>
 {
     console.log(`🚀 Server is running on port : ${port} 🚀`);
 });
