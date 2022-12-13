@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const config = require("../helper/auth.config")
 const jwt = require('jsonwebtoken');
 const db = require("../helper/db");
+const Role = require("../helper/role");
 
 module.exports = {
     authenticate,
@@ -9,11 +10,13 @@ module.exports = {
 };
 
 
-async function authenticate (req, res, next) {
+function authenticate (req, res) {
 
     try {
         db.Users.findOne({
-            email: req.body.email,
+                where: {
+                    email: req.body.email
+                }
         })
         .exec((err, user) => {
             if (err) {
@@ -33,7 +36,7 @@ async function authenticate (req, res, next) {
             });
             req.session.token = token;
             req.session.id = user.id;
-            req.session.role = "Client";
+            req.session.role = Role.User;
 
             console.log("Login succesfull");
 
@@ -44,15 +47,14 @@ async function authenticate (req, res, next) {
                 role: req.session.role
             });
         });
-        next();
 
     } catch (err) {
-        this.next(err);
+        console.log(err);
     }
 
 };
 
-async function Logout(req, res){
+function Logout(req, res){
     try {
         if (!req.session.id) {
             return res.status(403).send({ message: "you are not loggin, try to log in before log out" })
@@ -60,6 +62,6 @@ async function Logout(req, res){
         req.session = null;
         return res.status(200).send({ message: "You've been signed out!" });
     } catch (err) {
-        this.next(err);
+        console.log(err)
     }
 };

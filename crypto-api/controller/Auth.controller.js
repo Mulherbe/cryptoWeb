@@ -4,29 +4,17 @@ const Joi = require('joi');
 const auth = require('../middleware/auth.js');
 const authService = require('../services/Auth.service');
 
-router.post('/authenticate',authenticateSchema, authorize);
+router.post('/authenticate',authorize);
 router.post('/logout', LogoutClient);
 
 module.exports = router;
 
 async function authorize(req, res, next) {
-    try {
-        const { email, password } = req.body;
-        const user = await authService.authenticate({ email, password });
-        res.json(user);
-    } catch (err) {
-        next(err);
-    }
+   authService.authenticate(req.body).catch(next);
 }
 
 async function LogoutClient(req, res, next) {
-    try {
-        const { email, password } = req.body;
-        const user = await authService.Logout({ email, password });
-        res.json(user);
-    } catch (err) {
-        next(err);
-    }
+  authService.Logout(req.body).catch(next);
 }
 
 
