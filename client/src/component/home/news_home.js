@@ -8,8 +8,9 @@ import cybers from '../../assets/img/ads/cybers.png';
 import fleurs from '../../assets/img/ads/fleurs.png';
 import poutres from '../../assets/img/ads/poutres.png';
 import sacs from '../../assets/img/ads/sacs.png';
+import banc from '../../assets/img/ads/banc.png';
 
-const ads = [bing_qui_lin, cybers, fleurs, poutres, sacs];
+const ads = [bing_qui_lin, cybers, fleurs, poutres, sacs, banc];
 const getAdvertise = () => ads[Math.floor(Math.random() * ads.length)];
 
 const News_home = () =>
@@ -59,13 +60,19 @@ const News_home = () =>
   if (!actuTab || lock)
     return (
       <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <img src={advertise} alt="loading" className="loading_img" style={{ width: '100%', cursor: 'pointer' }} onClick={() =>
-        {
-          var doc = document.createElement('a');
-          doc.href = advertise;
-          doc.target = '_blank';
-          doc.click();
-        }} />
+        <img
+          src={advertise}
+          alt="loading"
+          className="loading_img"
+          style={{ height: '100%', width: '100%', cursor: 'pointer' }}
+          onClick={() =>
+          {
+            var doc = document.createElement('a');
+            doc.href = advertise;
+            doc.target = '_blank';
+            doc.click();
+          }}
+        />
       </div>
     );
   return (
