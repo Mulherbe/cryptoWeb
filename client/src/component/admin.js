@@ -14,14 +14,11 @@ const Admin = () => {
             <SearchBar/>
           </div>
           <div className='container_Card'>        
-              {/* <CardAdmin name='Liste Crypto : ' ></CardAdmin> */}
               <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
               <CardFlux name='Flux RSS : ' nft='ㅤNFT' btc='ㅤBTC' eth='ㅤETH' actu='ACTU'> </CardFlux>
               <CardUsers name="Utilisateur :" ></CardUsers>
           </div>
-          {/* <CardAdmin name="Utilisateur :" ></CardAdmin> */}
-          {/* <CardAdmin ></CardAdmin> */}
-          </div>
+      </div>
         
     </>
   ); }
