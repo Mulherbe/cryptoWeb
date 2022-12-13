@@ -4,7 +4,6 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const validateRequest = require('../middleware/validate-request');
 const userService = require('../services/User.service');
-<<<<<<< HEAD
 const auth = require('../middleware/auth');
 
 // routes 
@@ -17,22 +16,6 @@ router.delete('/delete/:id', auth.RoleAdmin, _delete);
 
 module.exports = router;
 
-=======
-const authorizeUser = require('../helper/authorize')
-
-// routes 
-
-router.get('/admin', getAll);
-router.get('/:id',  getById);
-router.post('/create', createSchema, create);
-router.put('/update/:id', updateSchema, update);
-router.delete('/delete/:id', _delete);
-
-module.exports = router;
-
-// function 
-
->>>>>>> 13c81ee0b83ca98045ca9dab7a2cb57487d2dc99
 function getAll(req, res, next)
 {
     userService.getAll()
@@ -91,7 +74,3 @@ function updateSchema(req, res, next)
     });
     validateRequest(req, next, schema);
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 13c81ee0b83ca98045ca9dab7a2cb57487d2dc99
