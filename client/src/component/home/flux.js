@@ -1,6 +1,6 @@
 import React , { useEffect } from 'react';
 import './../../assets/css/style.css';
-import NewsActu from './news_actu'
+import NewsActu from './news_nft'
 
 const Flux = () => {
 

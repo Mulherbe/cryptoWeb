@@ -4,6 +4,7 @@ import CardCrpto2 from './home/CardListCrypto';
 import CardUsers from './home/CardUser';
 import SearchBar from './home/searchBar';
 
+
 const Admin = () => {
   return (
     <>
@@ -13,7 +14,8 @@ const Admin = () => {
           </div>
           <div className='container_Card'>        
               <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
-              <CardFlux name='Flux RSS : ' nft='ㅤNFT' btc='ㅤBTC' eth='ㅤETH' actu='ACTU'> </CardFlux>
+              <CardFlux name='Flux RSS : ' nft='ㅤNFT' btc='ㅤBTC' eth='ㅤETH' actu='ACTU'> </CardFlux> 
+   
               <CardUsers name="Utilisateur :" ></CardUsers>
           </div>
       </div>

@@ -1,15 +1,15 @@
 import React , { useEffect, useState } from 'react';
-import {getActu} from '../../service/call_api/rss_service';
+import {getNFT} from '../../service/call_api/rss_service';
 import '../../assets/css/style.css';
 import ReactLoading from 'react-loading';
 
-const NewsActu = () => {
+const NewsNFT = () => {
 
-  const [actuTab, setActuTab] = useState();
+  const [NFTTab, setNFTTab] = useState();
   const [dateFr, setDateFr] = useState();
 
-  function createActu() {
-    getActu().then(response => setActuTab(
+  function createNFT() {
+    getNFT().then(response => setNFTTab(
       Object.keys(response.data).map((key, index) => {
         console.log('resp data', response.data)
         const date = new Date(response.data[key].date);
@@ -29,10 +29,10 @@ const NewsActu = () => {
   }
   
   useEffect(() => {
-    createActu()
+    createNFT()
   }, []);
   
-  if(!actuTab){
+  if(!NFTTab){
     return(
       <div className="container_loading">
         <ReactLoading type="spin"color='#92d1fd' className="size_load" height={500} />
@@ -42,9 +42,9 @@ const NewsActu = () => {
   return (
     <>
         <div>
-          {actuTab}
+          {NFTTab}
       </div>
     </>
   ); }
 
-export default NewsActu;
+export default NewsNFT;
