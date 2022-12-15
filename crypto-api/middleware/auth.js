@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const config = require("../helper/auth.config");
 const db = require("../helper/db");
-const Role = require('../helper/role');
-
+//const db = require("../helper/db");
+//const Role = require('../helper/role');
+/*
 exports.isAuthenticated = (req, res, next) => {
     try {
         const token = req.session.token
@@ -65,3 +66,95 @@ exports.RoleAdmin = (req, res, next) => {
         res.status(401).json({ error });
     }
 };
+
+*/
+
+
+verifyToken = (req, res, next) => {
+    let token = req.headers["x-access-token"];
+  
+    if (!token) {
+      return res.status(403).send({
+        message: "No token provided!"
+      });
+    }
+  
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({
+          message: "Unauthorized!"
+        });
+      }
+      req.userId = decoded.id;
+      next();
+    });
+  };
+  
+  isAdmin = (req, res, next) => {
+    db.Users.findByPk(req.userId).then(user => {
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "Admin") {
+            next();
+            return;
+          }
+        }
+  
+        res.status(403).send({
+          message: "Require Admin Role!"
+        });
+        return;
+      });
+    });
+  };
+  
+  isUser = (req, res, next) => {
+    db.Users.findByPk(req.userId).then(user => {
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "User") {
+            next();
+            return;
+          }
+        }
+  
+        res.status(403).send({
+          message: "Require User Role!"
+        });
+      });
+    });
+  };
+  
+isUserOrAdmin = (req, res, next) => {
+    db.Users.findByPk(req.userId).then(user => {
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "Admin") {
+            next();
+            return;
+          }
+          if(roles[i].name === "User") {
+            next();
+            return;
+          }
+        }
+        res.status(403).send({
+          message: "Require User or Admin Role!"
+        });
+      });
+    });
+  };async function authenticate(req, res, next)
+  {
+      authService.signin(req.body)
+      .then(() => res.json({message: 'User authenticated'}))
+      .catch(next);
+  }
+  
+  
+  const auth = {
+    verifyToken: verifyToken,
+    isAdmin: isAdmin,
+    isUser: isUser,
+    isUserOrAdmin: isUserOrAdmin
+  };
+  module.exports = auth;

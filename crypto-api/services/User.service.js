@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Role = require('../helper/role');
 const db = require('../helper/db');
-const jwt = require('jsonwebtoken');
+
 
 module.exports = {
     getAll,
@@ -15,20 +15,19 @@ module.exports = {
 
 
 const message = {
-    ATT_NOT_EXIST: 'Attribut not exist in body of request.',
+    ATT_NOT_EXIST: 'Attribut not exist in params.',
 }
 const where = {
-    ATT_NOT_EXIST: 'ClientController::create',
+    ATT_NOT_EXIST: 'UserController::create',
 }
 
-async function verifBodyOfCreate(body) {
-    if (!('username' in body) || !('email' in body) || !('password' in body))
+async function verifBodyOfCreate(params) {
+    if (!('username' in params) || !('email' in params) || !('password' in params))
         throw {
             where: where.ATT_NOT_EXIST,
             message: message.ATT_NOT_EXIST
         }
 }
-
 
 
 async function GetUserId(authorization)
@@ -61,6 +60,8 @@ async function getById(id)
 
 async function create(params)
 {
+    //date de création et de modification
+    
     try
     {
         await Promise.all([
@@ -72,8 +73,8 @@ async function create(params)
         //mettre le role par defaut
         user.role = Role.User;
         //mettre created_at et updated_at à la date actuelle
-        user.created_at = Date.now();
-        user.updated_at = Date.now();
+        user.created_at = Date.now().format('dd-mm-yyyy');
+        user.updated_at = Date.now().formt('dd-mm-yyyy');
         // save user
         console.log('user',user)
         await user.save();
@@ -112,3 +113,4 @@ async function _delete(id)
     const user = await getById(id);
     await user.destroy();
 }
+

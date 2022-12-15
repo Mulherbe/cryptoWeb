@@ -1,26 +1,18 @@
 require('rootpath')();
-
+require('dotenv').config();
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const http = require('http');
-const app = express();
 const server = http.createServer(app);
-require('dotenv').config();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-/*var corsOptions = {
-    baseUrl : 'http://localhost:3000/',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-}
-*/
-
-// Make public static folder
+app.use(express.text({ type: 'text/plain' }));
+app.use(express.json({ type: 'application/json' }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+
+app.use(cors());
+// Make public static folder
 
 //================================================================================================
 //===================================== ROUTES OAuth2 GoogleAPI ==================================
@@ -70,7 +62,7 @@ const cryptoController = require('./controller/Crypto.controller');
 const authController = require('./controller/Auth.controller');
 //callback route api user controller
 app.use('/api/user', userController);
-app.use('/api', authController);
+app.use('/api/login', authController);
 app.use('/api/crypto', cryptoController);
 
 
