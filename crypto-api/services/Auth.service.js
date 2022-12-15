@@ -7,7 +7,7 @@ module.exports = {
     signin
 };
 
-async function signin(params) {
+async function signin(params,res) {
 
   const {email, password } = params;
   try{
@@ -23,18 +23,18 @@ async function signin(params) {
 
             if (isSame) {
 
-              let token = jwt.sign({ id: user.id }, config.secret, {
+              var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 1 * 24 * 60 * 60 * 1000,
               }); 
-                
-              console.log('password ok')
-              console.log('token',token);  
-              console.log(`🔥 Welcome ${user.username} you re logged 🔥`);
-              return {
-                  ...user.toJSON(),
-                  token,
-              };
-            } 
+            }  else {
+              console.log("🌕🌕 Sorry password is incorrect ! 🌕🌕"); 
+            }
+            
+          }
+          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥');
+          return {
+            ...user.toJSON(),
+            token
           }
         })
 
