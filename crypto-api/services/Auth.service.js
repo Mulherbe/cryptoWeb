@@ -31,12 +31,10 @@ async function signin(params) {
             }
             
           }
-          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥 your token is : ' + token + ' 🔥🔥');
-          return {
-            ...user.toJSON(),
-            token,
-            
-          }
+          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥');
+          console.log(JSON.stringify({UserData : user}));
+          console.log(JSON.stringify({access_token: token}));
+          return JSON.stringify({userData: user} , {access_token: token});
         })
 
     } catch (err)
