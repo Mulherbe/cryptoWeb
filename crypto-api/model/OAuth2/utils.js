@@ -37,7 +37,10 @@ const get_access_token = async (authorization_token) => {
 const get_user_info = async (access_token) => {
   return await axios({
     method: 'get',
-    url: url_profile_data
+    url: url_profile_data,
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
   });
 };
 

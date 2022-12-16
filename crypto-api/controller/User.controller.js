@@ -10,7 +10,6 @@ const {auth} = require('../middleware/index');
 router.post('/register', createSchema, create);
 
 router.get('/', auth.verifyToken ,auth.isAdmin ,getAll);
-router.post('/login', authenticate);
 router.get('/:id', auth.verifyToken,auth.isUserOrAdmin,getById);
 router.put('/update/:id', auth.verifyToken,auth.isAdmin,updateSchema, update);
 router.delete('/delete/:id', auth.verifyToken,auth.isAdmin, _delete);
@@ -43,12 +42,7 @@ function update(req, res, next)
         .catch(next);
 }
 
-async function authenticate(req, res, next)
-{
-    userService.signin(req.body)
-    .then(() => res.json({message: 'User authenticated'}))
-    .catch(next);
-}
+
 
 
 function _delete(req, res, next)

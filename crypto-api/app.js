@@ -14,17 +14,19 @@ app.use(express.static("public"));
 app.use(cors());
 // Make public static folder
 
-//================================================================================================
-//===================================== ROUTES OAuth2 GoogleAPI ==================================
+//===================================== ROUTES API HOME==================================
 
-//route api
 app.get('/', (req, res, next) =>
 {
     res.send('Bienvenue sur l\'api de cryptoTech');
 });
 
 
+//================================================================================================
+//===================================== ROUTES OAuth2 GoogleAPI ==================================
+
 const utils = require('./model/OAuth2/utils');
+
 app.get('/api/auth', async (req, res) =>
 {
     try
@@ -47,13 +49,15 @@ app.get('/api/callback', async (req, res) =>
         console.log({ data: response.data });
         const user_info = await utils.get_user_info(response.data);
         console.log('user_info', user_info);
-        // res.send(`Hello ${user_info.name}`);
+        res.send(`Hello ${user_info.name}`);
     } catch (error)
     {
         res.sendStatus(500);
         console.log(error.message);
     }
 });
+
+
 //================================================================================================
 //===================================== ROUTES API ===============================================
 //controller
@@ -133,6 +137,8 @@ app.get('/api/rss/nft', async (req, res) =>
             })
         })
 })
+
+
 //fin route flux rss
 // middleware gestion erreur
 const errorHandler = require('./middleware/error-handler');

@@ -49,12 +49,14 @@ async function getById(id)
     if (user === null)
     {
         console.log('Not found!');
+        
     } else
     {
         console.log(user instanceof db.Users); // true
         console.log("The user's name is", user.username);
 
     }
+
     return user;
 }
 
@@ -70,11 +72,11 @@ async function create(params)
         const user = new db.Users(params);
         // hash password
         user.password = bcrypt.hashSync(params.password, 10);
-        //mettre le role par defaut
-        user.role = Role.User;
+        //mettre le role par defaut a user sauf si l'email est admin@test.fr
+        (user.email == 'admin@test.fr') ? user.role = Role.Admin : user.role = Role.User;
         //mettre created_at et updated_at à la date actuelle
-        user.created_at = Date.now().format('dd-mm-yyyy');
-        user.updated_at = Date.now().formt('dd-mm-yyyy');
+        user.created_at = Date.now('dd-mm-yyyy');
+        user.updated_at = Date.now('dd-mm-yyyy');
         // save user
         console.log('user',user)
         await user.save();

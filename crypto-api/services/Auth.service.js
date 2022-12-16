@@ -7,7 +7,7 @@ module.exports = {
     signin
 };
 
-async function signin(params,res) {
+async function signin(params) {
 
   const {email, password } = params;
   try{
@@ -31,10 +31,11 @@ async function signin(params,res) {
             }
             
           }
-          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥');
+          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥 your token is : ' + token + ' 🔥🔥');
           return {
             ...user.toJSON(),
-            token
+            token,
+            
           }
         })
 

@@ -10,6 +10,6 @@ module.exports = router;
 async function authenticate(req, res, next)
 {
     authService.signin(req.body)
-    .then(user=> res.json(user))
+    .then(user => res.json(user))
     .catch(next);
 }
