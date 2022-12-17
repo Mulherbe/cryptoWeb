@@ -53,8 +53,8 @@ async function initialize()
 
     
 
-    //db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
-    //db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
+    db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
+    db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
     
     //relation entre les tables
     //db.Users.hasMany(db.Cryptos, { foreignKey: 'user_id' });

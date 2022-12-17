@@ -1,38 +1,32 @@
 require('rootpath')();
-
+require('dotenv').config();
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const http = require('http');
-const app = express();
 const server = http.createServer(app);
-require('dotenv').config();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-/*var corsOptions = {
-    baseUrl : 'http://localhost:3000/',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-}
-*/
-
-// Make public static folder
+app.use(express.text({ type: 'text/plain' }));
+app.use(express.json({ type: 'application/json' }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
-//================================================================================================
-//===================================== ROUTES OAuth2 GoogleAPI ==================================
+app.use(cors());
+// Make public static folder
 
-//route api
+//===================================== ROUTES API HOME==================================
+
 app.get('/', (req, res, next) =>
 {
     res.send('Bienvenue sur l\'api de cryptoTech');
 });
 
 
+//================================================================================================
+//===================================== ROUTES OAuth2 GoogleAPI ==================================
+
 const utils = require('./model/OAuth2/utils');
+
 app.get('/api/auth', async (req, res) =>
 {
     try
@@ -55,13 +49,15 @@ app.get('/api/callback', async (req, res) =>
         console.log({ data: response.data });
         const user_info = await utils.get_user_info(response.data);
         console.log('user_info', user_info);
-        // res.send(`Hello ${user_info.name}`);
+        res.send(`Hello ${user_info.name}`);
     } catch (error)
     {
         res.sendStatus(500);
         console.log(error.message);
     }
 });
+
+
 //================================================================================================
 //===================================== ROUTES API ===============================================
 //controller
@@ -70,7 +66,7 @@ const cryptoController = require('./controller/Crypto.controller');
 const authController = require('./controller/Auth.controller');
 //callback route api user controller
 app.use('/api/user', userController);
-app.use('/api', authController);
+app.use('/api/login', authController);
 app.use('/api/crypto', cryptoController);
 
 
@@ -141,6 +137,8 @@ app.get('/api/rss/nft', async (req, res) =>
             })
         })
 })
+
+
 //fin route flux rss
 // middleware gestion erreur
 const errorHandler = require('./middleware/error-handler');

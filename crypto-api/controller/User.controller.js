@@ -4,15 +4,15 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const validateRequest = require('../middleware/validate-request');
 const userService = require('../services/User.service');
-const auth = require('../middleware/auth');
-
+const {auth} = require('../middleware/index');
 // routes 
 
 router.post('/register', createSchema, create);
-router.get('/', auth.RoleAdmin,getAll);
-router.get('/:id', auth.isAuthenticated,getById);
-router.put('/update/:id', auth.RoleAdmin,updateSchema, update);
-router.delete('/delete/:id', auth.RoleAdmin, _delete);
+
+router.get('/', auth.verifyToken ,auth.isAdmin ,getAll);
+router.get('/:id', auth.verifyToken,auth.isUserOrAdmin,getById);
+router.put('/update/:id', auth.verifyToken,auth.isAdmin,updateSchema, update);
+router.delete('/delete/:id', auth.verifyToken,auth.isAdmin, _delete);
 
 module.exports = router;
 
@@ -32,7 +32,7 @@ function getById(req, res, next)
 
 function create(req, res, next)
 {
-    userService.create(req.body).then(() => res.json({message: 'User created'})).catch(next);
+    userService.create(req.body).then((user) => res.json(user)).catch(next);
 }
 
 function update(req, res, next)
@@ -41,6 +41,9 @@ function update(req, res, next)
         .then(() => res.json({ message: 'User updated' }))
         .catch(next);
 }
+
+
+
 
 function _delete(req, res, next)
 {
