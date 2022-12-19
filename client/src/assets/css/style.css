@@ -278,6 +278,17 @@ body{
       display: block;
       width: 10%;
     }
+
+    .button_home{
+      margin-left: 1em;
+      background-color: #92d1fd;
+      border-radius: 40px;
+      padding: 1px 1px ;
+      color: white;
+      text-decoration: none;
+      width: 20%;
+      height: 2.5%;
+    }
     .container_profil{
       width: 60%;
       margin-left: 20%;
