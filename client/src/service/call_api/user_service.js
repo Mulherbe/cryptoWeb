@@ -18,7 +18,7 @@ export const registerUser = (values) => {
 
 
 export const loginUser = (values) => {
-    return http.post('/user/login', {
+    return http.post('/user/login/', {
         email: values.email,
         password: values.password,
       });
