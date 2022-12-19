@@ -10,7 +10,7 @@ import Login from './component/login'
 import Register from './component/register'
 import Market from './component/market'
 
-import Test from "./component/LoginRegister";
+import LoginRegister from "./component/LoginRegister";
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
         <Route path="admin" element={<Admin />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="test" element={<Test/>} />
+        <Route path="loginregister" element={<LoginRegister/>} />
 
     </Routes>
     </div>
