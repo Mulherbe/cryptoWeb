@@ -223,6 +223,20 @@ body{
     color: #101b24;
     
   }
+  .container_news{
+    width: 80%;
+    margin:10%;
+    height: 80vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    background: rgba(245, 245, 245, 0.301);
+    -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
+    box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
+    border-radius: 15px;
+    padding:1%;
+    color:white;
+    border: 1px solid #CDE6F5;
+  }
   .container_loading{
     margin-left:30%;
     margin-right:30%;
@@ -291,10 +305,10 @@ body{
       margin: 15px;
       /* height: 20vh; */
     }
-    /* .container_news{
+    .container_news{
       width: 30%;
       margin:0%;
-    } */
+    }
     .nav_container{
       top: 47px;
     }
