@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../../assets/css/search.css';
-var data = require("./DATA.json");
+import http from '../../service/api_call';
 
 export default function Search() {
   const [value, setValue] = useState("");
+  const [datas, setDatas] = useState([]);
 
   const onChange = (event) => {
     setValue(event.target.value);
@@ -12,18 +13,33 @@ export default function Search() {
   const onSearch = (searchTerm) => {
     setValue(searchTerm);
   };
+  
+  useEffect(() => {
+    const fetchDatas = async () => {
+      const tmp = await http.get('/crypto/markets');
+      if (tmp.status === 200)
+        setDatas(tmp.data);
+    } 
+    fetchDatas();   
+  }, [])
+ 
+
+  if  (datas === null || datas === undefined ||datas === [])
+    return (<div></div>);
 
   return (
-      <div className="search-container">
-        <div className="search-inner">
-          <input type="text" value={value} onChange={onChange} />
-            <button onClick={() => onSearch(value)}>🔍</button>
+    <>
+      <div className="search-inner">
+          <form>            
+            <input type="text" className='input-search' value={value} onChange={onChange} />
+              <button className='btn-search' onClick={() => onSearch(value)}><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
         </div>
         <div className="dropdown">
-          {data
+          {datas
             .filter((item) => {
               const searchTerm = value.toLowerCase();
-              const fullName = item.full_name.toLowerCase();
+              const fullName = item.pair.toLowerCase();
 
               return (
                 searchTerm &&
@@ -34,15 +50,15 @@ export default function Search() {
             .slice(0, 10)
             .map((item) => (
               <div
-                onClick={() => onSearch(item.full_name)}
+                onClick={() => onSearch(item.pair)}
                 className="dropdown-row"
-                key={item.full_name}
+                key={item.pair}
               >
-                {item.full_name}
+                {item.pair}
               </div>
             ))}
         </div>
-      </div>
+    </>
   );
 }
 
