@@ -34,7 +34,7 @@ const CardFlux = (props) => {
        <table>
         <tr>
           <th> 
-            <div class="container_news" id="style-1">
+            <div id="style-1">
               {actuActive && <td><NewsActu/></td>}
               {nftActive && <td><NewsNFT/> </td>}
               {btcActive && <td><NewsBTC/></td>}
