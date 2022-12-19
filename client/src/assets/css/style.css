@@ -61,12 +61,10 @@ body{
     margin-right: auto;
 
   }
-  .container_news{
+  .container_Card{
     width: 80%;
-    margin:10%;
-    height: 80vh;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+    margin: 10%;
+    height: 120vh;
     -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
     box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
     border-radius: 15px;
@@ -76,6 +74,21 @@ body{
     background-color: rgba(26, 28, 43, 0.432);
  
 
+  }
+  .container_tabFlux{
+    width: 75%;
+    margin: 20%;
+    margin-top: -20%;
+    height: 25vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
+    box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
+    border-radius: 15px;
+    padding:1%;
+    color:white;
+    border: 1px solid #CDE6F5;
+    background-color: rgba(26, 28, 43, 0.432);
   }
   .container_search{
     height: 100vh;
@@ -104,6 +117,11 @@ body{
     display: flex;
     flex-direction: column;
   }
+  /* Admin */
+  .container_flux{
+    display: flex;
+    flex-direction: column;
+  }
   /* Card Crypto */
   .container_CardCrypto{
     width: 80%;
@@ -114,6 +132,26 @@ body{
     padding: 15px;
     
   }
+  /* Card Admin */
+  .container_CardAdmin{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 1%;
+    background-color: rgba(43, 40, 212, 0.082);
+    height: 35vh;
+    border-radius: 15px;
+    padding: 15px;
+  }  /* Card Users */
+  .container_CardUsers{
+    width: 80%;
+    margin: auto;
+    margin-bottom: 1%;
+    background-color: rgba(43, 40, 212, 0.082);
+    height: 35vh;
+    border-radius: 15px;
+    padding: 15px;
+  }
+  
   .click_test{
     /* position: absolute;
     height: 20vh;
@@ -121,7 +159,6 @@ body{
     z-index: 999;
     cursor:pointer; */
   }
-
   /* Page profil */
   .container_profil{
     background-color: rgba(26, 28, 43, 0.432);
@@ -217,6 +254,16 @@ body{
       font-size: 1.2em;
       border: solid 1px #CDE6F5;
     }
+    .nav_button{
+      margin-left: 5vw;
+      background-color: #92d1fd;
+      border-radius: 40px;
+      padding: 10px 20px ;
+      color: white;
+      text-decoration: none;
+      display: block;
+      width: 10%;
+    }
     .container_profil{
       width: 60%;
       margin-left: 20%;
@@ -244,10 +291,10 @@ body{
       margin: 15px;
       /* height: 20vh; */
     }
-    .container_news{
+    /* .container_news{
       width: 30%;
       margin:0%;
-    }
+    } */
     .nav_container{
       top: 47px;
     }
