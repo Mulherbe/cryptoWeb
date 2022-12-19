@@ -1,46 +1,49 @@
 import React , { useState } from 'react';
-import { render } from 'react-dom';
 import '../../assets/css/style.css';
 
 
-import News_home from './news_home';
-import NewsNFT from './news_nft';
+import NewsActu from './news_Actu';
+import NewsNFT from './news_NFT';
 import NewsBTC from './news_BTC';
 import NewsETH from './news_ETH';
 
-function CardFlux(props) {
-  render() 
-    const [showCard, setShowCard] = useState(false); 
+const CardFlux = (props) => {
+
+  const [actuActive, setActuActive] = useState(false); 
+  const [nftActive, setnftActive] = useState(false);
+  const [btcActive, setbtcActive] = useState(false); 
+  const [ethActive, setethActive] = useState(false); 
+
+  function printFlux() {
+    setActuActive(!actuActive)
+    setnftActive(!nftActive)
+    setbtcActive(!btcActive)
+    setethActive(!ethActive)
+  }
     
   return (
     <div className='container_CardAdmin'>
-      <h2> <u>{props.name}</u></h2>
+      <h2><u>{props.name}</u></h2>
       <div className='container_button'>
-        <button type="button" className="nav_button" onClick={() => setShowCard(true)} >{props.actu}</button>
-        {showCard && <News_home />}
-        <button type="button" className="nav_button">{props.btc}</button>
-        <button type="button" className="nav_button">{props.eth}</button>
-        <button type="button" className="nav_button">{props.nft}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.actu}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.btc} </button>
+        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.eth}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.nft}</button>
       </div>
-      {/* <div className='container_tabFlux'>          
-       {/* <table>
+      <div className='container_tabFlux'>          
+       <table>
         <tr>
           <th> 
             <div class="container_news" id="style-1">
-
-              <td><News_home/></td>
-              {/* 
-                <NewsNFT/> 
-                <NewsBTC/>
-                <NewsETH/>              
-              
-
-
+              {actuActive && <td><NewsActu/></td>}
+              {nftActive && <td><NewsNFT/> </td>}
+              {btcActive && <td><NewsBTC/></td>}
+              {ethActive && <td><NewsETH/></td>}
             </div>
           </th>
         </tr>
       </table> 
-      </div> */}
+      </div> 
     </div>  
     );
   }
