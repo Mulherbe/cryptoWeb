@@ -79,7 +79,10 @@ async function create(params)
         user.updated_at = Date.now('dd-mm-yyyy');
         // save user
         console.log('user',user)
+        console.log('User created !');
         await user.save();
+
+        return user;
 
     } catch (err)
     {

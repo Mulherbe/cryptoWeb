@@ -78,12 +78,4 @@ function updateSchema(req, res, next)
     validateRequest(req, next, schema);
 }
 
-function authSchema (req, res, next)
-{
-    const schema = Joi.object({
-        email: Joi.string().email().lowercase().required(),
-        password: Joi.string().min(7).required().strict(),
-    });
-    validateRequest(req, next, schema);
-}   
 

@@ -51,17 +51,12 @@ async function initialize()
     db.Users = usersModel(sequelize);
     db.Cryptos = cryptoModel(sequelize);
 
-    
-
     db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
     db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
-    
-    //relation entre les tables
-    //db.Users.hasMany(db.Cryptos, { foreignKey: 'user_id' });
-    //db.Cryptos.belongsTo(db.Users, { foreignKey: 'user_id' });
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });
+
 
 
 
