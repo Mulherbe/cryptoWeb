@@ -1,7 +1,6 @@
 import React , { useState } from 'react';
 import '../../assets/css/style.css';
 
-
 import NewsActu from './news_Actu';
 import NewsNFT from './news_NFT';
 import NewsBTC from './news_BTC';
@@ -9,39 +8,28 @@ import NewsETH from './news_ETH';
 
 const CardFlux = (props) => {
 
-  const [actuActive, setActuActive] = useState(false); 
-  const [nftActive, setnftActive] = useState(false);
-  const [btcActive, setbtcActive] = useState(false); 
-  const [ethActive, setethActive] = useState(false); 
 
-  function printFlux() {
-    setActuActive(!actuActive)
-    setnftActive(!nftActive)
-    setbtcActive(!btcActive)
-    setethActive(!ethActive)
+  const [fluxActive, setfluxActive] = useState(true); 
+
+  function printFlux(select) {
+    setfluxActive(select)
   }
     
   return (
     <div className='container_CardAdmin'>
       <h2><u>{props.name}</u></h2>
       <div className='container_button'>
-        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.actu}</button>
-        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.btc} </button>
-        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.eth}</button>
-        <button type="button" className="nav_button" onClick={() => printFlux()} >{props.nft}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux(1)} >{props.actu}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux(2)} >{props.btc} </button>
+        <button type="button" className="nav_button" onClick={() => printFlux(3)} >{props.eth}</button>
+        <button type="button" className="nav_button" onClick={() => printFlux(4)} >{props.nft}</button>
       </div>
-      <div className='container_tabFlux'>          
+      <div className='container_tabFlux' id="style-1">          
        <table>
-        <tr>
-          <th> 
-            <div class="container_news" id="style-1">
-              {actuActive && <td><NewsActu/></td>}
-              {nftActive && <td><NewsNFT/> </td>}
-              {btcActive && <td><NewsBTC/></td>}
-              {ethActive && <td><NewsETH/></td>}
-            </div>
-          </th>
-        </tr>
+          {fluxActive == 1 && <NewsActu/>}
+          {fluxActive == 2 && <NewsNFT/> }
+          {fluxActive == 3 && <NewsBTC/>}
+          {fluxActive == 4 && <NewsETH/>}
       </table> 
       </div> 
     </div>  

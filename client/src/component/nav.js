@@ -4,7 +4,7 @@ import logo from './../assets/img/logo.png';
 import { NavLink } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { TickerTape } from "react-ts-tradingview-widgets";
-// import Dark from '../component/home/dark.js';
+
   
 
 const Nav = () => {
