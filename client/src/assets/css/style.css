@@ -280,6 +280,33 @@ body{
       margin-left: 20%;
       margin-right: 20%;
     }
+
+    .container_login-register{
+      background-color: rgba(26, 28, 43, 0.432);
+      -webkit-box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25); 
+      box-shadow: 2px 5px 19px 1px rgba(0,0,0,0.25);    
+      height:15% ;
+      width: 30%;
+      margin: auto;
+      display: flex;
+      border-radius: 40px;
+      color:white;
+    }
+
+    .nav_login-register{
+      margin: auto;
+      border-radius: 40px;
+      padding: 8px 20px ;
+      color: white;
+      text-decoration: none;
+      display: block;
+      font-size: 1.2em;
+      height: 25% ;
+      width: 20%;
+      border: solid 1px #CDE6F5;
+    }
+
+
     .container_home{
       min-height: 80vh;
       max-height: 100vh;
