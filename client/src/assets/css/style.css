@@ -80,6 +80,8 @@ body{
     margin: 20%;
     margin-top: -20%;
     height: 25vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     -webkit-box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24); 
     box-shadow: -15px 4px 22px -7px rgba(0,0,0,0.24);   
     border-radius: 15px;
