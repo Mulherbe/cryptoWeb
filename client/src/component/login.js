@@ -38,7 +38,7 @@ import './../assets/css/login.css';
                             <Form className="register-form">                                  
                                 <div className="form_style">
                                     <label htmlFor="email">
-                                        Email:
+                                    <i class="fa-solid fa-envelope"></i> Email:
                                     </label>
                                     <Field
                                         type="email"
@@ -54,7 +54,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="password">
-                                        Mot de passe:
+                                    <i class="fa-sharp fa-solid fa-lock"></i>Mot de passe:
                                     </label>
                                     <Field
                                         type="password"
@@ -75,7 +75,7 @@ import './../assets/css/login.css';
                                         type="submit"
                                         className="btn form_input"
                                     >
-                                        Se connecter
+                                    <i class="fa-solid fa-right-to-bracket"></i>Se connecter
                                     </button>
 
                                 </div>
