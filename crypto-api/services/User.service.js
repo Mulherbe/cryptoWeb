@@ -78,11 +78,11 @@ async function create(params)
         user.created_at = Date.now('dd-mm-yyyy');
         user.updated_at = Date.now('dd-mm-yyyy');
         // save user
-        console.log('user',user)
-        console.log('User created !');
+        //console.log('user',user)
         await user.save();
-
-        return user;
+        
+        
+        return JSON.stringify(user, {message: "User created !"});
         
     } catch (err)
     {
@@ -100,6 +100,7 @@ async function update(id, params)
 
     // validation
     const usernameChanged = params.username && user.email !== params.email;
+    
     if (usernameChanged && await db.User.findOne({ where: { email: params.email } }))
     {
         throw 'Email "' + params.email + '" is already taken';

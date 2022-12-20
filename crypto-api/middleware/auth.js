@@ -9,7 +9,6 @@ verifyToken = async(req, res, next) => {
   let token = req.headers.authorization.split(' ')[1];
   console.log('token', token)
   await db.Users.findOne({where: {access_token: token}});
- 
     if (!token) {
       return res.status(401).send({
         message: "No token provided!" 

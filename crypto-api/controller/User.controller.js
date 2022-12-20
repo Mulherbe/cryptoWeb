@@ -8,10 +8,9 @@ const {auth} = require('../middleware/index');
 // routes 
 
 router.post('/register', createSchema, create);
-
 router.get('/', auth.verifyToken ,auth.isAdmin ,getAll);
 router.get('/:id', auth.verifyToken,auth.isUserOrAdmin,getById);
-router.put('/update/:id', auth.verifyToken,auth.isAdmin,updateSchema, update);
+router.put('/update/:id', auth.verifyToken,auth.isAdmin, update);
 router.delete('/delete/:id', auth.verifyToken,auth.isAdmin, _delete);
 
 module.exports = router;
@@ -63,17 +62,6 @@ function createSchema(req, res, next)
         email: Joi.string().email().lowercase().required(),
         password: Joi.string().min(7).required().strict(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
-    });
-    validateRequest(req, next, schema);
-}
-
-function updateSchema(req, res, next)
-{
-    const schema = Joi.object({
-        username: Joi.string().empty(''),
-        email: Joi.string().email().lowercase(), 
-        password: Joi.string().min(7).strict(),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).strict()
     });
     validateRequest(req, next, schema);
 }
