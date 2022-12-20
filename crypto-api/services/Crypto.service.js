@@ -87,7 +87,10 @@ async function setDefaultFavorites(favorites)
 async function getUserFavorites(userId)
 {
     // get user with his favorites
-    var userFound = await db.Users.getById({ where: { id: userId }, include: { model: db.Cryptos, as: "favorites" } });
+    var userFound = await db.Users.findOne({
+        where: { id: userId },
+        include: [{ model: db.Cryptos }]
+    });
     if (userFound === null || userFound === undefined || userFound.length === 0)
         return await getDefaultFavorites();
     if (!(userFound.favorites === null || userFound.favorites === undefined || userFound.favorites.length === 0))
@@ -95,7 +98,6 @@ async function getUserFavorites(userId)
 
     var defaultFavorites = await getDefaultFavorites();
     var rank = 0;
-    var tmpFavs = [];
     for (var defFav in defaultFavorites)
     {
         defFav.rank = rank;
@@ -112,9 +114,13 @@ async function getUserFavorites(userId)
 async function setUserFavorites(userId, favorites)
 {
     if (favorites === null || favorites === undefined || favorites.length === 0)
-        favorites = await getUserFavorites(userId);
+        return await getDefaultFavorites();
     // get user with his favorites
-    var userFound = await db.Users.getById({ where: { id: userId }, include: { model: db.Cryptos, as: "favorites" } });
+    var userFound = await db.Users.findOne({
+        where: { id: userId },
+        include: [{ model: db.Cryptos }]
+    });
+    console.log(userFound);
 
     var isUserNull = userFound === null || userFound === undefined || userFound.length === 0;
     if (isUserNull)

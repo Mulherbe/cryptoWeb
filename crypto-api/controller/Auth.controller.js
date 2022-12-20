@@ -13,3 +13,4 @@ async function authenticate(req, res, next)
     .then(user => res.json(user))
     .catch(next);
 }
+

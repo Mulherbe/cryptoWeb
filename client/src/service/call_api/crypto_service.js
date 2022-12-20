@@ -1,11 +1,11 @@
 import http from '../api_call';
 
 export const getCryptoFav = () => {
-    return http.get('/crypto/favorites/1');
+    return http.get('/crypto/favorites');
 }
 
 export const getCrypto = () => {
-    return http.get('/crypto');
+    return http.get('/crypto/favorites');
 }
 
 export const getCryptoById = (id) => {

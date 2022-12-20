@@ -63,7 +63,7 @@ async function getById(id)
 async function create(params)
 {
     //date de création et de modification
-    
+    let userData = {};
     try
     {
         await Promise.all([
@@ -78,23 +78,29 @@ async function create(params)
         user.created_at = Date.now('dd-mm-yyyy');
         user.updated_at = Date.now('dd-mm-yyyy');
         // save user
-        console.log('user',user)
-        console.log('User created !');
+        //console.log('user',user)
         await user.save();
-
-        return user;
-
+        
+        
+        return JSON.stringify(user, {message: "User created !"});
+        
     } catch (err)
     {
         console.log(err.message);
     }
+    return userData = { user };
 }
 async function update(id, params)
 {
     const user = await db.Users.findByPk(id);
+    
+    await Promise.all([
+        verifBodyOfCreate(params),
+    ])
 
     // validation
     const usernameChanged = params.username && user.email !== params.email;
+    
     if (usernameChanged && await db.User.findOne({ where: { email: params.email } }))
     {
         throw 'Email "' + params.email + '" is already taken';

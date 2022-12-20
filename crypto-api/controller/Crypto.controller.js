@@ -26,15 +26,7 @@ async function getFavorites(req, res, next)
     try
     {
         const userId = req.params.id;
-
-        var userIdTkn;
-        var result;
-        if (req.headers.authorization === undefined || req.headers.authorization === null || req.headers.authorization === ""
-            || (userIdTkn = await GetUserId(req.headers.authorization)) === undefined || userIdTkn === null || userIdTkn === ""
-            || userIdTkn !== userId)
-            result = await getDefaultFavorites();
-        else
-            result = await getUserFavorites(userId);
+        var result = await getUserFavorites(userId);
         res.status(200).json(result);
     } catch (err)
     {
@@ -52,7 +44,7 @@ async function setUFavorites(req, res, next)
     try
     {
         const userId = req.params.id;
-        const favorites = req.body;
+        const { favorites } = req.body;
         const result = await setUserFavorites(userId, favorites);
         res.status(200).json(result);
     } catch (err)

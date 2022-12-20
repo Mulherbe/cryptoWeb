@@ -11,11 +11,8 @@ const NewsNFT = () => {
   function createNFT() {
     getNFT().then(response => setNFTTab(
       Object.keys(response.data).map((key, index) => {
-        console.log('resp data', response.data)
         const date = new Date(response.data[key].date);
-        const formatted = date.toLocaleDateString("fr-FR")
-        console.log(formatted)
-        
+        const formatted = date.toLocaleDateString("fr-FR")        
         return (
           <div key={index} className="container_Card_News">
             <a href={response.data[key].link} target="_blank" className="card_News_Link">{response.data[key].title}</a>
