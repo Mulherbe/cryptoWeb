@@ -8,7 +8,8 @@ const server = http.createServer(app);
 
 app.use(express.text({ type: 'text/plain' }));
 app.use(express.json({ type: 'application/json' }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ type: 'x-www-form-urlencoded' }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use(cors());
@@ -29,27 +30,33 @@ const utils = require('./model/OAuth2/utils');
 
 app.get('/api/auth', async (req, res) =>
 {
-    try
-    {
-        res.redirect(utils.request_get_auth_code_url);
-    } catch (error)
-    {
-        res.sendStatus(500);
-        console.log(error.message);
-    }
+    res.redirect(utils.request_get_auth_code_url);
 });
 
-app.get('/api/callback', async (req, res) =>
+app.get('/api/callback', async (req, res, next) =>
 {
     const authorization_token = req.query.code;
     console.log('authorization_token', authorization_token);
     try
     {
         const response = await utils.get_access_token(authorization_token);
-        console.log({ data: response.data });
-        const user_info = await utils.get_user_info(response.data);
+        console.log('authorization_token', authorization_token);
+        const user_info = await utils.get_user_info(authorization_token).then(data =>
+            {
+                console.log('data', data);
+                res.status(200).json(data);
+            })
+            .catch(err =>
+            {
+                res.status(404).json({
+                    status: 'error',
+                    message: 'An error occurred when fetching user info'
+                })
+            }
+        ); 
         console.log('user_info', user_info);
-        res.send(`Hello ${user_info.name}`);
+        res.send(`Hello ${user_info.name}!`)
+        
     } catch (error)
     {
         res.sendStatus(500);

@@ -4,8 +4,12 @@ const db = require("../helper/db");
 const Role = require('../helper/role');
 
 //function qui get le role de l'utilisateur
-verifyToken = (req, res, next) => {
-  const token = req.body.token;
+verifyToken = async(req, res, next) => {
+  //recupération du token dans le header qui a été envoyé
+  let token = req.headers.authorization.split(' ')[1];
+  console.log('token', token)
+  await db.Users.findOne({where: {access_token: token}});
+ 
     if (!token) {
       return res.status(401).send({
         message: "No token provided!" 
@@ -18,6 +22,7 @@ verifyToken = (req, res, next) => {
         });
       }
       req.userId = decoded.id;
+      
       next();
     });
 };

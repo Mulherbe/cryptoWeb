@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import { useEffect, useState } from "react";
 import './../assets/css/style.css';
 import logo from './../assets/img/logo.png'; 
 import { NavLink } from "react-router-dom";
@@ -8,7 +8,20 @@ import { TickerTape } from "react-ts-tradingview-widgets";
   
 
 const Nav = () => {
+  const [token, setToken] = useState();
 
+const checkCo = () => {
+  setToken(localStorage.getItem("token"));
+};
+const disconnected = () => {
+  localStorage.clear();
+};
+
+
+ useEffect(() => {
+  checkCo();
+  console.log(token);
+  });
 
   return (
     <>
