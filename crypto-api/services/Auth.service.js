@@ -11,7 +11,7 @@ async function signin(params) {
   let userData = {};
   const {email, password } = params;
   try{
-    await db.Users.findOne({where: {email: email}})
+    await db.Users.findOne({where: {email: email, password: password}})
         .then(async user => {
             if(user) 
             { 
@@ -33,21 +33,18 @@ async function signin(params) {
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                access_token: token
+                access_token: token,
+                message: "🔥🔥 Welcome " + user.username + " you are connected ! 🔥🔥"
               }
 
             } else {
-            console.log("Sorry Account " + email + " not found !"); 
-            //retourner un message d'erreur et un code d'erreur
+              return JSON.stringify({ message: "🌕🌕 Sorry email is incorrect ! 🌕🌕" });
           }
-          console.log('🔥🔥 Welcome ' + user.username + ' you are connected ! 🔥🔥');
-          return JSON.stringify({userData: user} , {access_token: token});
-    })
-        
+        }) 
       } catch (err)
-      {
-        console.log(err.message);
-      }
-
-      return userData;
+        {
+          console.log(err.message);
+        }
+        
+        return userData;
 }

@@ -26,8 +26,37 @@ app.get('/', (req, res, next) =>
 //================================================================================================
 //===================================== ROUTES OAuth2 GoogleAPI ==================================
 
-const utils = require('./model/OAuth2/utils');
+//const utils = require('./model/OAuth2/utils');
+const passport = require("passport");
+const config = require('./config.json');
+const jwt = require('jsonwebtoken');
+require("./model/OAuth2/authGoogle")(passport);
 
+app.get("/api/auth/google", passport.authenticate("google", { scope: ["email", "profile"] })
+);
+app.get("/api/callback",passport.authenticate("google", { session: false }),(req, res) => {
+    //console.log('req', req.user);
+    jwt.sign({ user: req.user },config.secret ,{ expiresIn: "1h" },(err, token) => {
+        console.log('token', token);
+        if (err) {
+            return res.json({
+                    error: err,
+                    status: 500,
+                    message: err.message,
+                });
+            }
+                res.json({token});
+            }
+        );
+            console.log('jwt', jwt);
+    }
+);
+
+app.get("/profile", passport.authenticate("jwt", { session: false }), (req, res, next) => { 
+        res.send("Welcome");
+    }
+);
+/*
 app.get('/api/auth', async (req, res) =>
 {
     res.redirect(utils.request_get_auth_code_url);
@@ -64,7 +93,7 @@ app.get('/api/callback', async (req, res, next) =>
     }
 });
 
-
+*/
 //================================================================================================
 //===================================== ROUTES API ===============================================
 //controller
