@@ -41,6 +41,7 @@ async function signin(params) {
         return userData = {
           id: user.id,
           username: user.username,
+          role : user.role,
           email: user.email,
           access_token : token,
         }
