@@ -28,6 +28,7 @@ async function signin(params) {
               user.update({access_token: token});
 
               await user.save(); 
+              
               return userData = {
                 id: user.id,
                 username: user.username,
