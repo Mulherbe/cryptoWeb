@@ -32,17 +32,22 @@ import { useNavigate } from "react-router-dom";
         if(login.data.username){
             localStorage.setItem("username",login.data.username)
         }
-        if(login.data.access_token){
-            localStorage.setItem("token",login.data.access_token)
-            setToken(login.data.access_token)
-        }
+
         if(login.data.role){
             localStorage.setItem("role",login.data.role)
         }
         if(login.data.email){
             localStorage.setItem("email",login.data.email)
         }
-        window.location.reload(false);
+        if(login.data.id){
+            localStorage.setItem("id",login.data.id)
+        }
+        if(login.data.access_token){
+            localStorage.setItem("token",login.data.access_token)
+            setToken(login.data.access_token)
+            window.location.reload(false);
+
+        }
 
     };
 

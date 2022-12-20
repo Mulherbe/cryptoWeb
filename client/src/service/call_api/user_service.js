@@ -23,3 +23,10 @@ export const loginUser = (values) => {
         password: values.password,
       });
 }
+
+export const updateUser = (values) => {
+    return http.post('/user/1', {
+        email: values.email,
+        password: values.password,
+      });
+}
