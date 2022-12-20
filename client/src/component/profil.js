@@ -3,12 +3,15 @@ import './../assets/css/style.css';
 import { BiEdit, BiCheck} from "react-icons/bi";
 
 const Profil = () => {
+console.log(localStorage.getItem("token"))
+console.log(localStorage.getItem("role"))
+console.log(localStorage.getItem("id"))
 
 const [editPseudo, setEditPseudo] = useState(false)
-const [Pseudo, setPseudo] = useState("toto")
+const [Pseudo, setPseudo] = useState(localStorage.getItem("username") )
 
 const [editEmail, setEditEmail] = useState(false)
-const [Email, setEmail] = useState("test@test.test")
+const [Email, setEmail] = useState(localStorage.getItem("email"))
 
 const [editPassword, setEditPassword] = useState(false)
 const [Password, setPassword] = useState("**********")
@@ -17,6 +20,10 @@ const [NewPassword, setNewPassword] = useState(false)
 
 const editEmailFc = () => {
   setEditEmail(!editEmail)
+  console.log(editEmail)
+  if(editEmail){
+
+  }
 }
 const editPasswordFc = () => {
   setEditPassword(!editPassword)

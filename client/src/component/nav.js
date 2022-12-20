@@ -65,7 +65,9 @@ useEffect(() => {
         <div className="nav_link">
           <Link className="nav_item" to="/">Accueil</Link>
           <Link   className="nav_item" to="/market">Market</Link> 
-     
+          {localStorage.getItem("role") == "Admin" &&
+                    <Link   className="nav_item" to="/admin">Admin</Link> 
+        }
           {!localStorage.getItem("token") ? 
           <Link   className="nav_item" to="/LoginRegister"><i class="fa-solid fa-circle-user"></i> </Link>
           :
@@ -74,9 +76,7 @@ useEffect(() => {
             <Link   className="nav_item" onClick={disconnected} >Se deconnecter</Link>
           </>
           }
-          {localStorage.getItem("role") == "Admin" &&
-                    <Link   className="nav_item" to="/admin">Admin</Link> 
-        }
+
         </div>
       </div>
     
