@@ -13,7 +13,7 @@ import Market from './component/market'
 import LoginRegister from "./component/LoginRegister";
 
 function App() {
-
+  console.log("update")
   return (
     <div >
        <Nav /> 
