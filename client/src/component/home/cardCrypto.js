@@ -3,7 +3,7 @@ import '../../assets/css/style.css';
 import { MiniChart } from "react-ts-tradingview-widgets";
 
 const CardCrypto = (props) => {
-        const [pass, setPass] = useState('1');
+  const [pass, setPass] = useState('1');
 
 
 let cryptoSymbol = 'BINANCE:' + props.crypto.replace('/', '')
