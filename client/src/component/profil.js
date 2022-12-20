@@ -37,14 +37,14 @@ const EditPseudoFC = () => {
         <div className="container">
           <div className="container_profil">
               <h1 className="title_profil">
-              <i class="fa-solid fa-address-card"></i>Profil
+              <i class="fa-solid fa-address-card"></i> Profil
               </h1>
 
           <div className="information_profil">
 
               <div className="row_profil">
                     <div className="title_row_profil">
-                    <i class="fa-solid fa-person"></i>Pseudo :
+                    <i class="fa-solid fa-person"></i> Pseudo:
                     </div>
                         {editPseudo ? 
                         <>
@@ -76,7 +76,7 @@ const EditPseudoFC = () => {
 
                 <div className="row_profil">
                     <div className="title_row_profil">
-                    <i class="fa-sharp fa-solid fa-lock"></i>Password 
+                    <i class="fa-sharp fa-solid fa-lock"></i> Mot de passe: 
                     </div>
                         {editPassword ? 
                         <div >
