@@ -51,13 +51,9 @@ const get_user_info = async (access_token) => {
   });
 };
 
-
-
-
 module.exports = {
   request_get_auth_code_url,
   get_access_token,
   get_user_info,
 
 };
-//en test

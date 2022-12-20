@@ -63,7 +63,7 @@ async function getById(id)
 async function create(params)
 {
     //date de création et de modification
-    
+    let userData = {};
     try
     {
         await Promise.all([
@@ -83,11 +83,12 @@ async function create(params)
         await user.save();
 
         return user;
-
+        
     } catch (err)
     {
         console.log(err.message);
     }
+    return userData = { user };
 }
 async function update(id, params)
 {
