@@ -53,7 +53,7 @@ import './../assets/css/login.css';
                             <Form className="register-form">
                                 <div className="form_style">
                                     <label htmlFor="username">
-                                        Nom d'utilisateur:
+                                    <i class="fa-solid fa-user"></i>Nom d'utilisateur:
                                     </label>
                                     <Field
                                         type="text"
@@ -69,7 +69,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="email">
-                                        Email:
+                                    <i class="fa-solid fa-envelope"></i> Email:
                                     </label>
                                     <Field
                                         type="email"
@@ -85,7 +85,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="password">
-                                        Mot de passe:
+                                    <i class="fa-sharp fa-solid fa-lock"></i>Mot de passe:
                                     </label>
                                     <Field
                                         type="password"
@@ -101,8 +101,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="confirmPassword">
-                                        Confirmer le mot de
-                                        passe:
+                                    <i class="fa-solid fa-key"></i>Confirmer le mot de passe:
                                     </label>
                                     <Field
                                         type="password"

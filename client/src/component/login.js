@@ -1,10 +1,12 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
 
  const Login = (props) => {
+    const [datas, setDatas] = useState([]);
 
     const initialValues = {
         email: "",
@@ -21,9 +23,15 @@ import './../assets/css/login.css';
     });
 
 
+
     const handleSubmit = (values) => {
-        
-        console.log(loginUser(values))
+
+        loginUser(values).then(response =>setDatas(response)).then(
+        localStorage.setItem("username",datas.data.username),
+        localStorage.setItem("email",datas.data.email),
+        localStorage.setItem("role",datas.data.role),
+        localStorage.setItem("token",datas.data.access_token),
+        );
     };
      return (
         <div className="container_2">
@@ -38,7 +46,7 @@ import './../assets/css/login.css';
                             <Form className="register-form">                                  
                                 <div className="form_style">
                                     <label htmlFor="email">
-                                        Email:
+                                    <i class="fa-solid fa-envelope"></i> Email:
                                     </label>
                                     <Field
                                         type="email"
@@ -54,7 +62,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="password">
-                                        Mot de passe:
+                                    <i class="fa-sharp fa-solid fa-lock"></i>Mot de passe:
                                     </label>
                                     <Field
                                         type="password"
@@ -75,7 +83,7 @@ import './../assets/css/login.css';
                                         type="submit"
                                         className="btn form_input"
                                     >
-                                        Se connecter
+                                    <i class="fa-solid fa-right-to-bracket"></i>Se connecter
                                     </button>
 
                                 </div>

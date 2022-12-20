@@ -1,14 +1,27 @@
-import React , { useEffect } from 'react';
+import { useEffect, useState } from "react";
 import './../assets/css/style.css';
 import logo from './../assets/img/logo.png'; 
 import { NavLink } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { TickerTape } from "react-ts-tradingview-widgets";
-// import Dark from '../component/home/dark.js';
+
   
 
 const Nav = () => {
+  const [token, setToken] = useState();
 
+const checkCo = () => {
+  setToken(localStorage.getItem("token"));
+};
+const disconnected = () => {
+  localStorage.clear();
+};
+
+
+ useEffect(() => {
+  checkCo();
+  console.log(token);
+  });
 
   return (
     <>
@@ -57,8 +70,9 @@ const Nav = () => {
           {/* <Link  className="nav_item"  to="/news">News</Link>  */}
           <Link   className="nav_item" to="/profil">Profil</Link> 
           <Link   className="nav_item" to="/admin">Admin</Link> 
-          <Link   className="nav_item" to="/register">Register</Link> 
-          <Link   className="nav_item" to="/login">Login</Link> 
+          <Link   className="nav_item" to="/LoginRegister"><i class="fa-solid fa-circle-user"></i> </Link>
+          {/* <Link   className="nav_item" to="/register">Register</Link> 
+          <Link   className="nav_item" to="/login">Login</Link>  */}
           {/* <div className="nav_item"> <Dark></Dark> </div> */}
           {/* <Dark></Dark> */}
 
