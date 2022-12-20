@@ -20,7 +20,7 @@ const disconnected = () => {
 
  useEffect(() => {
   checkCo();
-  console.log(token);
+  //console.log(token);
   });
 
   return (
