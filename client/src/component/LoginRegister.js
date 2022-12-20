@@ -4,11 +4,13 @@ import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-const LoginRegister = () => {
-
+ const LoginRegister = (props) => {
     const [datas, setDatas] = useState([]);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const navigate = useNavigate();
 
     const initialValues = {
         email: "",
@@ -16,25 +18,46 @@ const LoginRegister = () => {
     };
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email("Email invalide")
-            .required("L'email est obligatoire"),
+            .email("email invalide")
+            .required("l'email est obligatoire"),
         password: Yup.string()
             .required("Mot de passe est obligatoire")
             .min(8, "Mot de passe doit être plus grand que 8 caractères")
             .max(50, "Mot de passe doit être plus petit que 50 caractères"),
     });
 
+        async function handleSubmit (values) {
 
+        let login = await loginUser(values);
+        console.log(login)
+        if(login.data.username){
+            localStorage.setItem("username",login.data.username)
+        }
 
-    const handleSubmit = (values) => {
+        if(login.data.role){
+            localStorage.setItem("role",login.data.role)
+        }
+        if(login.data.email){
+            localStorage.setItem("email",login.data.email)
+        }
+        if(login.data.id){
+            localStorage.setItem("id",login.data.id)
+        }
+        if(login.data.access_token){
+            localStorage.setItem("token",login.data.access_token)
+            setToken(login.data.access_token)
+            window.location.reload(false);
 
-        loginUser(values).then(response =>setDatas(response)).then(
-        localStorage.setItem("username",datas.data.username),
-        localStorage.setItem("email",datas.data.email),
-        localStorage.setItem("role",datas.data.role),
-        localStorage.setItem("token",datas.data.access_token),
-        );
+        }
+
     };
+
+
+ useEffect(() => {
+    if(token){
+        navigate("/");
+    }
+    },[token]);
      return (
         <div className="container_2">
             <div className="container_login">
@@ -64,7 +87,7 @@ const LoginRegister = () => {
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="password">
-                                    <i class="fa-sharp fa-solid fa-lock"></i> Mot de passe:
+                                    <i class="fa-sharp fa-solid fa-lock"></i>Mot de passe:
                                     </label>
                                     <Field
                                         type="password"
@@ -96,11 +119,10 @@ const LoginRegister = () => {
                     <button type="submit" className="btn form_input">
                       <Link type="submit" className="btn form_input" to="/register">S'incrire</Link> 
                     </button>
-
             </div>
         </div>
 
      )
  }
 
-export default LoginRegister;
+ export default LoginRegister;
