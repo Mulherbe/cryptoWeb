@@ -15,7 +15,7 @@ const Admin = () => {
           <div className='container_Card'>        
               <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
               <CardFlux name='Flux RSS : ' nft='NFT' btc='BTC' eth='ETH' actu='ACTU'> </CardFlux> 
-              <CardUsers name="Utilisateur :" > </CardUsers>
+              <CardUsers name="Utilisateurs :" > </CardUsers>
           </div>
       </div>
         
