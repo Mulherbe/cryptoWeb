@@ -29,14 +29,7 @@ async function signin(params) {
 
               await user.save(); 
               
-              return userData = {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                role: user.role,
-                access_token: token,
-                message: "🔥🔥 Welcome " + user.username + " you are connected ! 🔥🔥"
-              }
+              return JSON.stringify({ message: "🔥🔥 Welcome " + user.username + " you are connected ! 🔥🔥"});
 
             } else {
               return JSON.stringify({ message: "🌕🌕 Sorry email is incorrect ! 🌕🌕" });
@@ -47,5 +40,5 @@ async function signin(params) {
           console.log(err.message);
         }
         
-        return userData;
+        return userData = {user, token}
 }
