@@ -10,7 +10,8 @@ const http = axios.create({
   method: "GET",
   ContentType: "application/json",
   headers: {
-    "Access-Control-Allow-Origin": urlServ
+    "Access-Control-Allow-Origin": urlServ,
+    'Authorization': 'Bearer ' + localStorage.getItem("token")
   },
 });
 
