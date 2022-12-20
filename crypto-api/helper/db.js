@@ -52,7 +52,7 @@ async function initialize()
     db.Cryptos = cryptoModel(sequelize);
 
     db.Cryptos.belongsToMany(db.Users, { through: 'UserCrypto' });
-    db.Users.hasMany(db.Cryptos, { through: 'UserCrypto' });
+    db.Users.belongsToMany(db.Cryptos, { through: 'UserCrypto' });
 
     // sync tout les models de la db
     await sequelize.sync({ alter: true });

@@ -71,9 +71,9 @@ function updateSchema(req, res, next)
 {
     const schema = Joi.object({
         username: Joi.string().empty(''),
-        email: Joi.string().email().lowercase().required(), 
-        password: Joi.string().min(7).required().strict(),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).required().strict()
+        email: Joi.string().email().lowercase(), 
+        password: Joi.string().min(7).strict(),
+        confirmPassword: Joi.string().valid(Joi.ref('password')).strict()
     });
     validateRequest(req, next, schema);
 }

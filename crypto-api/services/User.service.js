@@ -93,6 +93,10 @@ async function create(params)
 async function update(id, params)
 {
     const user = await db.Users.findByPk(id);
+    
+    await Promise.all([
+        verifBodyOfCreate(params),
+    ])
 
     // validation
     const usernameChanged = params.username && user.email !== params.email;
