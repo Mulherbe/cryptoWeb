@@ -104,7 +104,7 @@ const authController = require('./controller/Auth.controller');
 app.use('/api/user', userController);
 app.use('/api/login', authController);
 app.use('/api/crypto', cryptoController);
-
+//test Oauth2 google
 
 //================================================================================================
 //===================================== ROUTE FLUX RSS ===================================================
