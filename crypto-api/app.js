@@ -26,7 +26,7 @@ app.get('/', (req, res, next) =>
 //================================================================================================
 //===================================== ROUTES OAuth2 GoogleAPI ==================================
 
-//const utils = require('./model/OAuth2/utils');
+const utils = require('./model/OAuth2/utils');
 const passport = require("passport");
 const config = require('./config.json');
 const jwt = require('jsonwebtoken');
@@ -36,8 +36,8 @@ app.get("/api/auth/google", passport.authenticate("google", { scope: ["email", "
 );
 app.get("/api/callback",passport.authenticate("google", { session: false }),(req, res) => {
     //console.log('req', req.user);
-    jwt.sign({ user: req.user },config.secret ,{ expiresIn: "1h" },(err, token) => {
-        console.log('token', token);
+    jwt.sign({ user: req.user },config.secret ,{ expiresIn: "24h" },(err, token) => {
+        //console.log('token', token);
         if (err) {
             return res.json({
                     error: err,
@@ -48,52 +48,18 @@ app.get("/api/callback",passport.authenticate("google", { session: false }),(req
                 res.json({token});
             }
         );
-            console.log('jwt', jwt);
+            console.log('jwt', jwt);    
     }
+
 );
 
-app.get("/profile", passport.authenticate("jwt", { session: false }), (req, res, next) => { 
-        res.send("Welcome");
-    }
-);
-/*
-app.get('/api/auth', async (req, res) =>
-{
-    res.redirect(utils.request_get_auth_code_url);
+app.get("/profile", passport.authenticate("jwt", { session: false }), async(req, res, next) => { 
+    const token = req.headers.authorization.split(' ')[1];
+    const user_info = await utils.get_user_info(token);
+    res.send(`Welcome on cryptoTech  ${user_info.username}!`);
 });
 
-app.get('/api/callback', async (req, res, next) =>
-{
-    const authorization_token = req.query.code;
-    console.log('authorization_token', authorization_token);
-    try
-    {
-        const response = await utils.get_access_token(authorization_token);
-        console.log('authorization_token', authorization_token);
-        const user_info = await utils.get_user_info(authorization_token).then(data =>
-            {
-                console.log('data', data);
-                res.status(200).json(data);
-            })
-            .catch(err =>
-            {
-                res.status(404).json({
-                    status: 'error',
-                    message: 'An error occurred when fetching user info'
-                })
-            }
-        ); 
-        console.log('user_info', user_info);
-        res.send(`Hello ${user_info.name}!`)
-        
-    } catch (error)
-    {
-        res.sendStatus(500);
-        console.log(error.message);
-    }
-});
 
-*/
 //================================================================================================
 //===================================== ROUTES API ===============================================
 //controller
