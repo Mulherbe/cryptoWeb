@@ -4,7 +4,8 @@ const config = require("../helper/auth.config");
 const db = require("../helper/db");
 
 module.exports = {
-    signin
+    signin,
+    logOut,
 };
 
 async function signin(params) {
@@ -54,4 +55,26 @@ async function signin(params) {
       }
       return userData;
 
+}
+
+async function logOut(req,res){
+  //logout user and delete token and redirect to home page
+  const {id} = req.params;
+  try{
+    await db.Users.findOne({where: {id: id}}).then(async user =>{
+      if(!user) 
+      { 
+        console.log("Sorry Account " + id + " not found !"); 
+      } else {
+        user.update({access_token: null});
+        await user.save(); 
+      }
+      console.log('🌕🌕 You are disconnected ! 🌕🌕');
+      res.redirect('/');
+    })
+  }
+  catch (err)
+    {
+        console.log(err.message);
+    }
 }

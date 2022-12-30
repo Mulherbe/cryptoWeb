@@ -2,8 +2,8 @@ const axios = require('axios');
 const query_string = require ('querystring');
 const google_auth_token_endpoint ='https://accounts.google.com/o/oauth2/auth';
 const google_access_token_endpoint = 'https://oauth2.googleapis.com/token';
-const url_profile_data = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
-const url_openId = "https://openidconnect.googleapis.com/v1/userinfo";
+const url_profile_data = "https://www.googleapis.com/oauth2/v3/userinfo";
+
 
 const query_params = {
   response_type: 'code',
@@ -13,12 +13,11 @@ const query_params = {
 };
 
 const auth_token_params = {
-  ...query_params,
-  //response_type: 'code',
+  ...query_params
 };
 
 // le scope est une chaine de caractère qui contient les informations que l'on veut récupérer
-const scopes = ['profile', 'email', 'openid'];
+const scopes = ['profile', 'email'];
 // l'url pour récupérer le code d'autorisation
 const request_get_auth_code_url = `${google_auth_token_endpoint}?${query_string.stringify(auth_token_params)}&scope=${scopes.join(' ')}`;
   
@@ -35,14 +34,14 @@ const get_access_token = async (authorization_token) => {
   console.log('token',authorization_token);
 
   return await axios({
-    method: 'post',
+    method: 'get',
     url: `${google_access_token_endpoint}?${query_string.stringify(access_token_params)}`,
   });
 };
 
 const get_user_info = async (access_token) => {
   return await axios({
-    method: 'post',
+    method: 'get',
     url: url_profile_data,
     headers: {
       'Authorization': `Bearer ${access_token}`,
