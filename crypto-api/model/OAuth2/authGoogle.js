@@ -2,7 +2,9 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
 const db = require("../../helper/db");
-const config = require('../../config.json')
+const config = require('../../config.json');
+const { UniqueConstraintError } = require("sequelize");
+const crypto = require("crypto");
 
 module.exports = function (passport) {
 
@@ -16,32 +18,40 @@ module.exports = function (passport) {
                 
                 async (request, accessToken, refreshToken, user, done) => {
 
+                    const email = user.email;
                     try {
+                        
+                        const userClient = await db.Users.findOne({where: {email: email} });
 
-                        let existingUser = await db.Users.findOne({ 'google.id': user.id });
-
-                        console.log('user existing' , existingUser);
-                            if (existingUser) {
-
-                                return done(null, existingUser);
+                        if (userClient) {
+                            console.log('User already exists in our database');
+                            console.log('We update the new token google, please wait...');
+                            userClient.google_token = accessToken;
+                            await userClient.save();
+                            console.log('Thank you, the token has been updated successfully');
+                            return done(null, userClient);
 
                             } else {
 
-                            console.log('Creating new user...');
+                            console.log('Email not exist in db so we creating new user, please wait...');
 
-                            const newUser = new db.Users.create({
-                                method: 'google',
-                                    google: {
-                                        id: user.id,
-                                        username: user.username,
-                                        email: user.email[0].value
-                                    }
+                            const pass = crypto.randomBytes(16).toString("hex");
+                            
+                            console.log('We generate a random password for you: ' + pass);
+                            //mettre à jour les données de l'utilisateur
+                            const newUser = new db.Users({
+                                email: email,
+                                google_token: accessToken,
+                                username: 'User',
+                                password: pass,
+                                role: 'User',
                                 });
 
                             await newUser.save();
+                            console.log('Thank you, the user has been created successfully');
+                            return done(null, newUser);
                         }
 
-                        return done(null, newUser);
 
                     } catch (error) {
                         return done(error, false)

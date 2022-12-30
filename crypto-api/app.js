@@ -15,6 +15,7 @@ app.use(express.static("public"));
 app.use(cors());
 // Make public static folder
 
+
 //===================================== ROUTES API HOME==================================
 
 app.get('/', (req, res, next) =>
@@ -45,20 +46,27 @@ app.get("/api/callback",passport.authenticate("google", { session: false }),(req
                     message: err.message,
                 });
             }
-                res.json({token});
+                res.json({
+                    access_token: token,
+                    status: 200,
+                    message: "Auth successful",
+                    id: req.user.id,
+                    username: req.user.username,
+                    email: req.user.email,
+
+                });
             }
         );
-            console.log('jwt', jwt);    
     }
 
 );
-
-app.get("/profile", passport.authenticate("jwt", { session: false }), async(req, res, next) => { 
-    const token = req.headers.authorization.split(' ')[1];
-    const user_info = await utils.get_user_info(token);
-    res.send(`Welcome on cryptoTech  ${user_info.username}!`);
+app.get("/api/profile-google",passport.authenticate("jwt", { session: false }),(req, res) => {
+    res.json({
+        user: req.user,
+        status: 200,
+        message: "Auth successful",
+    });
 });
-
 
 //================================================================================================
 //===================================== ROUTES API ===============================================

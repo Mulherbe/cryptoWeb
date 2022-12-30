@@ -50,8 +50,8 @@ async function getById(id)
     {
         console.log('Not found!');
         
-    } else
-    {
+    } else {
+        
         console.log(user instanceof db.Users); // true
         console.log("The user's name is", user.username);
 
