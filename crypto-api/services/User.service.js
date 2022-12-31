@@ -50,8 +50,8 @@ async function getById(id)
     {
         console.log('Not found!');
         
-    } else
-    {
+    } else {
+        
         console.log(user instanceof db.Users); // true
         console.log("The user's name is", user.username);
 
@@ -69,20 +69,27 @@ async function create(params)
         await Promise.all([
             verifBodyOfCreate(params),
         ])
-        const user = new db.Users(params);
-        // hash password
-        user.password = bcrypt.hashSync(params.password, 10);
-        //mettre le role par defaut a user sauf si l'email est admin@test.fr
-        (user.email == 'admin@test.fr') ? user.role = Role.Admin : user.role = Role.User;
-        //mettre created_at et updated_at à la date actuelle
-        user.created_at = Date.now('dd-mm-yyyy');
-        user.updated_at = Date.now('dd-mm-yyyy');
-        // save user
-        //console.log('user',user)
-        await user.save();
-        
-        
-        return JSON.stringify(user, {message: "User created !"});
+        if(await db.Users.findOne({ where: { email: params.email } }))
+        {
+            throw 'Email "' + params.email + '" is already taken';
+        } else {
+
+            const user = new db.Users(params);
+            // hash password
+            user.password = bcrypt.hashSync(params.password, 10);
+            //mettre le role par defaut a user sauf si l'email est admin@test.fr
+            (user.email == 'admin@test.fr') ? user.role = Role.Admin : user.role = Role.User;
+            //mettre created_at et updated_at à la date actuelle
+            user.created_at = Date.now('dd-mm-yyyy');
+            user.updated_at = Date.now('dd-mm-yyyy');
+            // save user
+            //console.log('user',user)
+            await user.save();
+            
+            
+            return JSON.stringify(user, {message: "User created !"});
+        }
+
         
     } catch (err)
     {
