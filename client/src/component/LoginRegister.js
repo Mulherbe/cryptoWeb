@@ -61,7 +61,7 @@ import { Link } from 'react-router-dom';
      return (
         <div className="container_2">
             <div className="container_login">
-                    <h1 className="text-center">Inscription</h1>
+                    <h1 className="text-center">Connexion</h1>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
