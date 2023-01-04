@@ -145,7 +145,17 @@ body{
     height: 35vh;
     border-radius: 15px;
     padding: 15px;
-  }  /* Card Users */
+  }  
+  .container_CardAdmin2{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 1%;
+    background-color: rgba(43, 40, 212, 0.082);
+    border-radius: 15px;
+    padding: 15px;
+  } /* Card Users */
   .container_CardUsers{
     width: 80%;
     margin: auto;
@@ -228,8 +238,18 @@ body{
     margin-right: 9vw;
     width: 10vw;
     padding-left: 10px;
+  }
+  .text_row_profil2{
+    background-color: white;
+    border: solid 1px black;
+    color: black;
+    width: 15%;
+    height: 15%;
+    margin-left: 5%;
+    margin-top: 5%;
+    border-radius: 25px;
 
-
+    padding: 10px;
   }
   .input_row_profil {
     border-radius: 10px;

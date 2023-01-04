@@ -24,15 +24,29 @@
     border: none;
     border-radius: 10px;
   }
+    
+  .inputCrypto {
+    background-color: white;
+    border: solid 1px blue;
+    color: black;
+    width: 15%;
+    height: 15%;
+    margin-left: 5%;
+    margin-top: 5%;
+    border-radius: 25px;
+    padding: 10px;
+  }
   
   button {
     border: none;
     background-color: white;
-    padding: 15px;
     border-radius: 15px;
     cursor: pointer;
     color: black;
     margin-top: 10px;
+    width: 15%;
+    height: 50px;
+    margin-left: 25px;
   }
   
   .link-btn {

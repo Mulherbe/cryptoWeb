@@ -1,6 +1,7 @@
 import React , { useState ,  useEffect } from 'react';
 import './../assets/css/style.css';
 import { BiEdit, BiCheck} from "react-icons/bi";
+import CardCrpto2 from './home/CardListCrypto';
 
 const Profil = () => {
 console.log(localStorage.getItem("token"))
@@ -103,6 +104,7 @@ const EditPseudoFC = () => {
                         }
                 </div>
 
+                <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
 
 
               </div>
