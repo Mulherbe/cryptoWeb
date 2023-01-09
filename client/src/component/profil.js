@@ -4,9 +4,9 @@ import { BiEdit, BiCheck} from "react-icons/bi";
 import CardCrpto2 from './home/CardListCrypto';
 
 const Profil = () => {
-console.log(localStorage.getItem("token"))
-console.log(localStorage.getItem("role"))
-console.log(localStorage.getItem("id"))
+// console.log(localStorage.getItem("token"))
+// console.log(localStorage.getItem("role"))
+// console.log(localStorage.getItem("id"))
 
 const [editPseudo, setEditPseudo] = useState(false)
 const [Pseudo, setPseudo] = useState(localStorage.getItem("username") )

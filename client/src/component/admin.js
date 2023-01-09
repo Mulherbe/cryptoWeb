@@ -9,9 +9,9 @@ const Admin = () => {
   return (
     <>
       <div className='container_admin'>
-          <div className='search'>
+          {/* <div className='search'>
             <SearchBar/>
-          </div>
+          </div> */}
           <div className='container_Card'>        
               <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
               <CardFlux name='Flux RSS : ' nft='NFT' btc='BTC' eth='ETH' actu='ACTU'> </CardFlux> 
