@@ -63,6 +63,7 @@ app.get("/api/callback",passport.authenticate("google", { session: false }),(req
 app.get("/api/profile-google",passport.authenticate("jwt", { session: false }),(req, res) => {
     res.json({
         user: req.user,
+        email: req.user.email,
         status: 200,
         message: "Auth successful",
     });
