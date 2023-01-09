@@ -116,8 +116,8 @@ async function setUserFavorites(userId, favorites)
     if (favorites === null || favorites === undefined || favorites.length === 0)
         favorites = await getUserFavorites(userId);
 
-    // get user with his favorites
-    var userFound = await db.Users.getById({ where: { id: userId }, include: { model: db.Cryptos, as: "favorites" } });
+    // get single user with his favorites by his id
+    var userFound = await db.Users.findOne({ where: { id: userId }, include: { model: db.Cryptos, as: "favorites" } });
     console.log(userFound);
 
     var isUserNull = userFound === null || userFound === undefined || userFound.length === 0;
