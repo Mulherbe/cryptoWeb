@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import '../../assets/css/search.css';
 import http from '../../service/api_call';
 
-export default function Search() {
+export default function Search(props) {
   const [value, setValue] = useState("");
   const [datas, setDatas] = useState([]);
 
@@ -12,6 +12,7 @@ export default function Search() {
 
   const onSearch = (searchTerm) => {
     setValue(searchTerm);
+    props.setSearchcrypto1(searchTerm)
   };
   
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function Search() {
       <div className="search-inner">
           <form>            
             <input type="text" className='input-search' value={value} onChange={onChange} />
-              <button className='btn-search' onClick={() => onSearch(value)}><i class="fa-solid fa-magnifying-glass"></i></button>
+              {/* <button className='btn-search' onClick={() => onSearch(value)}><i class="fa-solid fa-magnifying-glass"></i></button> */}
           </form>
         </div>
         <div className="dropdown">

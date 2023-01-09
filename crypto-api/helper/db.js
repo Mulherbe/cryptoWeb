@@ -28,10 +28,10 @@ async function initialize()
         password: dbpwd,
         multipleStatements: true
     });
-    
+
     //créer tables et champs si la db n'existe pas
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
-    
+
     // connexion à la db
     const sequelize = new Sequelize(
         dbName,
@@ -41,12 +41,14 @@ async function initialize()
             host: dbhost,
             dialect: "mysql",
         }
-        );
-        sequelize.authenticate().then(() => {
-            console.log('🔥🔥Connection has been established successfully.🔥🔥'); 
-          }).catch((error) => {
-            console.error('🌕🌕🌕 Unable to connect to the database 🌕🌕🌕 : ', error); 
-          });
+    );
+    sequelize.authenticate().then(() =>
+    {
+        console.log('🔥🔥Connection has been established successfully.🔥🔥');
+    }).catch((error) =>
+    {
+        console.error('🌕🌕🌕 Unable to connect to the database 🌕🌕🌕 : ', error);
+    });
     // initialisation des modèles   
     db.Users = usersModel(sequelize);
     db.Cryptos = cryptoModel(sequelize);

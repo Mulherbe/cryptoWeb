@@ -1,14 +1,18 @@
 import React , { useState ,  useEffect } from 'react';
 import './../assets/css/style.css';
 import { BiEdit, BiCheck} from "react-icons/bi";
+import CardCrpto2 from './home/CardListCrypto';
 
 const Profil = () => {
+// console.log(localStorage.getItem("token"))
+// console.log(localStorage.getItem("role"))
+// console.log(localStorage.getItem("id"))
 
 const [editPseudo, setEditPseudo] = useState(false)
-const [Pseudo, setPseudo] = useState("toto")
+const [Pseudo, setPseudo] = useState(localStorage.getItem("username") )
 
 const [editEmail, setEditEmail] = useState(false)
-const [Email, setEmail] = useState("test@test.test")
+const [Email, setEmail] = useState(localStorage.getItem("email"))
 
 const [editPassword, setEditPassword] = useState(false)
 const [Password, setPassword] = useState("**********")
@@ -17,6 +21,10 @@ const [NewPassword, setNewPassword] = useState(false)
 
 const editEmailFc = () => {
   setEditEmail(!editEmail)
+  console.log(editEmail)
+  if(editEmail){
+
+  }
 }
 const editPasswordFc = () => {
   setEditPassword(!editPassword)
@@ -30,14 +38,14 @@ const EditPseudoFC = () => {
         <div className="container">
           <div className="container_profil">
               <h1 className="title_profil">
-                Profil
+              <i class="fa-solid fa-address-card"></i> Profil
               </h1>
 
           <div className="information_profil">
 
               <div className="row_profil">
                     <div className="title_row_profil">
-                      Pseudo :
+                    <i class="fa-solid fa-person"></i> Pseudo:
                     </div>
                         {editPseudo ? 
                         <>
@@ -54,7 +62,7 @@ const EditPseudoFC = () => {
 
                 <div className="row_profil">
                     <div className="title_row_profil">
-                      Email :
+                    <i class="fa-solid fa-envelope"></i> Email:
                     </div>
                         {editEmail ? 
                         <><input className="input_row_profil"
@@ -69,7 +77,7 @@ const EditPseudoFC = () => {
 
                 <div className="row_profil">
                     <div className="title_row_profil">
-                      Password 
+                    <i class="fa-sharp fa-solid fa-lock"></i> Mot de passe: 
                     </div>
                         {editPassword ? 
                         <div >
@@ -96,6 +104,7 @@ const EditPseudoFC = () => {
                         }
                 </div>
 
+                <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
 
 
               </div>

@@ -10,8 +10,10 @@ import Login from './component/login'
 import Register from './component/register'
 import Market from './component/market'
 
-function App() {
+import LoginRegister from "./component/LoginRegister";
 
+function App() {
+  console.log("update")
   return (
     <div >
        <Nav /> 
@@ -23,7 +25,7 @@ function App() {
         <Route path="admin" element={<Admin />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        {/* <Route path="flux" element={<Flux/>} /> */}
+        <Route path="loginregister" element={<LoginRegister/>} />
 
     </Routes>
     </div>

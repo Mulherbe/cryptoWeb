@@ -1,10 +1,15 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
+import { useNavigate } from "react-router-dom";
 
  const Login = (props) => {
+    const [datas, setDatas] = useState([]);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const navigate = useNavigate();
 
     const initialValues = {
         email: "",
@@ -20,11 +25,38 @@ import './../assets/css/login.css';
             .max(50, "Mot de passe doit être plus petit que 50 caractères"),
     });
 
+        async function handleSubmit (values) {
 
-    const handleSubmit = (values) => {
-        
-        console.log(loginUser(values))
+        let login = await loginUser(values);
+        console.log(login)
+        if(login.data.username){
+            localStorage.setItem("username",login.data.username)
+        }
+
+        if(login.data.role){
+            localStorage.setItem("role",login.data.role)
+        }
+        if(login.data.email){
+            localStorage.setItem("email",login.data.email)
+        }
+        if(login.data.id){
+            localStorage.setItem("id",login.data.id)
+        }
+        if(login.data.access_token){
+            localStorage.setItem("token",login.data.access_token)
+            setToken(login.data.access_token)
+            window.location.reload(false);
+
+        }
+
     };
+
+
+ useEffect(() => {
+    if(token){
+        navigate("/");
+    }
+    },[token]);
      return (
         <div className="container_2">
             <div className="container_login">
@@ -38,7 +70,7 @@ import './../assets/css/login.css';
                             <Form className="register-form">                                  
                                 <div className="form_style">
                                     <label htmlFor="email">
-                                        Email:
+                                    <i class="fa-solid fa-envelope"></i> Email:
                                     </label>
                                     <Field
                                         type="email"
@@ -54,7 +86,7 @@ import './../assets/css/login.css';
                                 </div>
                                 <div className="form_style">
                                     <label htmlFor="password">
-                                        Mot de passe:
+                                    <i class="fa-sharp fa-solid fa-lock"></i>Mot de passe:
                                     </label>
                                     <Field
                                         type="password"
@@ -75,7 +107,7 @@ import './../assets/css/login.css';
                                         type="submit"
                                         className="btn form_input"
                                     >
-                                        Se connecter
+                                    <i class="fa-solid fa-right-to-bracket"></i>Se connecter
                                     </button>
 
                                 </div>
@@ -93,42 +125,3 @@ import './../assets/css/login.css';
  }
 
  export default Login;
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import './../assets/css/login.css';
-
-//     const Login = (props) => {
-//         const [email, setEmail] = useState('');
-//         const [pass, setPass] = useState('');
-        
-//         const handleSubmit = (e) => {
-//             e.preventDefault();
-//             const login = {
-//                 email: email,
-//                 password: pass
-//             } 
-//             console.log(login);
-//             }
-//     return (
-//         <div className="container">
-//             <div className="container_login">
-
-//             <h2>Connexion</h2>
-//             <form className="login-form" onSubmit={handleSubmit}>
-//                 <label htmlFor="email">Email</label>
-//                 <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="votremail@gmail.com" id="email" name="email" />
-//                 <label htmlFor="password">Mot de passe</label>
-//                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-//                 <button type="submit">Se connecter</button>
-//             </form>
-//                           </div>
-
-//         </div>
-//     )
-// }
-// export default Login;
