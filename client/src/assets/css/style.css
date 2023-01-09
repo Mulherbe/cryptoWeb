@@ -149,7 +149,7 @@ body{
   .container_CardAdmin2{
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 60%;
     margin: auto;
     margin-bottom: 1%;
     background-color: rgba(43, 40, 212, 0.082);
@@ -261,6 +261,10 @@ body{
   }
   .icons_profil{
     cursor: pointer;
+  }
+  .icons_crypto{
+    cursor: pointer;
+    margin-left: 40%;
   }
   .container_Card_News{
     padding: 10px 15px 15px 10px;
@@ -458,6 +462,8 @@ body{
       width: 40%;
       margin-left: 30%;
       margin-right: 30%;
+      height: 90vh;
+    
     }
 
   }
