@@ -44,8 +44,8 @@
     cursor: pointer;
     color: black;
     margin-top: 10px;
-    width: 15%;
-    height: 50px;
+    width: 61%;
+        height: 50px;
     margin-left: 25px;
   }
   
@@ -94,4 +94,17 @@
 }
 .form_input{
   border:1px solid black;
+}
+.btngoogle{
+  border: none;
+  background-color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  color: black;
+  margin-top: 10px;
+  width: 61%;
+  height: 50px;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
