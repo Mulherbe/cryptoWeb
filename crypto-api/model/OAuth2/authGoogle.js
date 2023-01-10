@@ -12,7 +12,7 @@ module.exports = function (passport) {
             new GoogleStrategy({
                     clientID: process.env.GOOGLE_CLIENT_ID || "131515680100-sb9rhpqs9hhu2qqkrir3v41a2h6gp3vt.apps.googleusercontent.com",
                     clientSecret: process.env.GOOGLE_CLIENT_SECRET || "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",
-                    callbackURL: "http://localhost:5000/api/callback",
+                    callbackURL: "http://20.224.16.120:5000/api/callback",
                     passReqToCallback: true,
                 },  
                 
