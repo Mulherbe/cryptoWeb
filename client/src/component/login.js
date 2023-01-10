@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
 import { useNavigate } from "react-router-dom";
-
+import ButtonGoogle from './ButtonGoogle';
  const Login = (props) => {
     const [datas, setDatas] = useState([]);
     const [token, setToken] = useState(localStorage.getItem("token"));
@@ -118,7 +118,9 @@ import { useNavigate } from "react-router-dom";
                     <button type="submit" className="btn form_input">
                         S'inscrire'
                     </button>
+
             </div>
+                    <ButtonGoogle/>
         </div>
 
      )
