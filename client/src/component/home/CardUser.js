@@ -19,21 +19,27 @@ function CardUsers(props) {
 
   return (
     <div className='container_CardUsers'>
-      <h2> <u>{props.name}</u></h2>
     <table>
       <div className='container_Username-Email'>  
       <thead>
         <td>
           <div className='username-email' id="style-1">
-          <h4>Username</h4>
-            {data.map(item => (
-              <li key={item.id}>{item.username}</li>
-            ))}
+          <h4>Utilisateurs</h4>
+          <div className="tabUser">
 
+            {data.map(item => (
+              <div className='tabUserRow'>
+              <div className='userRow'>{item.id} </div>
+              <div key={item.id} className='userRow'>{item.username}</div>
+              <div className='userRow'>{item.email} </div>
+              </div>
+            ))}
+            </div>
+
+{/* 
           <h4>Email</h4>
             {data.map(item => (
-              <li key={item.id}>{item.email}</li>
-            ))}
+            ))} */}
           </div>
         </td>
       </thead>

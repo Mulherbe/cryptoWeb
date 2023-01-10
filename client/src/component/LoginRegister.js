@@ -6,7 +6,7 @@ import {loginUser} from '../service/call_api/user_service';
 import './../assets/css/login.css';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-
+import ButtonGoogle from './ButtonGoogle'
  const LoginRegister = (props) => {
     const [datas, setDatas] = useState([]);
     const [token, setToken] = useState(localStorage.getItem("token"));
@@ -117,8 +117,10 @@ import { Link } from 'react-router-dom';
                         )}
                     </Formik>
                     <button type="submit" className="btn form_input">
-                      <Link type="submit" className="btn form_input" to="/register">S'incrire</Link> 
+                      <Link type="submit"to="/register">S'incrire</Link> 
                     </button>
+                    <ButtonGoogle/>
+
             </div>
         </div>
 

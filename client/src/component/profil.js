@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './../assets/css/style.css';
 import { BiEdit, BiCheck } from "react-icons/bi";
 import CardCrpto2 from './home/CardListCrypto';
+import guidetour from './../assets/video/guidetour.mp4'
 
 const Profil = () => {
   // console.log(localStorage.getItem("token"))
@@ -21,13 +22,13 @@ const Profil = () => {
   const [editPassword, setEditPassword] = useState(false)
   const [Password, setPassword] = useState("**********")
   const [NewPassword, setNewPassword] = useState(false)
+  const [modal, setModal] = useState(localStorage.getItem("guide"))
 
 
   const editEmailFc = () => {
     setEditEmail(!editEmail)
     console.log(editEmail)
     if (editEmail) {
-
     }
   }
   const editPasswordFc = () => {
@@ -37,12 +38,21 @@ const Profil = () => {
     setEditPseudo(!editPseudo)
   }
 
+  const checkTokenGuide =() => {
+     localStorage.setItem("guide",1)
+     setModal(true)
+  }
   return (
     <>
-      {!localStorage.getItem("guide") && <div className="modal">
-      <video width="750" height="500" controls >
-      <source src={video} type="video/mp4"/>
-     </video> </div>}
+      {!modal &&
+        <div className="modal_background" onClick={checkTokenGuide }>
+          <div className="modal">
+            <video width="100%" height="500" controls >
+              <source src={guidetour} type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      }
       <div className="container">
         <div className="container_profil">
           <h1 className="title_profil">
@@ -112,7 +122,9 @@ const Profil = () => {
             </div>
 
             <CardCrpto2 name='Liste Crypto : '></CardCrpto2>
-
+            <button className="input_row_profil btn_guide" onClick={() => setModal(false)}>
+                Guide
+            </button>
 
           </div>
         </div>

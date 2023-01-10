@@ -17,7 +17,6 @@ const CardFlux = (props) => {
     
   return (
     <div className='container_CardAdmin'>
-      <h2><u>{props.name}</u></h2>
       <div className='container_button'>
         <button type="button" className="nav_button" onClick={() => printFlux(1)} >{props.actu}</button>
         <button type="button" className="nav_button" onClick={() => printFlux(2)} >{props.btc} </button>
